@@ -37,8 +37,18 @@ body { margin: 0; padding: 0; }
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
     z-index: 1000;
     display: block;
-    overflow-y: scroll !important;
-    max-height: 300px;
+    overflow-y: auto; /* Changed to auto for better handling */
+    max-height: 80vh; /* Use vh for responsive height */
+    width: 90%; /* Use percentage for responsive width */
+    max-width: 800px; /* Maximum width */
+  }
+
+  @media (max-width: 600px) {
+      #popupModal {
+          width: 95%; /* Increase width for smaller screens */
+          padding: 10px; /* Reduce padding on smaller screens */
+          max-height: 90vh; /* Increase max height for smaller screens */
+      }
   }
   
   #popupModal p {
