@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "starlink-map"
+version = "0.1.0"
+description = ""
+authors = ["clarkzjw <i@jinwei.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+jupyterlab = "^4.0.10"
+matplotlib = "^3.8.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
