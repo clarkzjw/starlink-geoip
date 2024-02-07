@@ -56,7 +56,7 @@ for line in geoip.splitlines():
             except subprocess.TimeoutExpired:
                 pass
 
-with open('geoip-2.json', 'w') as f:
+with open('geoip.json', 'w') as f:
     json.dump(result, f, indent=4)
 
 with open('nxdomain.json', 'w') as f:
