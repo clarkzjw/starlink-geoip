@@ -13,10 +13,12 @@ geoip = file.content.decode("utf-8")
 result = {}
 num = 0
 nxdomain_list = []
+servfail_list = []
 
 for line in geoip.splitlines():
     if line:
         NXDOMAIN = 0
+        SERVFAIL = 0
         num += 1
         subnet = line.split(',')[0]
         country_code = line.split(',')[1]
@@ -32,7 +34,7 @@ for line in geoip.splitlines():
 
         for ip in ips:
             ip = str(ip)
-            cmd = ["nslookup", ip]
+            cmd = ["nslookup", ip, "8.8.8.8"]
             try:
                 output = subprocess.check_output(cmd)
                 output = output.decode("utf-8")
@@ -50,8 +52,14 @@ for line in geoip.splitlines():
                 if "NXDOMAIN" in e.output.decode("utf-8"):
                     print(e.output)
                     NXDOMAIN += 1
-                    if NXDOMAIN > 100:
+                    if NXDOMAIN > 10:
                         nxdomain_list.append(line)
+                        break
+                elif "SERVFAIL" in e.output.decode("utf-8"):
+                    print(e.output)
+                    SERVFAIL +=1 
+                    if SERVFAIL > 10:
+                        servfail_list.append(line)
                         break
             except subprocess.TimeoutExpired:
                 pass
@@ -61,3 +69,6 @@ with open('geoip.json', 'w') as f:
 
 with open('nxdomain.json', 'w') as f:
     json.dump(nxdomain_list, f, indent=4)
+
+with open('servfail.json', 'w') as f:
+    json.dump(servfail_list, f, indent=4)

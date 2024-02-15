@@ -1,0 +1,11 @@
+[
+    "216.128.22.0/24,FR,FR-IDF,Paris,",
+    "216.128.23.0/24,FR,FR-IDF,Paris,",
+    "216.128.28.0/24,GB,GB-EN,London,",
+    "216.128.29.0/24,GB,GB-EN,London,",
+    "2c0f:2a80:1100::/40,MZ,MZ-MPM,Maputo,",
+    "2c0f:2a80:1000::/42,ZM,ZM-09,Lusaka,",
+    "2c0f:2a80:1040::/42,MW,MW-LI,Lilongwe,",
+    "2c0f:2a80:1080::/42,BJ,BJ-OU,Porto-Novo,",
+    "2c0f:2a80:10c0::/42,KE,KE-30,Nairobi,"
+]
