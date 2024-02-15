@@ -64,11 +64,11 @@ for line in geoip.splitlines():
             except subprocess.TimeoutExpired:
                 pass
 
-with open('geoip.json', 'w') as f:
+with open('geoip/geoip.json', 'w') as f:
     json.dump(result, f, indent=4)
 
-with open('nxdomain.json', 'w') as f:
+with open('geoip/nxdomain.json', 'w') as f:
     json.dump(nxdomain_list, f, indent=4)
 
-with open('servfail.json', 'w') as f:
+with open('geoip/servfail.json', 'w') as f:
     json.dump(servfail_list, f, indent=4)

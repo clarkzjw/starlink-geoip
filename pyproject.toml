@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 jupyterlab = "^4.0.10"
 matplotlib = "^3.8.2"
+geocoder = "^1.38.1"
 
 
 [build-system]

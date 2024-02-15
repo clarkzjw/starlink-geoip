@@ -80,25 +80,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Sydney->Auckland"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        151.20959473,
-                        -33.87319946
-                    ],
-                    [
-                        174.70991516,
-                        -36.89349365
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Sydney->Jakarta"
             },
             "geometry": {
@@ -137,6 +118,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Sydney->Auckland"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        151.20959473,
+                        -33.87319946
+                    ],
+                    [
+                        174.70991516,
+                        -36.89349365
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Perth->Perth"
             },
             "geometry": {
@@ -149,6 +149,82 @@
                     [
                         115.85870361,
                         -31.95183945
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Jakarta->Singapore"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        106.82707214,
+                        -6.17475653
+                    ],
+                    [
+                        103.84998322,
+                        1.28943646
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Jakarta->Jakarta"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        106.82707214,
+                        -6.17475653
+                    ],
+                    [
+                        106.82707214,
+                        -6.17475653
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Jakarta->Jakarta"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        106.82707214,
+                        -6.17475653
+                    ],
+                    [
+                        106.82707214,
+                        -6.17475653
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Jakarta->Sydney"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        106.82707214,
+                        -6.17475653
+                    ],
+                    [
+                        151.20959473,
+                        -33.87319946
                     ]
                 ]
             }
@@ -194,6 +270,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Kuala Lumpur->Singapore"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        101.62320709,
+                        3.16667008
+                    ],
+                    [
+                        103.84998322,
+                        1.28943646
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Kuala Lumpur->Manila"
             },
             "geometry": {
@@ -213,14 +308,14 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Kuala Lumpur->Singapore"
+                "title": "Singapore->Singapore"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        101.62320709,
-                        3.16667008
+                        103.80859375,
+                        1.35652304
                     ],
                     [
                         103.84998322,
@@ -251,18 +346,56 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Singapore->Singapore"
+                "title": "Mexico City->Mexico City"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        103.80859375,
-                        1.35652304
+                        -99.13420868,
+                        19.43267822
                     ],
                     [
-                        103.84998322,
-                        1.28943646
+                        -99.13420868,
+                        19.43267822
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Mexico City->Los Angeles"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -99.13420868,
+                        19.43267822
+                    ],
+                    [
+                        -118.24334717,
+                        34.05223846
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Mexico City->Dallas"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -99.13420868,
+                        19.43267822
+                    ],
+                    [
+                        -96.79621124,
+                        32.77797699
                     ]
                 ]
             }
@@ -308,44 +441,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Seattle->Seattle"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -122.33027649,
-                        47.60322952
-                    ],
-                    [
-                        -122.33027649,
-                        47.60322952
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Seattle->Seattle"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -122.33027649,
-                        47.60322952
-                    ],
-                    [
-                        -122.33027649,
-                        47.60322952
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Seattle->Redmond"
             },
             "geometry": {
@@ -384,7 +479,7 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Seattle->Redmond"
+                "title": "Seattle->Seattle"
             },
             "geometry": {
                 "type": "LineString",
@@ -394,8 +489,8 @@
                         47.60322952
                     ],
                     [
-                        -122.12399292,
-                        47.6749115
+                        -122.33027649,
+                        47.60322952
                     ]
                 ]
             }
@@ -415,6 +510,44 @@
                     [
                         -0.12611847,
                         51.50682449
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Seattle->Redmond"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -122.33027649,
+                        47.60322952
+                    ],
+                    [
+                        -122.12399292,
+                        47.6749115
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Seattle->Seattle"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -122.33027649,
+                        47.60322952
+                    ],
+                    [
+                        -122.33027649,
+                        47.60322952
                     ]
                 ]
             }
@@ -498,6 +631,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Minneapolis->Redmond"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -93.26436615,
+                        44.97748566
+                    ],
+                    [
+                        -122.12399292,
+                        47.6749115
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Dutch Harbor->Dutch Harbor"
             },
             "geometry": {
@@ -574,25 +726,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Calgary->Seattle"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -114.05796814,
-                        51.04730606
-                    ],
-                    [
-                        -122.33027649,
-                        47.60322952
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Calgary->Chicago"
             },
             "geometry": {
@@ -605,6 +738,25 @@
                     [
                         -87.63240051,
                         41.8832283
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Calgary->Seattle"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -114.05796814,
+                        51.04730606
+                    ],
+                    [
+                        -122.33027649,
+                        47.60322952
                     ]
                 ]
             }
@@ -631,6 +783,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Winnipeg->Redmond"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -97.13931274,
+                        49.90049744
+                    ],
+                    [
+                        -122.12399292,
+                        47.6749115
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Regina->Chicago"
             },
             "geometry": {
@@ -643,6 +814,25 @@
                     [
                         -87.63240051,
                         41.8832283
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Regina->Redmond"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -104.6166153,
+                        50.45118713
+                    ],
+                    [
+                        -122.12399292,
+                        47.6749115
                     ]
                 ]
             }
@@ -681,6 +871,25 @@
                     [
                         -87.63240051,
                         41.8832283
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Toronto->Redmond"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -79.38171387,
+                        43.65189362
+                    ],
+                    [
+                        -122.12399292,
+                        47.6749115
                     ]
                 ]
             }
@@ -783,25 +992,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Lagos->Lagos"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        3.39417958,
-                        6.45505762
-                    ],
-                    [
-                        3.39417958,
-                        6.45505762
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Lagos->Madrid"
             },
             "geometry": {
@@ -821,18 +1011,18 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Auckland->Auckland"
+                "title": "Lagos->Lagos"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        174.70991516,
-                        -36.89349365
+                        3.39417958,
+                        6.45505762
                     ],
                     [
-                        174.70991516,
-                        -36.89349365
+                        3.39417958,
+                        6.45505762
                     ]
                 ]
             }
@@ -859,18 +1049,18 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Mexico City->Dallas"
+                "title": "Auckland->Auckland"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -99.13420868,
-                        19.43267822
+                        174.70991516,
+                        -36.89349365
                     ],
                     [
-                        -96.79621124,
-                        32.77797699
+                        174.70991516,
+                        -36.89349365
                     ]
                 ]
             }
@@ -878,37 +1068,18 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Mexico City->Los Angeles"
+                "title": "Santiago->Lima"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -99.13420868,
-                        19.43267822
+                        -77.0103601,
+                        -12.15153035
                     ],
                     [
-                        -118.24334717,
-                        34.05223846
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Mexico City->Mexico City"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -99.13420868,
-                        19.43267822
-                    ],
-                    [
-                        -99.13420868,
-                        19.43267822
+                        -77.03652191,
+                        -12.06210613
                     ]
                 ]
             }
@@ -922,8 +1093,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -70.71364427,
-                        -33.35564265
+                        -77.0103601,
+                        -12.15153035
                     ],
                     [
                         -70.65045166,
@@ -973,18 +1144,37 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Kigali->Lagos"
+                "title": "Quito->Lima"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        30.06150627,
-                        -1.95085096
+                        -78.5123291,
+                        -0.22016411
                     ],
                     [
-                        3.39417958,
-                        6.45505762
+                        -77.03652191,
+                        -12.06210613
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Quito->Bogota"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -78.5123291,
+                        -0.22016411
+                    ],
+                    [
+                        -74.08356476,
+                        4.6529541
                     ]
                 ]
             }
@@ -1011,25 +1201,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Kigali->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        30.06150627,
-                        -1.95085096
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Kigali->Madrid"
             },
             "geometry": {
@@ -1049,18 +1220,37 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Bogota->Lima"
+                "title": "Kigali->London"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -74.08356476,
-                        4.6529541
+                        30.06150627,
+                        -1.95085096
                     ],
                     [
-                        -77.03652191,
-                        -12.06210613
+                        -0.12611847,
+                        51.50682449
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Kigali->Lagos"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        30.06150627,
+                        -1.95085096
+                    ],
+                    [
+                        3.39417958,
+                        6.45505762
                     ]
                 ]
             }
@@ -1080,6 +1270,25 @@
                     [
                         -74.08356476,
                         4.6529541
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Bogota->Lima"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -74.08356476,
+                        4.6529541
+                    ],
+                    [
+                        -77.03652191,
+                        -12.06210613
                     ]
                 ]
             }
@@ -1144,25 +1353,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Dublin->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -6.26055908,
-                        53.34938049
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Dublin->Madrid"
             },
             "geometry": {
@@ -1175,6 +1365,25 @@
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Dublin->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -6.26055908,
+                        53.34938049
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -1201,25 +1410,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Berlin->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        13.41143608,
-                        52.52342987
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Berlin->Madrid"
             },
             "geometry": {
@@ -1232,6 +1422,25 @@
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Berlin->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        13.41143608,
+                        52.52342987
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -1258,25 +1467,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Paris->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        2.35084867,
-                        48.85689545
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Paris->Madrid"
             },
             "geometry": {
@@ -1289,6 +1479,25 @@
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Paris->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        2.35084867,
+                        48.85689545
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -1315,25 +1524,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Kyiv->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        30.52371788,
-                        50.44974899
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Kyiv->Madrid"
             },
             "geometry": {
@@ -1346,6 +1536,25 @@
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Kyiv->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        30.52371788,
+                        50.44974899
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -1372,25 +1581,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Madrid->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -3.70034552,
-                        40.41669083
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Madrid->Madrid"
             },
             "geometry": {
@@ -1410,18 +1600,18 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Asuncion->Santiago"
+                "title": "Madrid->London"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -57.63438034,
-                        -25.28004646
+                        -3.70034552,
+                        40.41669083
                     ],
                     [
-                        -70.65045166,
-                        -33.43777466
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -1448,14 +1638,14 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Buenos Aires->Santiago"
+                "title": "Asuncion->Santiago"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -58.43708801,
-                        -34.60756683
+                        -57.63438034,
+                        -25.28004646
                     ],
                     [
                         -70.65045166,
@@ -1473,8 +1663,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -58.43708801,
-                        -34.60756683
+                        -58.38164139,
+                        -34.60371399
                     ],
                     [
                         -46.63338089,
@@ -1486,14 +1676,14 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Sao Paulo->Santiago"
+                "title": "Buenos Aires->Santiago"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -46.63338089,
-                        -23.55065155
+                        -58.38164139,
+                        -34.60371399
                     ],
                     [
                         -70.65045166,
@@ -1562,6 +1752,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Sao Paulo->Santiago"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -46.63338089,
+                        -23.55065155
+                    ],
+                    [
+                        -70.65045166,
+                        -33.43777466
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Fortaleza->Fortaleza"
             },
             "geometry": {
@@ -1600,25 +1809,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Brussels->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        4.3557024,
-                        50.84553528
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Brussels->Madrid"
             },
             "geometry": {
@@ -1631,6 +1821,25 @@
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Brussels->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        4.3557024,
+                        50.84553528
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -1676,6 +1885,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Vienna->Madrid"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        16.37277794,
+                        48.20920563
+                    ],
+                    [
+                        -3.70034552,
+                        40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Vienna->London"
             },
             "geometry": {
@@ -1695,18 +1923,18 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Vienna->Madrid"
+                "title": "Mal\u00e9->Singapore"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        16.37277794,
-                        48.20920563
+                        73.52980042,
+                        4.19360399
                     ],
                     [
-                        -3.70034552,
-                        40.41669083
+                        103.84998322,
+                        1.28943646
                     ]
                 ]
             }
@@ -1752,14 +1980,14 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Mal\u00e9->Singapore"
+                "title": "Dakar->Singapore"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        73.52980042,
-                        4.19360399
+                        -17.44793892,
+                        14.69342518
                     ],
                     [
                         103.84998322,
@@ -1790,25 +2018,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Dakar->Singapore"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -17.44793892,
-                        14.69342518
-                    ],
-                    [
-                        103.84998322,
-                        1.28943646
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Ulaanbaatar->Tokyo"
             },
             "geometry": {
@@ -1828,18 +2037,113 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Nuku'alofa->Auckland"
+                "title": "Kingston->Perth"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -175.20181274,
-                        -21.13434029
+                        167.96174622,
+                        -29.05707741
                     ],
                     [
-                        -185.29008484,
-                        -36.89349365
+                        115.85870361,
+                        -31.95183945
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Kingston->Sydney"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        167.96174622,
+                        -29.05707741
+                    ],
+                    [
+                        151.20959473,
+                        -33.87319946
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Flying Fish Cove->Perth"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        105.67399597,
+                        -10.43355083
+                    ],
+                    [
+                        115.85870361,
+                        -31.95183945
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Flying Fish Cove->Sydney"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        105.67399597,
+                        -10.43355083
+                    ],
+                    [
+                        151.20959473,
+                        -33.87319946
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "West Island->Perth"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        96.82109833,
+                        -12.13484478
+                    ],
+                    [
+                        115.85870361,
+                        -31.95183945
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "West Island->Sydney"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        96.82109833,
+                        -12.13484478
+                    ],
+                    [
+                        151.20959473,
+                        -33.87319946
                     ]
                 ]
             }
@@ -1866,6 +2170,63 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Nuku'alofa->Auckland"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -175.20181274,
+                        -21.13434029
+                    ],
+                    [
+                        -185.29008484,
+                        -36.89349365
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Palikir->Tokyo"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        158.16271973,
+                        6.92074394
+                    ],
+                    [
+                        139.81697083,
+                        35.67307663
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Saipan->Tokyo"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        145.75346375,
+                        15.18881416
+                    ],
+                    [
+                        139.81697083,
+                        35.67307663
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Saint-Pierre->Frankfurt"
             },
             "geometry": {
@@ -1878,25 +2239,6 @@
                     [
                         8.679492,
                         50.11088562
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Maputo->Lagos"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        32.56745148,
-                        -25.96621323
-                    ],
-                    [
-                        3.39417958,
-                        6.45505762
                     ]
                 ]
             }
@@ -1923,6 +2265,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Maputo->Madrid"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        32.56745148,
+                        -25.96621323
+                    ],
+                    [
+                        -3.70034552,
+                        40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Maputo->London"
             },
             "geometry": {
@@ -1942,7 +2303,7 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Maputo->Madrid"
+                "title": "Maputo->Lagos"
             },
             "geometry": {
                 "type": "LineString",
@@ -1952,8 +2313,8 @@
                         -25.96621323
                     ],
                     [
-                        -3.70034552,
-                        40.41669083
+                        3.39417958,
+                        6.45505762
                     ]
                 ]
             }
@@ -2005,8 +2366,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        144.75219727,
-                        13.47734451
+                        144.75161743,
+                        13.47481441
                     ],
                     [
                         139.81697083,
@@ -2056,25 +2417,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Antarctica->Auckland"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -50,
-                        -72.52500153
-                    ],
-                    [
-                        -185.29008484,
-                        -36.89349365
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Antarctica->Sydney"
             },
             "geometry": {
@@ -2087,6 +2429,25 @@
                     [
                         -208.79040527,
                         -33.87319946
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Antarctica->Auckland"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -50,
+                        -72.52500153
+                    ],
+                    [
+                        -185.29008484,
+                        -36.89349365
                     ]
                 ]
             }
@@ -2119,31 +2480,12 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -77.33834076,
-                        25.07822609
+                        5.6696652,
+                        53.0271453
                     ],
                     [
                         -84.39150238,
                         33.7485466
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Lusaka->Lagos"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        28.28184128,
-                        -15.41633987
-                    ],
-                    [
-                        3.39417958,
-                        6.45505762
                     ]
                 ]
             }
@@ -2163,6 +2505,25 @@
                     [
                         8.679492,
                         50.11088562
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Lusaka->Lagos"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        28.28184128,
+                        -15.41633987
+                    ],
+                    [
+                        3.39417958,
+                        6.45505762
                     ]
                 ]
             }
@@ -2455,25 +2816,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Quito->Bogota"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -78.5123291,
-                        -0.22016411
-                    ],
-                    [
-                        -74.08356476,
-                        4.6529541
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Tegucigalpa->Mexico City"
             },
             "geometry": {
@@ -2486,63 +2828,6 @@
                     [
                         -99.13420868,
                         19.43267822
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Amsterdam->Frankfurt"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        4.89065981,
-                        52.37316513
-                    ],
-                    [
-                        8.679492,
-                        50.11088562
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Amsterdam->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        4.89065981,
-                        52.37316513
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Amsterdam->Madrid"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        4.89065981,
-                        52.37316513
-                    ],
-                    [
-                        -3.70034552,
-                        40.41669083
                     ]
                 ]
             }
@@ -2569,6 +2854,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Rome->Madrid"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        12.49426746,
+                        41.89055634
+                    ],
+                    [
+                        -3.70034552,
+                        40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Rome->London"
             },
             "geometry": {
@@ -2588,18 +2892,56 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Rome->Madrid"
+                "title": "Amsterdam->Frankfurt"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        12.49426746,
-                        41.89055634
+                        4.89065981,
+                        52.37316513
+                    ],
+                    [
+                        8.679492,
+                        50.11088562
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Amsterdam->Madrid"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        4.89065981,
+                        52.37316513
                     ],
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Amsterdam->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        4.89065981,
+                        52.37316513
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -2664,25 +3006,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Copenhagen->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        12.57162285,
-                        55.69820023
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Copenhagen->Madrid"
             },
             "geometry": {
@@ -2695,6 +3018,25 @@
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Copenhagen->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        12.57162285,
+                        55.69820023
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -2968,6 +3310,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Athens->Madrid"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        23.73614883,
+                        37.97533417
+                    ],
+                    [
+                        -3.70034552,
+                        40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Athens->London"
             },
             "geometry": {
@@ -2987,18 +3348,37 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Athens->Madrid"
+                "title": "Cayenne->Bogota"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        23.73614883,
-                        37.97533417
+                        -52.32587433,
+                        4.93715429
                     ],
                     [
-                        -3.70034552,
-                        40.41669083
+                        -74.08356476,
+                        4.6529541
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Cayenne->Atlanta"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -52.32587433,
+                        4.93715429
+                    ],
+                    [
+                        -84.39150238,
+                        33.7485466
                     ]
                 ]
             }
@@ -3025,25 +3405,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "San Jose->Bogota"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -84.07978058,
-                        9.93313408
-                    ],
-                    [
-                        -74.08356476,
-                        4.6529541
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "San Jose->Mexico City"
             },
             "geometry": {
@@ -3056,6 +3417,25 @@
                     [
                         -99.13420868,
                         19.43267822
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "San Jose->Bogota"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -84.07978058,
+                        9.93313408
+                    ],
+                    [
+                        -74.08356476,
+                        4.6529541
                     ]
                 ]
             }
@@ -3310,25 +3690,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Lilongwe->Lagos"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        33.7681427,
-                        -13.98751068
-                    ],
-                    [
-                        3.39417958,
-                        6.45505762
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Lilongwe->Frankfurt"
             },
             "geometry": {
@@ -3348,14 +3709,14 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Porto-Novo->Lagos"
+                "title": "Lilongwe->Lagos"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        2.62533617,
-                        6.4990716
+                        33.7681427,
+                        -13.98751068
                     ],
                     [
                         3.39417958,
@@ -3379,6 +3740,25 @@
                     [
                         8.679492,
                         50.11088562
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Porto-Novo->Lagos"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        2.62533617,
+                        6.4990716
+                    ],
+                    [
+                        3.39417958,
+                        6.45505762
                     ]
                 ]
             }
@@ -3633,25 +4013,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Nairobi->Lagos"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        36.81724548,
-                        -1.28325331
-                    ],
-                    [
-                        3.39417958,
-                        6.45505762
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Nairobi->Frankfurt"
             },
             "geometry": {
@@ -3683,6 +4044,25 @@
                     [
                         -0.12611847,
                         51.50682449
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Nairobi->Lagos"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        36.81724548,
+                        -1.28325331
+                    ],
+                    [
+                        3.39417958,
+                        6.45505762
                     ]
                 ]
             }
@@ -3823,25 +4203,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Lisbon->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -9.1356411,
-                        38.70700836
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Lisbon->Madrid"
             },
             "geometry": {
@@ -3854,6 +4215,25 @@
                     [
                         -3.70034552,
                         40.41669083
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Lisbon->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -9.1356411,
+                        38.70700836
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -3899,14 +4279,14 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "George Town, Cayman Islands->Atlanta"
+                "title": "George Town->Atlanta"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        -81.38077545,
-                        19.29535484
+                        -84.55974579,
+                        38.20995712
                     ],
                     [
                         -84.39150238,
@@ -3956,25 +4336,6 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Cayenne->Bogota"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        -52.32583237,
-                        4.93711424
-                    ],
-                    [
-                        -74.08356476,
-                        4.6529541
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "title": "Cairo->Frankfurt"
             },
             "geometry": {
@@ -3987,25 +4348,6 @@
                     [
                         8.679492,
                         50.11088562
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Cairo->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        31.23529243,
-                        30.04348755
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
                     ]
                 ]
             }
@@ -4032,6 +4374,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Cairo->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        31.23529243,
+                        30.04348755
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Prague->Frankfurt"
             },
             "geometry": {
@@ -4044,25 +4405,6 @@
                     [
                         8.679492,
                         50.11088562
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Prague->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        14.42045975,
-                        50.08781052
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
                     ]
                 ]
             }
@@ -4089,6 +4431,25 @@
         {
             "type": "Feature",
             "properties": {
+                "title": "Prague->London"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        14.42045975,
+                        50.08781052
+                    ],
+                    [
+                        -0.12611847,
+                        51.50682449
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "title": "Zurich->Frankfurt"
             },
             "geometry": {
@@ -4101,25 +4462,6 @@
                     [
                         8.679492,
                         50.11088562
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Zurich->London"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        8.55000019,
-                        47.36700058
-                    ],
-                    [
-                        -0.12611847,
-                        51.50682449
                     ]
                 ]
             }
@@ -4146,151 +4488,18 @@
         {
             "type": "Feature",
             "properties": {
-                "title": "Flying Fish Cove->Perth"
+                "title": "Zurich->London"
             },
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        105.67399597,
-                        -10.43355083
+                        8.55000019,
+                        47.36700058
                     ],
                     [
-                        115.85870361,
-                        -31.95183945
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Flying Fish Cove->Sydney"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        105.67399597,
-                        -10.43355083
-                    ],
-                    [
-                        151.20959473,
-                        -33.87319946
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Kingston->Perth"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        167.96174622,
-                        -29.05707741
-                    ],
-                    [
-                        115.85870361,
-                        -31.95183945
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Kingston->Sydney"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        167.96174622,
-                        -29.05707741
-                    ],
-                    [
-                        151.20959473,
-                        -33.87319946
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "West Island->Perth"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        96.82109833,
-                        -12.13484478
-                    ],
-                    [
-                        115.85870361,
-                        -31.95183945
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "West Island->Sydney"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        96.82109833,
-                        -12.13484478
-                    ],
-                    [
-                        151.20959473,
-                        -33.87319946
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Palikir->Tokyo"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        158.16271973,
-                        6.92074394
-                    ],
-                    [
-                        139.81697083,
-                        35.67307663
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Saipan->Tokyo"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        145.75344849,
-                        15.18881798
-                    ],
-                    [
-                        139.81697083,
-                        35.67307663
+                        -0.12611847,
+                        51.50682449
                     ]
                 ]
             }
@@ -4348,25 +4557,6 @@
                     [
                         3.39417958,
                         6.45505762
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "title": "Jakarta->Jakarta"
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        106.82707214,
-                        -6.17475653
-                    ],
-                    [
-                        106.82707214,
-                        -6.17475653
                     ]
                 ]
             }

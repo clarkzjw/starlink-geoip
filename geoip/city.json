@@ -12,7 +12,7 @@
             },
             "properties": {
                 "title": "Manila",
-                "description": "14.1.64.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>14.1.65.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>14.1.66.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>14.1.67.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>65.181.8.0/24<br>customer.tkyojpn1.pop.starlinkisp.net.<br>65.181.9.0/24<br>customer.tkyojpn1.pop.starlinkisp.net.<br>206.83.126.0/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>206.83.126.128/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:3100::/40<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:9000::/40<br>customer.mnlaphl1.pop.starlinkisp.net.<br>"
+                "description": "14.1.64.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>14.1.65.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>14.1.66.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>14.1.67.0/24<br>customer.mnlaphl1.pop.starlinkisp.net.<br>65.181.8.0/24<br>customer.tkyojpn1.pop.starlinkisp.net.<br>65.181.9.0/24<br>customer.tkyojpn1.pop.starlinkisp.net.<br>14.1.92.0/25<br>customer.mnlaphl1.pop.starlinkisp.net.<br>14.1.92.128/25<br>customer.mnlaphl1.pop.starlinkisp.net.<br>206.83.126.0/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>206.83.126.128/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:3100::/40<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:9000::/40<br>customer.mnlaphl1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -54,7 +54,7 @@
             },
             "properties": {
                 "title": "Sydney",
-                "description": "65.181.0.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.1.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.2.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.3.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.12.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.13.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.14.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.15.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.96.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.97.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.98.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.99.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.100.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.107.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.112.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.113.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.114.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.118.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.119.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.120.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.121.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.122.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.123.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.80.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.80.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.11.0/25<br>customer.jtnaidn1.pop.starlinkisp.net.<br>65.181.11.128/25<br>customer.jtnaidn1.pop.starlinkisp.net.<br>65.181.31.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.31.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.117.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4000::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4100::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4400::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4600::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4700::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:5400::/40<br>customer.jtnaidn1.pop.starlinkisp.net.<br>2406:2d40:7000::/40<br>customer.acklnzl1.pop.starlinkisp.net.<br>2406:2d40:7100::/40<br>customer.acklnzl1.pop.starlinkisp.net.<br>"
+                "description": "14.1.82.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.84.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.86.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.0.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.1.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.2.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.3.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.12.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.13.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.14.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.15.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.96.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.97.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.98.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.99.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.100.0/24<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.107.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.112.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.113.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.114.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.118.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.119.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.120.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.121.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.122.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.123.0/24<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.80.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.80.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.11.0/25<br>customer.jtnaidn1.pop.starlinkisp.net.<br>65.181.11.128/25<br>customer.jtnaidn1.pop.starlinkisp.net.<br>65.181.31.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>65.181.31.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.117.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4000::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4100::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4400::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4600::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4700::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:5400::/40<br>customer.jtnaidn1.pop.starlinkisp.net.<br>2406:2d40:7000::/40<br>customer.acklnzl1.pop.starlinkisp.net.<br>2406:2d40:7100::/40<br>customer.acklnzl1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -68,7 +68,21 @@
             },
             "properties": {
                 "title": "Perth",
-                "description": "65.181.20.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>65.181.21.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>65.181.22.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>65.181.23.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2000::/40<br>customer.prthaus1.pop.starlinkisp.net.<br>"
+                "description": "65.181.20.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>65.181.21.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>65.181.22.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>65.181.23.0/24<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.96/27<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.224/27<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2000::/40<br>customer.prthaus1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.82707214,
+                    -6.17475653
+                ]
+            },
+            "properties": {
+                "title": "Jakarta",
+                "description": "14.1.94.0/24<br>customer.jtnaidn2.pop.starlinkisp.net.<br>14.1.95.0/24<br>customer.jtnaidn2.pop.starlinkisp.net.<br>2406:2d40:4900::/40<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:5000::/40<br>customer.jtnaidn1.pop.starlinkisp.net.<br>2406:2d40:8200::/41<br>customer.sngesgp1.pop.starlinkisp.net.<br>2406:2d40:8280::/41<br>customer.sngesgp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -110,7 +124,21 @@
             },
             "properties": {
                 "title": "Singapore",
-                "description": "65.181.26.0/24<br>customer.sngesgp1.pop.starlinkisp.net.<br>65.181.28.0/24<br>customer.tkyojpn1.pop.starlinkisp.net.<br>65.181.27.0/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>65.181.27.128/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>65.181.29.0/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>65.181.29.128/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:3240::/42<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:8100::/42<br>customer.sngesgp1.pop.starlinkisp.net.<br>"
+                "description": "65.181.26.0/24<br>customer.sngesgp1.pop.starlinkisp.net.<br>65.181.27.0/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>65.181.27.128/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>2406:2d40:3240::/42<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:8100::/42<br>customer.sngesgp1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -99.13420868,
+                    19.43267822
+                ]
+            },
+            "properties": {
+                "title": "Mexico City",
+                "description": "66.9.162.0/24<br>undefined.hostname.localhost.<br>66.9.163.0/24<br>undefined.hostname.localhost.<br>129.222.123.0/24<br>customer.dllstxx1.pop.starlinkisp.net.<br>129.222.127.0/24<br>customer.dllstxx1.pop.starlinkisp.net.<br>138.84.44.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.45.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.54.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.55.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.62.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>148.222.132.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>148.222.133.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>149.19.169.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.56.128/25<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.60.0/25<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.61.0/25<br>customer.dllstxx1.pop.starlinkisp.net.<br>149.19.168.0/25<br>customer.qrtomex1.pop.starlinkisp.net.<br>149.19.168.128/25<br>customer.qrtomex1.pop.starlinkisp.net.<br>149.19.170.0/25<br>customer.lsancax1.pop.starlinkisp.net.<br>149.19.170.128/25<br>customer.lsancax1.pop.starlinkisp.net.<br>149.19.171.0/25<br>customer.lsancax1.pop.starlinkisp.net.<br>149.19.171.128/25<br>customer.lsancax1.pop.starlinkisp.net.<br>138.84.60.128/26<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.61.128/26<br>customer.dllstxx1.pop.starlinkisp.net.<br>2605:59c8:3200::/40<br>customer.lsancax1.pop.starlinkisp.net.<br>2605:59c8:4200::/40<br>customer.dllstxx1.pop.starlinkisp.net.<br>2605:59c8:7000::/40<br>customer.qrtomex1.pop.starlinkisp.net.<br>2605:59c8:7100::/40<br>customer.qrtomex1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -216,6 +244,20 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    -93.26436615,
+                    44.97748566
+                ]
+            },
+            "properties": {
+                "title": "Minneapolis",
+                "description": "129.222.160.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.161.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.162.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.163.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.164.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.165.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.166.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.167.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>2605:59ca:1300::/40<br>customer.rdmdwax3.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     -166.52160645,
                     53.9525795
                 ]
@@ -292,7 +334,7 @@
             },
             "properties": {
                 "title": "Winnipeg",
-                "description": "129.222.96.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.97.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.98.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.99.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.100.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.101.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.102.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.103.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.104.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.105.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.106.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.107.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.108.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.109.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.110.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.111.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.112.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.113.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.114.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.115.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.116.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.117.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.118.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.119.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.128.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.129.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.130.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.131.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.132.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:1200::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:1600::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>"
+                "description": "129.222.96.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.97.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.98.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.99.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.100.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.101.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.102.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.103.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.104.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.105.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.106.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.107.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.108.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.109.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.110.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.111.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.112.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.113.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.114.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.115.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.116.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.117.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.118.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.119.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.128.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.129.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.130.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.131.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.132.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.154.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.156.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.157.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>2605:59c8:1200::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:1600::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59ca:1000::/40<br>customer.rdmdwax3.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -306,7 +348,7 @@
             },
             "properties": {
                 "title": "Regina",
-                "description": "129.222.133.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.134.0/25<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.135.0/25<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.135.128/26<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.135.192/26<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:1900::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>"
+                "description": "129.222.133.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.153.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.158.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.134.0/25<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.135.0/25<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.135.128/26<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.135.192/26<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:1900::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59ca:1100::/40<br>customer.rdmdwax3.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -320,7 +362,7 @@
             },
             "properties": {
                 "title": "Toronto",
-                "description": "129.222.136.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.137.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.138.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.139.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.140.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.141.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.142.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.143.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.144.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.145.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.146.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.147.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.148.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.149.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.150.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.151.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.152.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.153.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.154.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.155.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.156.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.157.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.158.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.159.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.160.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.161.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.162.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.163.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.164.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.165.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.166.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.167.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.184.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.185.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.186.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.187.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.188.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.189.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.190.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.191.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.192.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.193.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.194.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.195.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.196.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.197.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.198.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.199.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>2605:59c8:1300::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:1700::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:2200::/40<br>customer.nwyynyx1.pop.starlinkisp.net.<br>2605:59c8:2600::/40<br>customer.nwyynyx1.pop.starlinkisp.net.<br>2605:59c8:2a00::/40<br>customer.nwyynyx1.pop.starlinkisp.net.<br>"
+                "description": "129.222.136.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.137.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.138.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.139.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.140.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.141.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.142.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.143.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.144.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.145.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.146.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.147.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.148.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.149.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.150.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.151.0/24<br>customer.chcoilx1.pop.starlinkisp.net.<br>129.222.152.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.155.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.159.0/24<br>customer.rdmdwax3.pop.starlinkisp.net.<br>129.222.184.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.185.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.186.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.187.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.188.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.189.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.190.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.191.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.192.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.193.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.194.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.195.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.196.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.197.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.198.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>129.222.199.0/24<br>customer.nwyynyx1.pop.starlinkisp.net.<br>2605:59c8:1300::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:1700::/40<br>customer.chcoilx1.pop.starlinkisp.net.<br>2605:59c8:2200::/40<br>customer.nwyynyx1.pop.starlinkisp.net.<br>2605:59c8:2600::/40<br>customer.nwyynyx1.pop.starlinkisp.net.<br>2605:59c8:2a00::/40<br>customer.nwyynyx1.pop.starlinkisp.net.<br>2605:59ca:1200::/40<br>customer.rdmdwax3.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -412,27 +454,13 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -99.13420868,
-                    19.43267822
-                ]
-            },
-            "properties": {
-                "title": "Mexico City",
-                "description": "129.222.123.0/24<br>customer.dllstxx1.pop.starlinkisp.net.<br>129.222.127.0/24<br>customer.dllstxx1.pop.starlinkisp.net.<br>138.84.44.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.45.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.54.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.55.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.62.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>148.222.132.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>148.222.133.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>149.19.169.0/24<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.56.128/25<br>customer.qrtomex1.pop.starlinkisp.net.<br>138.84.60.0/25<br>customer.lsancax1.pop.starlinkisp.net.<br>138.84.61.0/25<br>customer.dllstxx1.pop.starlinkisp.net.<br>149.19.168.0/25<br>customer.qrtomex1.pop.starlinkisp.net.<br>149.19.168.128/25<br>customer.qrtomex1.pop.starlinkisp.net.<br>149.19.170.0/25<br>customer.lsancax1.pop.starlinkisp.net.<br>149.19.170.128/25<br>customer.lsancax1.pop.starlinkisp.net.<br>149.19.171.0/25<br>customer.lsancax1.pop.starlinkisp.net.<br>149.19.171.128/25<br>customer.lsancax1.pop.starlinkisp.net.<br>138.84.60.128/26<br>customer.lsancax1.pop.starlinkisp.net.<br>138.84.61.128/26<br>customer.dllstxx1.pop.starlinkisp.net.<br>2605:59c8:3200::/40<br>customer.lsancax1.pop.starlinkisp.net.<br>2605:59c8:4200::/40<br>customer.dllstxx1.pop.starlinkisp.net.<br>2605:59c8:7000::/40<br>customer.qrtomex1.pop.starlinkisp.net.<br>2605:59c8:7100::/40<br>customer.qrtomex1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -70.71364427,
-                    -33.35564265
+                    -77.0103601,
+                    -12.15153035
                 ]
             },
             "properties": {
                 "title": "Santiago",
-                "description": "129.222.168.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.169.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.170.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.171.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.172.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.173.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.174.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.175.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>138.84.32.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>138.84.33.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>138.84.34.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>138.84.35.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>2803:9810:3000::/40<br>customer.sntochl1.pop.starlinkisp.net.<br>2803:9810:3200::/40<br>customer.sntochl1.pop.starlinkisp.net.<br>"
+                "description": "129.222.168.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.169.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.170.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.171.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.172.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.173.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.174.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.175.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>129.222.180.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.181.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.32.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>138.84.33.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>138.84.34.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>138.84.35.0/24<br>customer.sntochl1.pop.starlinkisp.net.<br>2803:9810:3000::/40<br>customer.sntochl1.pop.starlinkisp.net.<br>2803:9810:3200::/40<br>customer.sntochl1.pop.starlinkisp.net.<br>2803:9810:62c0::/42<br>customer.limaper1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -446,7 +474,21 @@
             },
             "properties": {
                 "title": "Lima",
-                "description": "129.222.176.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.177.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.178.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.179.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.180.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.181.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.182.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.183.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.39.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.38.0/25<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.38.128/25<br>customer.limaper1.pop.starlinkisp.net.<br>149.19.160.128/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.160.192/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.160.96/27<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:6000::/40<br>customer.limaper1.pop.starlinkisp.net.<br>2803:9810:6100::/40<br>customer.limaper1.pop.starlinkisp.net.<br>2803:9810:53c0::/42<br>customer.bgtacol1.pop.starlinkisp.net.<br>"
+                "description": "129.222.176.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.177.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.182.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.183.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.39.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.38.0/25<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.38.128/25<br>customer.limaper1.pop.starlinkisp.net.<br>149.19.160.128/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.160.192/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.160.96/27<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:6000::/40<br>customer.limaper1.pop.starlinkisp.net.<br>2803:9810:6100::/40<br>customer.limaper1.pop.starlinkisp.net.<br>2803:9810:53c0::/42<br>customer.bgtacol1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -78.5123291,
+                    -0.22016411
+                ]
+            },
+            "properties": {
+                "title": "Quito",
+                "description": "129.222.178.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>129.222.179.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.49.0/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.53.0/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.53.128/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.160.64/27<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:5340::/42<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:6280::/42<br>customer.limaper1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -474,7 +516,7 @@
             },
             "properties": {
                 "title": "Bogota",
-                "description": "138.84.41.0/24<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.48.0/24<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.50.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.51.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.40.0/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.40.128/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:5000::/40<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:5100::/40<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:6200::/42<br>customer.limaper1.pop.starlinkisp.net.<br>"
+                "description": "138.84.41.0/24<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.48.0/24<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.50.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.51.0/24<br>customer.limaper1.pop.starlinkisp.net.<br>138.84.40.0/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.40.128/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.49.128/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.163.0/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.163.128/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:5000::/40<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:5100::/40<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:6200::/42<br>customer.limaper1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -502,7 +544,7 @@
             },
             "properties": {
                 "title": "Dublin",
-                "description": "145.224.68.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.69.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.70.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.71.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.143.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.142.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.104.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.104.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.113.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.142.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.92.0/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.32/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>2a0d:3344:800::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1800::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2500::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "description": "145.224.68.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.69.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.70.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.71.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.143.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.142.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.86.0/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.104.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.104.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.113.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.142.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.92.0/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.32/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>2a0d:3344:800::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1800::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2500::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -516,7 +558,7 @@
             },
             "properties": {
                 "title": "Berlin",
-                "description": "145.224.72.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.73.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.74.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.75.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.224.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.225.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.226.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.227.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.228.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.229.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.230.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.231.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.17.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.18.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.80.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.80.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.96.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.96.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.143.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.93.128/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.93.160/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.32/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.32/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:500::/40<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1500::/40<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2400::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "description": "145.224.72.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.73.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.74.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.75.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.224.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.225.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.226.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.227.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.228.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.229.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.230.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.231.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.17.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.18.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.80.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.96.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.96.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.143.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.93.128/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.93.160/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.32/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.32/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:500::/40<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1500::/40<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2400::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -530,7 +572,7 @@
             },
             "properties": {
                 "title": "Paris",
-                "description": "145.224.76.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.77.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.78.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.79.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.248.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.249.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.250.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.251.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.252.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.253.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.254.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.255.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>217.65.141.128/25<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.88.0/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.88.64/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>217.65.140.192/26<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.64/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.96/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.0/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.32/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.64/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.96/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.136.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.137.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344::/40<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1000::/40<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2300::/40<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "description": "145.224.76.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.77.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.78.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.79.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.248.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>169.155.249.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>169.155.250.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>169.155.251.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>169.155.252.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.253.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.254.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.255.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>217.65.141.128/25<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.88.0/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.88.64/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>217.65.140.192/26<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.64/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.96/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.0/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.32/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.64/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.125.96/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.136.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.137.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344::/40<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1000::/40<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2300::/40<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -558,7 +600,7 @@
             },
             "properties": {
                 "title": "Madrid",
-                "description": "145.224.127.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>176.116.124.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>176.116.125.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>216.128.10.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.124.0/25<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.124.128/25<br>customer.mdrdesp1.pop.starlinkisp.net.<br>162.43.194.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.139.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.139.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.143.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.86.128/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.86.192/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.101.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.101.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.112.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.138.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.139.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2000::/40<br>customer.mdrdesp1.pop.starlinkisp.net.<br>2a0d:3344:a40::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1a40::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
+                "description": "145.224.127.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>176.116.124.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>176.116.125.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>216.128.10.0/24<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.124.0/25<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.124.128/25<br>customer.mdrdesp1.pop.starlinkisp.net.<br>162.43.194.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.139.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.139.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.143.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.101.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.101.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.112.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.138.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.139.192/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2000::/40<br>customer.mdrdesp1.pop.starlinkisp.net.<br>2a0d:3344:a40::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1a40::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -580,13 +622,13 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -58.43708801,
-                    -34.60756683
+                    -58.38164139,
+                    -34.60371399
                 ]
             },
             "properties": {
                 "title": "Buenos Aires",
-                "description": "148.222.134.0/24<br>customer.splobra1.pop.starlinkisp.net.<br>148.222.135.0/24<br>customer.splobra1.pop.starlinkisp.net.<br>148.222.130.128/25<br>customer.sntochl1.pop.starlinkisp.net.<br>148.222.131.0/25<br>customer.sntochl1.pop.starlinkisp.net.<br>2803:9810:4400::/40<br>customer.splobra1.pop.starlinkisp.net.<br>2803:9810:3340::/42<br>customer.sntochl1.pop.starlinkisp.net.<br>"
+                "description": "148.222.134.0/24<br>customer.splobra1.pop.starlinkisp.net.<br>148.222.135.0/24<br>customer.splobra1.pop.starlinkisp.net.<br>148.222.130.128/25<br>customer.sntochl1.pop.starlinkisp.net.<br>148.222.131.0/25<br>customer.sntochl1.pop.starlinkisp.net.<br>149.19.162.0/25<br>customer.sntochl1.pop.starlinkisp.net.<br>149.19.162.128/25<br>customer.sntochl1.pop.starlinkisp.net.<br>2803:9810:4400::/40<br>customer.splobra1.pop.starlinkisp.net.<br>2803:9810:3340::/42<br>customer.sntochl1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -628,7 +670,7 @@
             },
             "properties": {
                 "title": "Brussels",
-                "description": "169.155.240.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.241.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.242.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.243.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.83.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.83.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.99.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.99.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>162.43.195.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.126.192/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.224/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.160/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.160/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:8c0::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:18c0::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2600::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "description": "169.155.240.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.241.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>169.155.242.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>169.155.243.0/24<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.83.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.83.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.99.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.99.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>162.43.195.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.126.192/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.224/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.160/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.160/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:8c0::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:18c0::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2600::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -656,7 +698,7 @@
             },
             "properties": {
                 "title": "Vienna",
-                "description": "216.128.16.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.82.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.82.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.98.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.98.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.116.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.126.0/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.32/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.96/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.96/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:880::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1880::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2480::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "description": "216.128.16.0/24<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.82.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.82.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.98.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.98.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.116.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.144.96/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.96/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:880::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1880::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2480::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -670,7 +712,7 @@
             },
             "properties": {
                 "title": "Mal\u00e9",
-                "description": "14.1.70.0/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>14.1.71.0/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>206.83.106.128/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.106.192/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:6000::/40<br>customer.sngesgp1.pop.starlinkisp.net.<br>2406:2d40:c000::/40<br>customer.lgosnga1.pop.starlinkisp.net.<br>2406:2d40:4540::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
+                "description": "14.1.70.0/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>14.1.71.0/25<br>customer.sngesgp1.pop.starlinkisp.net.<br>14.1.83.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.83.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.106.128/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.106.192/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:6000::/40<br>customer.sngesgp1.pop.starlinkisp.net.<br>2406:2d40:c000::/40<br>customer.lgosnga1.pop.starlinkisp.net.<br>2406:2d40:4540::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -706,6 +748,48 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    167.96174622,
+                    -29.05707741
+                ]
+            },
+            "properties": {
+                "title": "Kingston",
+                "description": "14.1.88.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.88.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.89.0/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.89.64/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.68.64/27<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.192/27<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2140::/42<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:4580::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.67399597,
+                    -10.43355083
+                ]
+            },
+            "properties": {
+                "title": "Flying Fish Cove",
+                "description": "14.1.89.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.90.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.90.128/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.90.192/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.68.0/27<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.32/27<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2100::/42<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:45c0::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    96.82109833,
+                    -12.13484478
+                ]
+            },
+            "properties": {
+                "title": "West Island",
+                "description": "14.1.91.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.91.128/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.85.0/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.85.64/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>14.1.68.128/27<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.160/27<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2180::/42<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:4800::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     -175.20181274,
                     -21.13434029
                 ]
@@ -713,6 +797,34 @@
             "properties": {
                 "title": "Nuku'alofa",
                 "description": "65.181.10.0/25<br>customer.acklnzl1.pop.starlinkisp.net.<br>206.83.108.0/25<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.106.64/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.108.128/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.117.0/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>206.83.117.64/26<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:4300::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>2406:2d40:7300::/42<br>customer.acklnzl1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    158.16271973,
+                    6.92074394
+                ]
+            },
+            "properties": {
+                "title": "Palikir",
+                "description": "65.181.28.0/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>65.181.28.128/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>14.1.69.0/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>14.1.69.32/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:32c0::/42<br>customer.tkyojpn1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    145.75346375,
+                    15.18881416
+                ]
+            },
+            "properties": {
+                "title": "Saipan",
+                "description": "65.181.29.0/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>65.181.29.128/25<br>customer.tkyojpn1.pop.starlinkisp.net.<br>14.1.69.64/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>14.1.69.96/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:3280::/42<br>customer.tkyojpn1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -762,8 +874,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    144.75219727,
-                    13.47734451
+                    144.75161743,
+                    13.47481441
                 ]
             },
             "properties": {
@@ -832,8 +944,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -77.33834076,
-                    25.07822609
+                    5.6696652,
+                    53.0271453
                 ]
             },
             "properties": {
@@ -1070,20 +1182,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -78.5123291,
-                    -0.22016411
-                ]
-            },
-            "properties": {
-                "title": "Quito",
-                "description": "138.84.49.0/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.53.0/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.53.128/25<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.160.64/27<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:5340::/42<br>customer.bgtacol1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     -87.20420074,
                     14.10575962
                 ]
@@ -1098,13 +1196,13 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    4.89065981,
-                    52.37316513
+                    12.49426746,
+                    41.89055634
                 ]
             },
             "properties": {
-                "title": "Amsterdam",
-                "description": "145.224.81.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.81.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.97.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.97.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.116.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.9.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.21.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.142.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.93.192/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.93.224/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.64/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.64/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:c80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1c80::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2680::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "title": "Rome",
+                "description": "145.224.80.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.85.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.85.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.103.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.104.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.117.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.137.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.86.64/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.126.0/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.32/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.96/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.128/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.160/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.224/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.224/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3341:b080::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:b40::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1700::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:1b40::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2440::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1112,13 +1210,13 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    12.49426746,
-                    41.89055634
+                    4.89065981,
+                    52.37316513
                 ]
             },
             "properties": {
-                "title": "Rome",
-                "description": "145.224.85.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.85.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.103.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.104.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.117.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.137.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.126.128/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.126.160/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.224/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.224/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:b40::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1700::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:1b40::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2440::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "title": "Amsterdam",
+                "description": "145.224.81.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.81.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.97.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.97.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.116.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.9.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>216.128.21.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.142.0/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>217.65.142.64/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.93.192/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.93.224/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>188.95.144.64/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>188.95.145.64/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:c80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1c80::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:2680::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1174,7 +1272,7 @@
             },
             "properties": {
                 "title": "Oslo",
-                "description": "145.224.119.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.140.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.146.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>91.102.182.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.156.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.136.224/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:f80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1f00::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
+                "description": "145.224.119.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.146.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>91.102.182.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.156.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.136.224/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:f80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1f00::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1258,7 +1356,21 @@
             },
             "properties": {
                 "title": "Athens",
-                "description": "162.43.195.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.86.0/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.86.64/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.101.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.101.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.115.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.92.128/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.160/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>217.65.138.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.139.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:a80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1a80::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:25c0::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+                "description": "162.43.195.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.101.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.101.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.115.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.92.128/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>145.224.92.160/27<br>customer.mdrdesp1.pop.starlinkisp.net.<br>217.65.138.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>217.65.139.0/27<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:a80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1a80::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:25c0::/42<br>customer.mdrdesp1.pop.starlinkisp.net.<br>"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -52.32587433,
+                    4.93715429
+                ]
+            },
+            "properties": {
+                "title": "Cayenne",
+                "description": "170.203.192.0/25<br>customer.atlagax1.pop.starlinkisp.net.<br>170.203.192.128/25<br>customer.atlagax1.pop.starlinkisp.net.<br>138.84.47.0/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.47.64/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>170.203.193.0/26<br>customer.atlagax1.pop.starlinkisp.net.<br>170.203.193.64/26<br>customer.atlagax1.pop.starlinkisp.net.<br>149.19.160.32/27<br>customer.bgtacol1.pop.starlinkisp.net.<br>2605:59c8:6840::/42<br>customer.atlagax1.pop.starlinkisp.net.<br>2803:9810:5300::/42<br>customer.bgtacol1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1468,7 +1580,7 @@
             },
             "properties": {
                 "title": "Reykjavik",
-                "description": "209.198.137.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.141.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.141.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.152.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>91.102.182.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.159.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:fc0::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1680::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
+                "description": "209.198.137.0/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.141.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.141.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.152.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>91.102.182.192/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.86.192/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.87.0/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.159.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:fc0::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1680::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1482,7 +1594,7 @@
             },
             "properties": {
                 "title": "Saint Peter Port",
-                "description": "209.198.140.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>188.92.255.192/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:640::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>"
+                "description": "209.198.140.0/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>209.198.140.128/25<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.86.128/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>188.92.255.192/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:640::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1496,7 +1608,7 @@
             },
             "properties": {
                 "title": "Stockholm",
-                "description": "209.198.144.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.87.0/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.87.64/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.102.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.102.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.113.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.155.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:d80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1f40::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
+                "description": "209.198.144.128/25<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.87.64/26<br>customer.lndngbr1.pop.starlinkisp.net.<br>145.224.102.0/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.102.64/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>145.224.113.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>209.198.155.128/26<br>customer.frntdeu1.pop.starlinkisp.net.<br>2a0d:3344:d80::/42<br>customer.lndngbr1.pop.starlinkisp.net.<br>2a0d:3344:1f40::/42<br>customer.frntdeu1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1672,12 +1784,12 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -81.38077545,
-                    19.29535484
+                    -84.55974579,
+                    38.20995712
                 ]
             },
             "properties": {
-                "title": "George Town, Cayman Islands",
+                "title": "George Town",
                 "description": "98.97.77.192/26<br>customer.atlagax1.pop.starlinkisp.net.<br>"
             }
         },
@@ -1707,20 +1819,6 @@
             "properties": {
                 "title": "Willemstad",
                 "description": "138.84.37.0/26<br>customer.atlagax1.pop.starlinkisp.net.<br>2605:59c8:6680::/42<br>customer.atlagax1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -52.32583237,
-                    4.93711424
-                ]
-            },
-            "properties": {
-                "title": "Cayenne",
-                "description": "138.84.47.0/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>138.84.47.64/26<br>customer.bgtacol1.pop.starlinkisp.net.<br>149.19.160.32/27<br>customer.bgtacol1.pop.starlinkisp.net.<br>2803:9810:5300::/42<br>customer.bgtacol1.pop.starlinkisp.net.<br>"
             }
         },
         {
@@ -1770,76 +1868,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    105.67399597,
-                    -10.43355083
-                ]
-            },
-            "properties": {
-                "title": "Flying Fish Cove",
-                "description": "14.1.68.0/27<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.32/27<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2100::/42<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:45c0::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    167.96174622,
-                    -29.05707741
-                ]
-            },
-            "properties": {
-                "title": "Kingston",
-                "description": "14.1.68.64/27<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.192/27<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2140::/42<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:4580::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    96.82109833,
-                    -12.13484478
-                ]
-            },
-            "properties": {
-                "title": "West Island",
-                "description": "14.1.68.128/27<br>customer.prthaus1.pop.starlinkisp.net.<br>14.1.68.160/27<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:2180::/42<br>customer.prthaus1.pop.starlinkisp.net.<br>2406:2d40:4800::/42<br>customer.sydyaus1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    158.16271973,
-                    6.92074394
-                ]
-            },
-            "properties": {
-                "title": "Palikir",
-                "description": "14.1.69.0/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>14.1.69.32/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:32c0::/42<br>customer.tkyojpn1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    145.75344849,
-                    15.18881798
-                ]
-            },
-            "properties": {
-                "title": "Saipan",
-                "description": "14.1.69.64/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>14.1.69.96/27<br>customer.tkyojpn1.pop.starlinkisp.net.<br>2406:2d40:3280::/42<br>customer.tkyojpn1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     -170.71409607,
                     -14.24894238
                 ]
@@ -1875,20 +1903,6 @@
             "properties": {
                 "title": "Dodoma",
                 "description": "129.224.203.0/27<br>customer.lgosnga1.pop.starlinkisp.net.<br>129.224.203.32/27<br>customer.lgosnga1.pop.starlinkisp.net.<br>2c0f:2a80:440::/42<br>customer.lgosnga1.pop.starlinkisp.net.<br>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    106.82707214,
-                    -6.17475653
-                ]
-            },
-            "properties": {
-                "title": "Jakarta",
-                "description": "2406:2d40:5000::/40<br>customer.jtnaidn1.pop.starlinkisp.net.<br>"
             }
         }
     ]
