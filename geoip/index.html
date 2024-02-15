@@ -174,38 +174,39 @@
   <script>
     $(document).ready(function () {
       var mapping = {
-        "acklnzl1": "Auckland NZ",
-        "atlagax1": "Atlanta US",
-        "bgtacol1": "Bogota CO",
-        "chcoilx1": "Chicago US",
-        "dllstxx1": "Dallas US",
-        "dnvrcox1": "Denver US",
-        "dtcrakx1": "Dutch Harbor US",
-        "frntdeu1": "Frankfurt DE",
-        "frtabra1": "Fortaleza BR",
-        "iqltcan1": "Iqaluit CA",
-        "jtnaidn1": "Jakarta ID",
-        "krcipak1": "Karachi PK",
-        "lgosnga1": "Lagos NG",
-        "limaper1": "Lima PE",
-        "lndngbr1": "London GB",
-        "lsancax1": "Los Angeles US",
-        "mdrdesp1": "Madrid ES",
-        "mmbiind1": "Mumbai IN",
-        "mnlaphl1": "Manila PH",
-        "nwyynyx1": "New York US",
-        "prthaus1": "Perth AU",
-        "pthpakx": "Point Hope US",
-        "qrtomex1": "Mexico City MX",
-        "rdmdwax3": "Redmond US",
-        "rdmdwax3rk3": "Redmond US",
-        "sngesgp1": "Singapore SG",
-        "sntochl1": "Santiago CL",
-        "splobra1": "Sao Paulo BR",
-        "sttlwax1": "Seattle US",
-        "sttlwax9": "Seattle US",
-        "sydyaus1": "Sydney AU",
-        "tkyojpn1": "Tokyo JP"
+        "acklnzl1": "Auckland,NZ",
+        "atlagax1": "Atlanta,US",
+        "bgtacol1": "Bogota,CO",
+        "chcoilx1": "Chicago,US",
+        "dllstxx1": "Dallas,US",
+        "dnvrcox1": "Denver,US",
+        "dtcrakx1": "Dutch Harbor,US",
+        "frntdeu1": "Frankfurt,DE",
+        "frtabra1": "Fortaleza,BR",
+        "iqltcan1": "Iqaluit,CA",
+        "jtnaidn1": "Jakarta,ID",
+        "jtnaidn2": "Jakarta,ID",
+        "krcipak1": "Karachi,PK",
+        "lgosnga1": "Lagos,NG",
+        "limaper1": "Lima,PE",
+        "lndngbr1": "London,GB",
+        "lsancax1": "Los Angeles,US",
+        "mdrdesp1": "Madrid,ES",
+        "mmbiind1": "Mumbai,IN",
+        "mnlaphl1": "Manila,PH",
+        "nwyynyx1": "New York,US",
+        "prthaus1": "Perth,AU",
+        "pthpakx": "Point Hope,US",
+        "qrtomex1": "Mexico City,MX",
+        "rdmdwax3": "Redmond,US",
+        "rdmdwax3rk3": "Redmond,US",
+        "sngesgp1": "Singapore,SG",
+        "sntochl1": "Santiago,CL",
+        "splobra1": "Sao Paulo,BR",
+        "sttlwax1": "Seattle,US",
+        "sttlwax9": "Seattle,US",
+        "sydyaus1": "Sydney,AU",
+        "tkyojpn1": "Tokyo,JP"
       };
 
       var cityMsg = '<h3>Legend</h3>The "dish" icon on the map indicates the GeoIP location of Starlink subnets, as defined in ' +
@@ -214,13 +215,13 @@
         'This map only represents the planned naming and addressing of Starlink ISP.<br><br>' +
         'An orange-colored link indicates users assigned with IP addresses from subnets at this location are probably associated with the corresponding Starlink PoP.<br>' +
         'The pop-up displays for PoPs show the subnets of users who are located in the same city as the respective PoPs.<br>There is no guarantee that this is 100% accurate, as this is only determinted by the output of <code>nslookup ip</code>.<br>' +
-        '<h3>Note</h3>This website is automatically generated using Starlink GeoIP database and it might contain potential error prone links as planned naming and addressing might not reflect actual deployment:<br><br>' +
-        '<table>  <tr>    <th>GeoIP</th>    <th>PTR Records</th>  </tr>  <tr>    <td>14.1.70.128/25,SN,SN-DK,Dakar.</td>    <td>customer.sngesgp1.pop.starlinkisp.net.</td>  </tr>  <tr>    <td>98.97.184.0/21,US,US-WA,Seattle.</td>    <td>customer.frntdeu1.pop.starlinkisp.net.</td>  </tr>  <tr>    <td>129.224.218.0/24,US,US-FL,Miami,</td>    <td>undefined.hostname.localhost.</td>  </tr>  <tr>    <td>2a0d:3344:e80::/42,US,US-WA,Seattle,</td>    <td>customer.lndngbr1.pop.starlinkisp.net.</td>  </tr>  <tr>    <td>2a0d:3344:1e40::/42,US,US-WA,Seattle.</td>    <td>customer.frntdeu1.pop.starlinkisp.net.</td>  </tr>  <tr>    <td>2605:59c7:f003::/48,CA,CA-NU,Iqaluit.</td>    <td>customer.pthpakx.pop.starlinkisp.net.</td>  </tr>  <tr>    <td>2605:59c7:f080::/48,US,US-FL,Miami.</td>    <td>customer.pthpakx.pop.starlinkisp.net.</td>  </tr></table>' +
+        '<h3>Note</h3>This website is automatically generated using Starlink GeoIP database and it might contain potential error prone links as planned naming and addressing might not reflect actual deployment.<br><br>' +
         '<h3>Disclaimer</h3>No accuracy, service quality, availability, or other related information is implied or guaranteed.<br>' +
         'All data on this site is provided as a best-effort, not peer-reviewed or quality controlled.<br>' +
         'This site is not affiliated with SpaceX or Starlink by any means.<br><br>' +
         'See also <a href="https://www.google.com/maps/d/u/0/viewer?mid=1805q6rlePY4WZd8QMOaNe2BqAgFkYBY&ll=35.87196263258574%2C29.77614822666377&z=3" target="_blank">Unofficial Starlink Global Gateways & PoPs</a> (might be outdated)<br><br>' +
         '(Click the dish icon in the bottom right to show this message again)<br><br>' +
+        'Last updated: 2024/02/14<br><br>' +
         '<button id="closePopup">Close</button>';
       var popMsg = "<h3>Known Starlink PoPs</h3>Based on <a href=\"https://geoip.starlinkisp.net/feed.csv\" target=\"_blank\">https://geoip.starlinkisp.net</a> and <code>nslookup</code>.<br>There is no guarantee that this is 100% accurate to reflect the actual deployment.<br><br><code>" + JSON.stringify(mapping).replace(/,/g, "<br>").replace(/"/g, "").replace(/{/g, "").replace(/}/g, "") + "</code>" + '<br><br><button id="closeIPPopup">Close</button>';
 
