@@ -8,6 +8,10 @@ import httpx
 import schedule
 import threading
 import time
+import json
+import csv
+import geocoder
+from pprint import pprint
 from pathlib import Path
 from pprint import pprint
 
@@ -114,6 +118,44 @@ def process_geoip():
         json.dump(result, f, indent=2)
     with open(Path("data").joinpath("geoip").joinpath("latest"), 'w') as f:
         f.write(str(geoip_filename))
+
+
+def create_map_data():
+
+
+
+    with open(".passwd/geocoder", "r") as f:
+        token = f.read()
+
+    with open("./geoip/geoip.json", "r") as f:
+        geoip = f.read()
+        geoip = json.loads(geoip)
+
+    pop_list = []
+    city_list = []
+    for country in geoip:
+        for state in geoip[country]:
+            for city in geoip[country][state]:
+                city_list.append(city)
+                for pop in geoip[country][state][city]["ips"]:
+                    if pop[1] != "undefined.hostname.localhost.":
+                        location_code = pop[1].split('.')[1]
+                        pop_list.append(location_code)
+
+    pop_list = sorted(list(set(pop_list)))
+    city_list = sorted(list(set(city_list)))
+
+    with open("./geoip/pop.csv", newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+
+        with open("./geoip/pop_location.csv", 'w', newline='') as output:
+            writer = csv.writer(output, delimiter=',')
+            for row in reader:
+                print(row[1])
+                location = geocoder.bing("{},{}".format(row[1], row[2]), key=token)
+                location = location.json
+                writer.writerow([row[0], row[1], location["lat"], location["lng"]])
+
 
 
 def run_once():
