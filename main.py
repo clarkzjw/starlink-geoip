@@ -1,23 +1,22 @@
+import os
+import csv
 import sys
 import json
-import subprocess
-import ipaddress
-import requests
-import datetime
 import httpx
 import schedule
-import threading
-import time
-import json
-import csv
+import datetime
 import geocoder
+import ipaddress
+import subprocess
+import threading
+
 from pprint import pprint
 from pathlib import Path
-from pprint import pprint
 
 
 GEOIP_FEED = "https://geoip.starlinkisp.net/feed.csv"
-DEBUG = True
+DEBUG = False
+DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
 
 
 def run(func, *args, **kwargs):
@@ -31,6 +30,9 @@ def get_date() -> str:
     return now.strftime("%Y%m%d-%H%M")
 
 
+date = get_date()
+
+
 def get_feed() -> str:
     with httpx.Client() as client:
         file = client.get(GEOIP_FEED)
@@ -38,13 +40,12 @@ def get_feed() -> str:
 
 
 def save_feed(feed: str):
-    feed_dir = Path("data").joinpath("feed")
-    filename = feed_dir.joinpath("feed-{}.csv".format(get_date()))
+    feed_dir = Path(DATA_DIR).joinpath("feed")
+    filename = feed_dir.joinpath("feed-{}.csv".format(date))
     with open(filename, 'w') as f:
         f.write(feed)
-    if not DEBUG:
-        with open(feed_dir.joinpath("latest"), 'w') as f:
-            f.write(str(filename))
+    with open(feed_dir.joinpath("latest"), 'w') as f:
+        f.write(str(filename))
 
 
 def check_diff(last: str, now: str) -> bool:
@@ -54,10 +55,15 @@ def check_diff(last: str, now: str) -> bool:
 
 
 def get_latest() -> bool:
-    last_feedname, last_feed = get_last_feed()
+    first_run = False
+    feed_dir = Path(DATA_DIR).joinpath("feed")
+    if not feed_dir.joinpath("latest").exists():
+        first_run = True
 
+    last_feedname, last_feed = get_last_feed()
     feed_now = get_feed()
-    if check_diff(last_feed, feed_now):
+
+    if check_diff(last_feed, feed_now) or first_run:
         print("Feed has been updated since {}".format(last_feedname))
         save_feed(feed_now)
         return True
@@ -66,7 +72,11 @@ def get_latest() -> bool:
 
 
 def get_last_feed() -> tuple:
-    feed_dir = Path("data").joinpath("feed")
+    feed_dir = Path(DATA_DIR).joinpath("feed")
+    if not feed_dir.joinpath("latest").exists():
+        save_feed(get_feed())
+        return get_last_feed()
+
     with open(feed_dir.joinpath("latest"), 'r') as f:
         last_feedname = f.read()
         with open(last_feedname, 'r') as f:
@@ -106,7 +116,10 @@ def process_geoip():
                 cmd = ["nslookup", ip, "1.1.1.1"]
                 try:
                     output = subprocess.check_output(cmd).decode("utf-8")
-                    domain = output.splitlines()[0].split('=')[1].strip()
+                    if "Truncated" in output.splitlines()[0]:
+                        domain = output.splitlines()[1].split('=')[1].strip()
+                    else:
+                        domain = output.splitlines()[0].split('=')[1].strip()
                     print(num, ip, domain)
                     if country_code not in valid.keys():
                         valid[country_code] = {}
@@ -129,8 +142,8 @@ def process_geoip():
                         if SERVFAIL > 10:
                             servfail_list.append(line)
                             break
-                except subprocess.TimeoutExpired:
-                    pass
+                except:
+                    continue
 
     geoip_json = {
         "valid": valid,
@@ -138,10 +151,10 @@ def process_geoip():
         "servfail": servfail_list,
     }
 
-    geoip_filename = Path("data").joinpath("geoip").joinpath("{}.json".format(get_date()))
+    geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
     with open(geoip_filename, 'w') as f:
         json.dump(geoip_json, f, indent=2)
-    with open(Path("data").joinpath("geoip").joinpath("latest"), 'w') as f:
+    with open(Path(DATA_DIR).joinpath("geoip").joinpath("latest"), 'w') as f:
         f.write(str(geoip_filename))
 
 
@@ -181,6 +194,9 @@ def create_map_data():
 
 
 def run_once():
+    Path(DATA_DIR).joinpath("feed").mkdir(parents=True, exist_ok=True)
+    Path(DATA_DIR).joinpath("geoip").mkdir(parents=True, exist_ok=True)
+
     if get_latest():
         process_geoip()
 

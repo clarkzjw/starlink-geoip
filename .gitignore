@@ -1,3 +1,4 @@
+build/
 .ipynb_checkpoints
 latency/residential.json
 figures/
