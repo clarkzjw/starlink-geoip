@@ -77,11 +77,16 @@ def get_last_feed() -> tuple:
 def process_geoip():
     _, last_feed = get_last_feed()
 
-    result = {}
     num = 0
+    valid = {}
+    nxdomain_list = []
+    servfail_list = []
+    geoip_json = {}
 
     for line in last_feed.splitlines():
         if line:
+            NXDOMAIN = 0
+            SERVFAIL = 0
             num += 1
             subnet = line.split(',')[0]
             country_code = line.split(',')[1]
@@ -98,32 +103,49 @@ def process_geoip():
 
             for ip in subnet_ips:
                 ip = str(ip)
-                cmd = ["dig", "@1.1.1.1", "+short", "-x", ip]
+                cmd = ["nslookup", ip, "1.1.1.1"]
                 try:
-                    domain = subprocess.check_output(cmd).decode("utf-8").strip("\n")
+                    output = subprocess.check_output(cmd).decode("utf-8")
+                    domain = output.splitlines()[0].split('=')[1].strip()
                     print(num, ip, domain)
-                    if country_code not in result.keys():
-                        result[country_code] = {}
-                    if state_code not in result[country_code].keys():
-                        result[country_code][state_code] = {}
-                    if city not in result[country_code][state_code].keys():
-                        result[country_code][state_code][city] = {"ips": []}
-                    result[country_code][state_code][city]["ips"].append((subnet, domain))
+                    if country_code not in valid.keys():
+                        valid[country_code] = {}
+                    if state_code not in valid[country_code].keys():
+                        valid[country_code][state_code] = {}
+                    if city not in valid[country_code][state_code].keys():
+                        valid[country_code][state_code][city] = {"ips": []}
+                    valid[country_code][state_code][city]["ips"].append((subnet, domain))
                     break
+                except subprocess.CalledProcessError as e:
+                    if "NXDOMAIN" in e.output.decode("utf-8"):
+                        print(e.output)
+                        NXDOMAIN += 1
+                        if NXDOMAIN > 10:
+                            nxdomain_list.append(line)
+                            break
+                    elif "SERVFAIL" in e.output.decode("utf-8"):
+                        print(e.output)
+                        SERVFAIL +=1
+                        if SERVFAIL > 10:
+                            servfail_list.append(line)
+                            break
                 except subprocess.TimeoutExpired:
                     pass
 
+    geoip_json = {
+        "valid": valid,
+        "nxdomain": nxdomain_list,
+        "servfail": servfail_list,
+    }
+
     geoip_filename = Path("data").joinpath("geoip").joinpath("{}.json".format(get_date()))
     with open(geoip_filename, 'w') as f:
-        json.dump(result, f, indent=2)
+        json.dump(geoip_json, f, indent=2)
     with open(Path("data").joinpath("geoip").joinpath("latest"), 'w') as f:
         f.write(str(geoip_filename))
 
 
 def create_map_data():
-
-
-
     with open(".passwd/geocoder", "r") as f:
         token = f.read()
 
@@ -168,6 +190,6 @@ schedule.every(1).hours.at(":00").do(run, run_once)
 
 if __name__ == "__main__":
     run_once()
-    while True:
-        schedule.run_pending()
-        time.sleep(0.5)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(0.5)

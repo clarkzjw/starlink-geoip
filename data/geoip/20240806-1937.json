@@ -1,0 +1,14 @@
+{
+  "PH": {
+    "PH-00": {
+      "Manila": {
+        "ips": [
+          [
+            "14.1.64.0/24",
+            "customer.mnlaphl1.pop.starlinkisp.net."
+          ]
+        ]
+      }
+    }
+  }
+}
