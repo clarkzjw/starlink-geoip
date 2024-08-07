@@ -44,6 +44,8 @@ def save_feed(feed: str):
     filename = feed_dir.joinpath("feed-{}.csv".format(date))
     with open(filename, 'w') as f:
         f.write(feed)
+    with open(feed_dir.joinpath("feed-latest.csv"), 'w') as f:
+        f.write(feed)
     with open(feed_dir.joinpath("latest"), 'w') as f:
         f.write(str(filename))
 
@@ -158,6 +160,8 @@ def process_geoip():
 
     geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
     with open(geoip_filename, 'w') as f:
+        json.dump(geoip_json, f, indent=2)
+    with open(Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json"), 'w') as f:
         json.dump(geoip_json, f, indent=2)
     with open(Path(DATA_DIR).joinpath("geoip").joinpath("latest"), 'w') as f:
         f.write(str(geoip_filename))
