@@ -25,7 +25,6 @@ def run(func, *args, **kwargs):
 
 
 def get_date() -> str:
-    # return: "20240129-2100"
     now = datetime.datetime.now(tz=datetime.timezone.utc)
     return now.strftime("%Y%m%d-%H%M")
 
