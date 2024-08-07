@@ -153,7 +153,7 @@ def process_geoip():
         "valid": valid,
         "nxdomain": nxdomain_list,
         "servfail": servfail_list,
-        "pop_subnet_count": sorted(pop_subnet_count)
+        "pop_subnet_count": sorted(pop_subnet_count.items())
     }
 
     geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
