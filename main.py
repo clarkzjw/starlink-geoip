@@ -74,11 +74,12 @@ def get_latest() -> bool:
 def get_last_feed() -> tuple:
     feed_dir = Path(DATA_DIR).joinpath("feed")
     if not feed_dir.joinpath("latest").exists():
+        print("No latest feed found, downloading latest feed")
         save_feed(get_feed())
         return get_last_feed()
 
     with open(feed_dir.joinpath("latest"), 'r') as f:
-        last_feedname = f.read()
+        last_feedname = f.read().strip("\n")
         with open(last_feedname, 'r') as f:
             last_feed = f.read()
             return last_feedname, last_feed

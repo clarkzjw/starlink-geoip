@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get latest data
-        run: git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
+        run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
 
       - name: Install poetry
         run: pipx install poetry
