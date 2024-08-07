@@ -12,6 +12,7 @@ import threading
 
 from pprint import pprint
 from pathlib import Path
+from collections import defaultdict
 
 
 GEOIP_FEED = "https://geoip.starlinkisp.net/feed.csv"
@@ -92,6 +93,8 @@ def process_geoip():
     nxdomain_list = []
     servfail_list = []
     geoip_json = {}
+    pop_subnet_count = defaultdict(int)
+
 
     for line in last_feed.splitlines():
         if line:
@@ -128,6 +131,7 @@ def process_geoip():
                     if city not in valid[country_code][state_code].keys():
                         valid[country_code][state_code][city] = {"ips": []}
                     valid[country_code][state_code][city]["ips"].append((subnet, domain))
+                    pop_subnet_count[domain] += 1
                     break
                 except subprocess.CalledProcessError as e:
                     if "NXDOMAIN" in e.output.decode("utf-8"):
@@ -149,6 +153,7 @@ def process_geoip():
         "valid": valid,
         "nxdomain": nxdomain_list,
         "servfail": servfail_list,
+        "pop_subnet_count": sorted(pop_subnet_count)
     }
 
     geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
