@@ -2,7 +2,7 @@ name: GeoIP Rerefresh
 
 on:
   schedule:
-      - cron: "0 * * * *"
+      - cron: "*/30 * * * *"
   push:
     branches:
       - master
