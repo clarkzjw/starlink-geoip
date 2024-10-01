@@ -58,6 +58,8 @@ def check_diff(last: str, now: str) -> bool:
 
 
 def json_diff(last, now) -> bool:
+    diff = jsondiff.diff(last, now)
+    print("diff:", diff)
     return len(jsondiff.diff(last, now)) > 0
 
 
@@ -168,11 +170,15 @@ def process_geoip():
         with open(tmp_geoip_filename, 'w') as f:
             json.dump(geoip_json, f, indent=2)
 
+        with open(Path(DATA_DIR).joinpath("geoip").joinpath("temp_geoip.json"), 'r') as f:
+            now_geoip = f.read()
+            now_geoip = json.loads(now_geoip)
+
         with open(Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json"), 'r') as f:
             last_geoip = f.read()
             last_geoip = json.loads(last_geoip)
 
-        if json_diff(geoip_json, last_geoip):
+        if json_diff(now_geoip, last_geoip):
             print("Geoip has been updated")
         else:
             shouldUpdate = False
@@ -180,6 +186,7 @@ def process_geoip():
         os.remove(tmp_geoip_filename)
 
     if shouldUpdate:
+        print("should update, updating now")
         geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
         with open(geoip_filename, 'w') as f:
             json.dump(geoip_json, f, indent=2)
