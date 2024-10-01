@@ -3,7 +3,6 @@ import csv
 import sys
 import json
 import httpx
-import schedule
 import datetime
 import geocoder
 import ipaddress
@@ -210,11 +209,9 @@ def run_once():
         process_geoip()
 
 
-schedule.every(1).hours.at(":00").do(run, run_once)
-
-
 if __name__ == "__main__":
-    run_once()
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(0.5)
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "force-ptr":
+            process_geoip()
+    else:
+        run_once()
