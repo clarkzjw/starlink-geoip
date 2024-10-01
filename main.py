@@ -233,14 +233,9 @@ def run_once():
 
 
 if __name__ == "__main__":
-    # if len(sys.argv) > 1:
-    #     if sys.argv[1] == "force-ptr":
-    #         FORCE_PTR = True
-    #         process_geoip()
-    # else:
-    #     run_once()
-    with open("./geoip-latest.json", 'r') as f:
-        a = json.load(f)
-    with open("./geoip-20240820-0306.json", 'r') as f:
-        b = json.load(f)
-    print(len(jsondiff.diff(a, b)))
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "force-ptr":
+            FORCE_PTR = True
+            process_geoip()
+    else:
+        run_once()
