@@ -15,7 +15,7 @@ jobs:
       packages: write
       id-token: write
 
-    name: Refresh GeoIP feed
+    name: Refresh GeoIP feed force ptr
     steps:
       - name: Check out code
         uses: actions/checkout@v4
