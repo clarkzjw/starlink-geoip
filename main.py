@@ -164,7 +164,11 @@ def process_geoip():
         with open(tmp_geoip_filename, 'w') as f:
             json.dump(geoip_json, f, indent=2)
 
-        if check_diff(tmp_geoip_filename, Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json")):
+        with open(Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json"), 'r') as f:
+            last_geoip = f.read()
+            last_geoip = json.loads(last_geoip)
+
+        if check_diff(geoip_json, last_geoip):
             print("Geoip has been updated")
         else:
             shouldUpdate = False
