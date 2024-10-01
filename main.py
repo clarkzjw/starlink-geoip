@@ -5,10 +5,10 @@ import json
 import httpx
 import datetime
 import geocoder
+import jsondiff
 import ipaddress
 import subprocess
 import threading
-import jsondiff
 
 from pprint import pprint
 from pathlib import Path
@@ -16,9 +16,10 @@ from collections import defaultdict
 
 
 GEOIP_FEED = "https://geoip.starlinkisp.net/feed.csv"
-DEBUG = False
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
-FORCE_PTR = False
+GEOIP_FEED_DIR = Path(DATA_DIR).joinpath("feed")
+GEOIP_DATA_DIR = Path(DATA_DIR).joinpath("geoip")
+FORCE_PTR_REFRESH = False
 
 
 def run(func, *args, **kwargs):
@@ -41,32 +42,29 @@ def get_feed() -> str:
 
 
 def save_feed(feed: str):
-    feed_dir = Path(DATA_DIR).joinpath("feed")
-    filename = feed_dir.joinpath("feed-{}.csv".format(date))
+    filename = GEOIP_FEED_DIR.joinpath("feed-{}.csv".format(date))
     with open(filename, 'w') as f:
         f.write(feed)
-    with open(feed_dir.joinpath("feed-latest.csv"), 'w') as f:
+    with open(GEOIP_FEED_DIR.joinpath("feed-latest.csv"), 'w') as f:
         f.write(feed)
-    with open(feed_dir.joinpath("latest"), 'w') as f:
+    with open(GEOIP_FEED_DIR.joinpath("latest"), 'w') as f:
         f.write(str(filename))
 
 
 def check_diff(last: str, now: str) -> bool:
-    if last == now:
-        return False
-    return True
+    return json_diff(json.loads(last), json.loads(now))
 
 
 def json_diff(last, now) -> bool:
     diff = jsondiff.diff(last, now)
-    print("diff:", diff)
-    return len(jsondiff.diff(last, now)) > 0
+    print("json diff")
+    pprint(diff)
+    return len(diff) > 0
 
 
 def get_latest() -> bool:
     first_run = False
-    feed_dir = Path(DATA_DIR).joinpath("feed")
-    if not feed_dir.joinpath("latest").exists():
+    if not GEOIP_FEED_DIR.joinpath("latest").exists():
         first_run = True
 
     last_feedname, last_feed = get_last_feed()
@@ -76,18 +74,18 @@ def get_latest() -> bool:
         print("Feed has been updated since {}".format(last_feedname))
         save_feed(feed_now)
         return True
+
     print("Feed has not been updated since {}".format(last_feedname))
     return False
 
 
 def get_last_feed() -> tuple:
-    feed_dir = Path(DATA_DIR).joinpath("feed")
-    if not feed_dir.joinpath("latest").exists():
+    if not GEOIP_FEED_DIR.joinpath("latest").exists():
         print("No latest feed found, downloading latest feed")
         save_feed(get_feed())
         return get_last_feed()
 
-    with open(feed_dir.joinpath("latest"), 'r') as f:
+    with open(GEOIP_FEED_DIR.joinpath("latest"), 'r') as f:
         last_feedname = f.read().strip("\n")
         with open(last_feedname, 'r') as f:
             last_feed = f.read()
@@ -164,35 +162,34 @@ def process_geoip():
         "pop_subnet_count": sorted(pop_subnet_count.items())
     }
 
-    shouldUpdate = True
-    if FORCE_PTR:
-        tmp_geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("temp_geoip.json")
+    should_update = True
+    if FORCE_PTR_REFRESH:
+        tmp_geoip_filename = GEOIP_DATA_DIR.joinpath("tmp_geoip.json")
         with open(tmp_geoip_filename, 'w') as f:
             json.dump(geoip_json, f, indent=2)
 
-        with open(Path(DATA_DIR).joinpath("geoip").joinpath("temp_geoip.json"), 'r') as f:
+        with open(GEOIP_DATA_DIR.joinpath("tmp_geoip.json"), 'r') as f:
             now_geoip = f.read()
             now_geoip = json.loads(now_geoip)
 
-        with open(Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json"), 'r') as f:
+        with open(GEOIP_DATA_DIR.joinpath("geoip-latest.json"), 'r') as f:
             last_geoip = f.read()
             last_geoip = json.loads(last_geoip)
 
         if json_diff(now_geoip, last_geoip):
-            print("Geoip has been updated")
+            print("GEOIP has been updated")
         else:
-            shouldUpdate = False
+            should_update = False
 
         os.remove(tmp_geoip_filename)
 
-    if shouldUpdate:
-        print("should update, updating now")
-        geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
+    if should_update:
+        geoip_filename = GEOIP_DATA_DIR.joinpath("geoip-{}.json".format(date))
         with open(geoip_filename, 'w') as f:
             json.dump(geoip_json, f, indent=2)
-        with open(Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json"), 'w') as f:
+        with open(GEOIP_DATA_DIR.joinpath("geoip-latest.json"), 'w') as f:
             json.dump(geoip_json, f, indent=2)
-        with open(Path(DATA_DIR).joinpath("geoip").joinpath("latest"), 'w') as f:
+        with open(GEOIP_DATA_DIR.joinpath("latest"), 'w') as f:
             f.write(str(geoip_filename))
 
 
@@ -232,8 +229,8 @@ def create_map_data():
 
 
 def run_once():
-    Path(DATA_DIR).joinpath("feed").mkdir(parents=True, exist_ok=True)
-    Path(DATA_DIR).joinpath("geoip").mkdir(parents=True, exist_ok=True)
+    GEOIP_FEED_DIR.mkdir(parents=True, exist_ok=True)
+    GEOIP_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     if get_latest():
         process_geoip()
@@ -242,7 +239,7 @@ def run_once():
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "force-ptr":
-            FORCE_PTR = True
+            FORCE_PTR_REFRESH = True
             process_geoip()
     else:
         run_once()
