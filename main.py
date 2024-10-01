@@ -167,6 +167,8 @@ def process_geoip():
         if check_diff(tmp_geoip_filename, Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json")):
             print("Geoip has been updated")
             shouldUpdate = True
+        else:
+            os.remove(tmp_geoip_filename)
 
     if not FORCE_PTR or shouldUpdate:
         geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
