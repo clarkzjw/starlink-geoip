@@ -17,6 +17,7 @@ from collections import defaultdict
 GEOIP_FEED = "https://geoip.starlinkisp.net/feed.csv"
 DEBUG = False
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
+FORCE_PTR = False
 
 
 def run(func, *args, **kwargs):
@@ -157,13 +158,24 @@ def process_geoip():
         "pop_subnet_count": sorted(pop_subnet_count.items())
     }
 
-    geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
-    with open(geoip_filename, 'w') as f:
-        json.dump(geoip_json, f, indent=2)
-    with open(Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json"), 'w') as f:
-        json.dump(geoip_json, f, indent=2)
-    with open(Path(DATA_DIR).joinpath("geoip").joinpath("latest"), 'w') as f:
-        f.write(str(geoip_filename))
+    shouldUpdate = False
+    if FORCE_PTR:
+        tmp_geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("temp_geoip.json")
+        with open(tmp_geoip_filename, 'w') as f:
+            json.dump(geoip_json, f, indent=2)
+
+        if check_diff(tmp_geoip_filename, Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json")):
+            print("Geoip has been updated")
+            shouldUpdate = True
+
+    if not FORCE_PTR or shouldUpdate:
+        geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
+        with open(geoip_filename, 'w') as f:
+            json.dump(geoip_json, f, indent=2)
+        with open(Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json"), 'w') as f:
+            json.dump(geoip_json, f, indent=2)
+        with open(Path(DATA_DIR).joinpath("geoip").joinpath("latest"), 'w') as f:
+            f.write(str(geoip_filename))
 
 
 def create_map_data():
@@ -212,6 +224,7 @@ def run_once():
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "force-ptr":
+            FORCE_PTR = True
             process_geoip()
     else:
         run_once()
