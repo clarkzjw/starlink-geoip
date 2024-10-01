@@ -51,8 +51,10 @@ def save_feed(feed: str):
         f.write(str(filename))
 
 
-def check_diff(last: str, now: str) -> bool:
-    return json_diff(json.loads(last), json.loads(now))
+def str_diff(last: str, now: str) -> bool:
+    if last == now:
+        return False
+    return True
 
 
 def json_diff(last, now) -> bool:
@@ -70,7 +72,7 @@ def get_latest() -> bool:
     last_feedname, last_feed = get_last_feed()
     feed_now = get_feed()
 
-    if check_diff(last_feed, feed_now) or first_run:
+    if str_diff(last_feed, feed_now) or first_run:
         print("Feed has been updated since {}".format(last_feedname))
         save_feed(feed_now)
         return True
