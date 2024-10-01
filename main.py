@@ -8,6 +8,7 @@ import geocoder
 import ipaddress
 import subprocess
 import threading
+import jsondiff
 
 from pprint import pprint
 from pathlib import Path
@@ -56,6 +57,10 @@ def check_diff(last: str, now: str) -> bool:
     return True
 
 
+def json_diff(last, now) -> bool:
+    return len(jsondiff.diff(last, now)) > 0
+
+
 def get_latest() -> bool:
     first_run = False
     feed_dir = Path(DATA_DIR).joinpath("feed")
@@ -96,7 +101,6 @@ def process_geoip():
     servfail_list = []
     geoip_json = {}
     pop_subnet_count = defaultdict(int)
-
 
     for line in last_feed.splitlines():
         if line:
@@ -168,7 +172,7 @@ def process_geoip():
             last_geoip = f.read()
             last_geoip = json.loads(last_geoip)
 
-        if check_diff(geoip_json, last_geoip):
+        if json_diff(geoip_json, last_geoip):
             print("Geoip has been updated")
         else:
             shouldUpdate = False
@@ -229,9 +233,14 @@ def run_once():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "force-ptr":
-            FORCE_PTR = True
-            process_geoip()
-    else:
-        run_once()
+    # if len(sys.argv) > 1:
+    #     if sys.argv[1] == "force-ptr":
+    #         FORCE_PTR = True
+    #         process_geoip()
+    # else:
+    #     run_once()
+    with open("./geoip-latest.json", 'r') as f:
+        a = json.load(f)
+    with open("./geoip-20240820-0306.json", 'r') as f:
+        b = json.load(f)
+    print(len(jsondiff.diff(a, b)))
