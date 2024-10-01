@@ -158,7 +158,7 @@ def process_geoip():
         "pop_subnet_count": sorted(pop_subnet_count.items())
     }
 
-    shouldUpdate = False
+    shouldUpdate = True
     if FORCE_PTR:
         tmp_geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("temp_geoip.json")
         with open(tmp_geoip_filename, 'w') as f:
@@ -166,11 +166,12 @@ def process_geoip():
 
         if check_diff(tmp_geoip_filename, Path(DATA_DIR).joinpath("geoip").joinpath("geoip-latest.json")):
             print("Geoip has been updated")
-            shouldUpdate = True
         else:
-            os.remove(tmp_geoip_filename)
+            shouldUpdate = False
 
-    if not FORCE_PTR or shouldUpdate:
+        os.remove(tmp_geoip_filename)
+
+    if shouldUpdate:
         geoip_filename = Path(DATA_DIR).joinpath("geoip").joinpath("geoip-{}.json".format(date))
         with open(geoip_filename, 'w') as f:
             json.dump(geoip_json, f, indent=2)
