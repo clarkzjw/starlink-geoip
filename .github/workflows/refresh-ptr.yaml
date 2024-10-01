@@ -1,4 +1,4 @@
-name: GeoIP Rerefresh
+name: GeoIP Refresh Force PTR
 
 on:
   schedule:
