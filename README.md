@@ -1,5 +1,7 @@
 # Starlink Map
 
+[![GeoIP Refresh](https://github.com/clarkzjw/starlink-geoip/actions/workflows/geoip_feed_refresh.yaml/badge.svg)](https://github.com/clarkzjw/starlink-geoip/actions/workflows/geoip_feed_refresh.yaml) [![Update GEOIP Map](https://github.com/clarkzjw/starlink-geoip/actions/workflows/update_map.yaml/badge.svg)](https://github.com/clarkzjw/starlink-geoip/actions/workflows/update_map.yaml)
+
 A map visualizing Starlink's [GeoIP feed](https://geoip.starlinkisp.net/feed.csv).
 
 Live: [https://pan.uvic.ca/~clarkzjw/starlink/index.html](https://pan.uvic.ca/~clarkzjw/starlink/index.html)
