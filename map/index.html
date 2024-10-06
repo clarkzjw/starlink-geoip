@@ -124,7 +124,6 @@
             height: 40px;
             cursor: pointer;
             border-radius: 50%;
-            transition: transform 0.1s ease;
         }
 
         .city_marker {
@@ -134,14 +133,13 @@
             height: 30px;
             cursor: pointer;
             border-radius: 50%;
-            transition: transform 0.1s ease;
         }
 
         .popup {
             overflow-y: scroll !important;
             max-height: 400px;
-            max-width: 400px;
-            width: 400px;
+            max-width: 500px;
+            width: 500px;
         }
 
         .mapboxgl-popup-content {
@@ -181,7 +179,7 @@
             }
         }
 
-        async function loadPoP(map) {
+        async function loadPoPAndCity(map) {
             const popList = await getJson('./data/pop.json');
 
             for (const pop of popList) {
@@ -194,7 +192,7 @@
                         'coordinates': [pop.lon, pop.lat]
                     },
                     'properties': {
-                        'title': pop.city,
+                        'title': pop.city + ' PoP',
                         'description': pop.dns
                     }
                 };
@@ -206,7 +204,13 @@
                 new mapboxgl.Marker(el)
                     .setLngLat(feature.geometry.coordinates)
                     .setPopup(
-                        new mapboxgl.Popup({ className: 'popup', offset: 25 })
+                        new mapboxgl.Popup({
+                            className: 'popup',
+                            closeButton: false,
+                            closeOnClick: true,
+                            closeOnMove: true,
+                            offset: 25
+                        })
                             .setHTML(
                                 `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
                             )
@@ -227,7 +231,13 @@
                 const cityMarker = new mapboxgl.Marker(el)
                     .setLngLat(feature.geometry.coordinates)
                     .setPopup(
-                        new mapboxgl.Popup({ className: 'popup', offset: 25 })
+                        new mapboxgl.Popup({
+                            className: 'popup',
+                            closeButton: false,
+                            closeOnClick: true,
+                            closeOnMove: true,
+                            offset: 25
+                        })
                             .setHTML(
                                 `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
                             )
@@ -261,9 +271,10 @@
             });
 
             map.on('load', async () => {
-                loadPoP(map);
+                loadPoPAndCity(map);
             });
         }
     </script>
 </body>
+
 </html>
