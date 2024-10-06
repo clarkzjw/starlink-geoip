@@ -1,8 +1,11 @@
-name: Monthly latency json refresh
+name: GeoIP Refresh Force PTR
 
 on:
   schedule:
-      - cron: "0 0 2 * *"
+      - cron: "30 */6 * * *"
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -12,7 +15,7 @@ jobs:
       packages: write
       id-token: write
 
-    name: Refresh monthly latency json
+    name: Refresh GeoIP feed force ptr
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -32,8 +35,8 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Refresh GeoIP
-        run: poetry run python3 get_latency_json.py
+      - name: Refresh GeoIP (Force refresh DNS PTR)
+        run: poetry run python3 main.py ptr-refresh
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop

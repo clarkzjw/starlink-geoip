@@ -9,7 +9,7 @@ from pathlib import Path
 MARITIME_LATENCY = "https://api.starlink.com/public-files/metrics_maritime.json"
 RESIDENTIAL_LATENCY = "https://api.starlink.com/public-files/metrics_residential.json"
 
-DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
+DATA_DIR = os.getenv("DATA_DIR", "../starlink-geoip-data")
 
 
 def get_latency_json():
