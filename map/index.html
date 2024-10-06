@@ -180,6 +180,7 @@
         }
 
         async function loadPoPAndCity(map) {
+            // load PoP data
             const popList = await getJson('./data/pop.json');
 
             for (const pop of popList) {
@@ -218,6 +219,7 @@
                     .addTo(map);
             }
 
+            // load city data
             const cityList = await getJson('./data/city.json');
             map.addSource('city', {
                 type: 'geojson',
@@ -238,6 +240,29 @@
                     .setHTML(
                         `<h4>${feature.properties.title}</h4><p>${feature.properties.description}</p>`
                     );
+
+                // connected PoP for this city
+                let cityPoPList = [];
+                const regex = /customer\.[a-z0-9]+\.pop\.starlinkisp\.net\./g;
+                const popMatch = feature.properties.description.match(regex);
+                if (popMatch) {
+                    for (const pop of popMatch) {
+                        const popCity = pop.split('.')[1];
+                        cityPoPList.push(popCity);
+                    }
+                }
+                cityPoPList = [...new Set(cityPoPList)];
+                console.log('Connected PoP for ' + feature.properties.title + ': ' + cityPoPList);
+
+                // get PoP coordinates from PoPList
+                let cityPoPLocations = [];
+                for (const pop of popList) {
+                    if (cityPoPList.includes(pop.code)) {
+                        cityPoPLocations.push([pop.lon, pop.lat]);
+                    }
+                }
+                console.log('PoP locations for ' + feature.properties.title + ': ' + cityPoPLocations);
+
                 if (popList.some(pop => pop.city === feature.properties.title)) {
                     const popEl = document.querySelector(`.pop_marker[data-city="${feature.properties.title}"]`);
                     if (popEl) {
