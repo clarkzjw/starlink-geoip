@@ -37,14 +37,14 @@ jobs:
 
       - name: Refresh GeoIP Map
         working-directory: ./map
-        run: env GEOCODER_TOKEN=${GEOCODER_TOKEN} poetry run python3 process_map.py
+        run: cp ./data/*.json ../starlink-geoip-data/map/ && env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 process_map.py
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: git@github.com:clarkzjw/starlink-geoip-data.git
           BRANCH: master
-          FOLDER: starlink-geoip-data/map
+          FOLDER: starlink-geoip-data
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
           MESSAGE: "Map Updated"
           SKIP_EMPTY_COMMITS: true

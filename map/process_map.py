@@ -13,7 +13,7 @@ from pathlib import Path
 
 GEOIP_JSON_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-latest.json"
 DATA_DIR = os.getenv("DATA_DIR", "../starlink-geoip-data")
-GEOIP_FEED_DIR = Path(DATA_DIR).joinpath("map")
+GEOIP_MAP_DIR = Path(DATA_DIR).joinpath("map")
 
 
 def get_geoip_json() -> dict:
@@ -22,7 +22,7 @@ def get_geoip_json() -> dict:
 
 
 def get_pop_list(geoipJson: dict):
-    with open("./data/pop.json", 'r+') as f:
+    with open(Path(GEOIP_MAP_DIR).joinpath("pop.json"), 'r+') as f:
         pops = json.load(f)
         pop_code_list = [x["code"] for x in pops]
 
@@ -92,7 +92,7 @@ def get_city_list(geoipJson: dict):
                     }
                 })
 
-    json.dump(city_json, open("./data/city.json", "w"), indent=4)
+    json.dump(city_json, open(Path(GEOIP_MAP_DIR).joinpath("city.json"), "w"), indent=4)
 
 
 
