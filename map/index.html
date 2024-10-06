@@ -266,7 +266,7 @@
                 if (popList.some(pop => pop.city === feature.properties.title)) {
                     const popEl = document.querySelector(`.pop_marker[data-city="${feature.properties.title}"]`);
                     if (popEl) {
-                        const moveDistance = 0.1;
+                        const moveDistance = 0.01;
                         const cityOrginalPosition = feature.geometry.coordinates;
 
                         const cityNewLocation = [cityOrginalPosition[0] - moveDistance, cityOrginalPosition[1] - moveDistance];
@@ -283,10 +283,25 @@
                         )
                         .addTo(map);
 
-                    // add event listener for cityEl, show a line when clicked
                     cityEl.addEventListener('click', () => {
                         let conn = [];
+
+                        if (map.getLayer('line')) {
+                            map.removeLayer('line');
+                        }
+                        if (map.getSource('line')) {
+                            map.removeSource('line');
+                        }
+
                         for (const cityPoPLocation of cityPoPLocations) {
+                            if (Math.abs(cityPoPLocation[0] - feature.geometry.coordinates[0]) > 180) {
+                                if (cityPoPLocation[0] > 0) {
+                                    cityPoPLocation[0] -= 360;
+                                } else {
+                                    cityPoPLocation[0] += 360;
+                                }
+                            }
+
                             const lineFeature = {
                                 'type': 'Feature',
                                 'properties': {
@@ -295,8 +310,8 @@
                                 'geometry': {
                                     'type': 'LineString',
                                     'coordinates': [
+                                        cityPoPLocation,
                                         feature.geometry.coordinates,
-                                        cityPoPLocation
                                     ]
                                 }
                             };
