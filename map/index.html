@@ -197,11 +197,11 @@
                     }
                 };
 
-                const el = document.createElement('div');
-                el.className = 'pop_marker';
-                el.setAttribute('data-city', pop.city);
+                const popEl = document.createElement('div');
+                popEl.className = 'pop_marker';
+                popEl.setAttribute('data-city', pop.city);
 
-                new mapboxgl.Marker(el)
+                new mapboxgl.Marker(popEl)
                     .setLngLat(feature.geometry.coordinates)
                     .setPopup(
                         new mapboxgl.Popup({
@@ -225,25 +225,19 @@
             });
 
             for (const feature of cityList.features) {
-                const el = document.createElement('div');
-                el.className = 'city_marker';
+                const cityEl = document.createElement('div');
+                cityEl.className = 'city_marker';
 
-                const cityMarker = new mapboxgl.Marker(el)
-                    .setLngLat(feature.geometry.coordinates)
-                    .setPopup(
-                        new mapboxgl.Popup({
-                            className: 'popup',
-                            closeButton: false,
-                            closeOnClick: true,
-                            closeOnMove: true,
-                            offset: 25
-                        })
-                            .setHTML(
-                                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-                            )
-                    )
-                    .addTo(map);
-
+                cityPoPUp = new mapboxgl.Popup({
+                    className: 'popup',
+                    closeButton: false,
+                    closeOnClick: true,
+                    closeOnMove: true,
+                    offset: 25
+                })
+                    .setHTML(
+                        `<h4>${feature.properties.title}</h4><p>${feature.properties.description}</p>`
+                    );
                 if (popList.some(pop => pop.city === feature.properties.title)) {
                     const popEl = document.querySelector(`.pop_marker[data-city="${feature.properties.title}"]`);
                     if (popEl) {
@@ -254,8 +248,15 @@
                         const popNewLocation = [cityOrginalPosition[0] + moveDistance, cityOrginalPosition[1] + moveDistance];
 
                         new mapboxgl.Marker(popEl).setLngLat(popNewLocation).addTo(map);
-                        new mapboxgl.Marker(el).setLngLat(cityNewLocation).addTo(map);
+                        new mapboxgl.Marker(cityEl).setLngLat(cityNewLocation).setPopup(cityPoPUp).addTo(map);
                     }
+                } else {
+                    new mapboxgl.Marker(cityEl)
+                        .setLngLat(feature.geometry.coordinates)
+                        .setPopup(
+                            cityPoPUp
+                        )
+                        .addTo(map);
                 }
             }
         }
