@@ -37,7 +37,7 @@ jobs:
 
       - name: Refresh GeoIP Map
         working-directory: ./map
-        run: poetry run python3 process_map.py
+        run: env GEOCODER_TOKEN=${GEOCODER_TOKEN} poetry run python3 process_map.py
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop
