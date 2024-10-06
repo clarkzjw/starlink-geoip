@@ -179,6 +179,61 @@
             }
         }
 
+        async function displayPoPConnection(map, cityPoPLocations, coordinates) {
+            let conn = [];
+
+            if (map.getLayer('line')) {
+                map.removeLayer('line');
+            }
+            if (map.getSource('line')) {
+                map.removeSource('line');
+            }
+
+            for (const cityPoPLocation of cityPoPLocations) {
+                if (Math.abs(cityPoPLocation[0] - coordinates[0]) > 180) {
+                    if (cityPoPLocation[0] > 0) {
+                        cityPoPLocation[0] -= 360;
+                    } else {
+                        cityPoPLocation[0] += 360;
+                    }
+                }
+
+                const lineFeature = {
+                    'type': 'Feature',
+                    'properties': {
+                        'title': 'City PoP Connection'
+                    },
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': [
+                            cityPoPLocation,
+                            coordinates,
+                        ]
+                    }
+                };
+                conn.push(lineFeature);
+            }
+            map.addSource('line', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': conn,
+                }
+            });
+            map.addLayer({
+                'id': 'line',
+                'type': 'line',
+                'source': 'line',
+                'layout': {
+                    'line-cap': 'round',
+                },
+                'paint': {
+                    'line-color': '#F06317',
+                    'line-width': 2
+                }
+            });
+        }
+
         async function loadPoPAndCity(map) {
             // load PoP data
             const popList = await getJson('./data/pop.json');
@@ -272,8 +327,14 @@
                         const cityNewLocation = [cityOrginalPosition[0] - moveDistance, cityOrginalPosition[1] - moveDistance];
                         const popNewLocation = [cityOrginalPosition[0] + moveDistance, cityOrginalPosition[1] + moveDistance];
 
-                        new mapboxgl.Marker(popEl).setLngLat(popNewLocation).addTo(map);
+                        const cityIndex = cityList.features.findIndex(city => city.properties.name === feature.properties.name);
+                        cityList.features[cityIndex].geometry.coordinates = cityNewLocation;
+
                         new mapboxgl.Marker(cityEl).setLngLat(cityNewLocation).setPopup(cityPoPUp).addTo(map);
+
+                        cityEl.addEventListener('click', () => {
+                            displayPoPConnection(map, cityPoPLocations, cityNewLocation);
+                        });
                     }
                 } else {
                     new mapboxgl.Marker(cityEl)
@@ -284,58 +345,7 @@
                         .addTo(map);
 
                     cityEl.addEventListener('click', () => {
-                        let conn = [];
-
-                        if (map.getLayer('line')) {
-                            map.removeLayer('line');
-                        }
-                        if (map.getSource('line')) {
-                            map.removeSource('line');
-                        }
-
-                        for (const cityPoPLocation of cityPoPLocations) {
-                            if (Math.abs(cityPoPLocation[0] - feature.geometry.coordinates[0]) > 180) {
-                                if (cityPoPLocation[0] > 0) {
-                                    cityPoPLocation[0] -= 360;
-                                } else {
-                                    cityPoPLocation[0] += 360;
-                                }
-                            }
-
-                            const lineFeature = {
-                                'type': 'Feature',
-                                'properties': {
-                                    'title': 'City PoP Connection'
-                                },
-                                'geometry': {
-                                    'type': 'LineString',
-                                    'coordinates': [
-                                        cityPoPLocation,
-                                        feature.geometry.coordinates,
-                                    ]
-                                }
-                            };
-                            conn.push(lineFeature);
-                        }
-                        map.addSource('line', {
-                            'type': 'geojson',
-                            'data': {
-                                'type': 'FeatureCollection',
-                                'features': conn,
-                            }
-                        });
-                        map.addLayer({
-                            'id': 'line',
-                            'type': 'line',
-                            'source': 'line',
-                            'layout': {
-                                'line-cap': 'round',
-                            },
-                            'paint': {
-                                'line-color': '#F06317',
-                                'line-width': 2
-                            }
-                        });
+                        displayPoPConnection(map, cityPoPLocations, feature.geometry.coordinates);
                     });
                 }
             }
