@@ -58,6 +58,14 @@
             max-width: 800px;
         }
 
+        .mapboxgl-popup {
+            overflow-y: auto;
+            max-height: 400px;
+            width: auto;
+            display: block;
+            white-space: nowrap;
+        }
+
         @media (max-width: 600px) {
             #popupModal {
                 width: 95%;
@@ -135,11 +143,8 @@
             border-radius: 50%;
         }
 
-        .popup {
-            overflow-y: scroll !important;
-            max-height: 400px;
-            max-width: 500px;
-            width: 500px;
+        .mapboxgl-popup-tip {
+            display: none;
         }
 
         .mapboxgl-popup-content {
@@ -429,7 +434,7 @@
                     .setLngLat(feature.geometry.coordinates)
                     .setPopup(
                         new mapboxgl.Popup({
-                            className: 'popup',
+                            maxWidth: '1000px',
                             closeButton: false,
                             closeOnClick: true,
                             closeOnMove: true,
@@ -454,7 +459,7 @@
                 cityEl.className = 'city_marker';
 
                 cityPoPUp = new mapboxgl.Popup({
-                    className: 'popup',
+                    maxWidth: '1000px',
                     closeButton: false,
                     closeOnClick: true,
                     closeOnMove: true,
