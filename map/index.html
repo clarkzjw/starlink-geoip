@@ -161,6 +161,8 @@
     </div>
 
     <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY2xhcmt6anciLCJhIjoiY2xyMngxMW44MTdkMzJ0bzlpOW1kMXNkbSJ9.vCe0J6NDTrmxEkxaYVYI8g';
+
         async function getPoP(updateSource) {
             try {
                 const response = await fetch(
@@ -174,7 +176,38 @@
             }
         }
 
-        mapboxgl.accessToken = 'pk.eyJ1IjoiY2xhcmt6anciLCJhIjoiY2xyMngxMW44MTdkMzJ0bzlpOW1kMXNkbSJ9.vCe0J6NDTrmxEkxaYVYI8g';
+        async function loadPoP(map) {
+            const popList = await getPoP();
+
+            for (const pop of popList) {
+                if (pop.show === false) continue;
+
+                feature = {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [pop.lon, pop.lat]
+                    },
+                    'properties': {
+                        'title': pop.city,
+                        'description': pop.dns
+                    }
+                };
+
+                const el = document.createElement('div');
+                el.className = 'pop_marker';
+
+                new mapboxgl.Marker(el)
+                    .setLngLat(feature.geometry.coordinates)
+                    .setPopup(
+                        new mapboxgl.Popup({ className: 'popup', offset: 25 })
+                            .setHTML(
+                                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+                            )
+                    )
+                    .addTo(map);
+            }
+        }
 
         if (!mapboxgl.supported()) {
             alert('Your browser does not support Mapbox GL');
@@ -187,36 +220,7 @@
             });
 
             map.on('load', async () => {
-                const popList = await getPoP();
-
-                for (const pop of popList) {
-                    if (pop.show === false) continue;
-
-                    feature = {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [pop.lon, pop.lat]
-                        },
-                        'properties': {
-                            'title': pop.city,
-                            'description': pop.dns
-                        }
-                    };
-
-                    const el = document.createElement('div');
-                    el.className = 'pop_marker';
-
-                    new mapboxgl.Marker(el)
-                        .setLngLat(feature.geometry.coordinates)
-                        .setPopup(
-                            new mapboxgl.Popup({ className: 'popup', offset: 25 })
-                                .setHTML(
-                                    `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-                                )
-                        )
-                        .addTo(map);
-                }
+                loadPoP(map);
             });
         }
 
