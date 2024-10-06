@@ -229,7 +229,6 @@ def create_map_data():
                 writer.writerow([row[0], row[1], location["lat"], location["lng"]])
 
 
-
 def run_once():
     GEOIP_FEED_DIR.mkdir(parents=True, exist_ok=True)
     GEOIP_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -240,7 +239,7 @@ def run_once():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        if sys.argv[1] == "force-ptr":
+        if sys.argv[1] == "ptr-refresh":
             FORCE_PTR_REFRESH = True
             process_geoip()
     else:
