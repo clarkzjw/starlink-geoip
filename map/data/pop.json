@@ -2,7 +2,7 @@
     {
         "code": "aafbgux1",
         "dns": "customer.aafbgux1.pop.starlinkisp.net.",
-        "city": "Andersen Air Force Base",
+        "city": "Andersen Air Force Base (To be verified)",
         "country": "Guam",
         "lat": 13.5678396,
         "lon": 144.9032476,
@@ -281,8 +281,8 @@
     {
         "code": "rcxship1",
         "dns": "customer.rcxship1.pop.starlinkisp.net.",
-        "city": "",
-        "country": "",
+        "city": "Unknown",
+        "country": "Unknown",
         "lat": 0,
         "lon": 0,
         "show": false
@@ -290,8 +290,8 @@
     {
         "code": "rcxship2",
         "dns": "customer.rcxship2.pop.starlinkisp.net.",
-        "city": "",
-        "country": "",
+        "city": "Unknown",
+        "country": "Unknown",
         "lat": 0,
         "lon": 0,
         "show": false
@@ -318,7 +318,7 @@
         "code": "sfiabgr1",
         "dns": "customer.sfiabgr1.pop.starlinkisp.net.",
         "city": "Sofia",
-        "country": "23.2819976",
+        "country": "Bulgaria",
         "lat": 42.6977545,
         "lon": 23.2819976,
         "show": true
@@ -371,8 +371,8 @@
     {
         "code": "spxship1",
         "dns": "customer.spxship1.pop.starlinkisp.net.",
-        "city": "",
-        "country": "",
+        "city": "Unknown",
+        "country": "Unknown",
         "lat": 0,
         "lon": 0,
         "show": false
