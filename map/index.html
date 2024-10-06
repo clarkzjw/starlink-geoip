@@ -124,6 +124,7 @@
             height: 40px;
             cursor: pointer;
             border-radius: 50%;
+            transition: transform 0.1s ease;
         }
 
         .city_marker {
@@ -131,8 +132,9 @@
             background-size: cover;
             width: 30px;
             height: 30px;
-            border-radius: 50%;
             cursor: pointer;
+            border-radius: 50%;
+            transition: transform 0.1s ease;
         }
 
         .popup {
@@ -160,8 +162,23 @@
         <div><img id="ip-info" style="width: 40px; height: 40px;" src="./assets/info.png"></img></div>
     </div>
 
+    <div id="popupModal" style="display: none;">
+    </div>
+
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xhcmt6anciLCJhIjoiY2xyMngxMW44MTdkMzJ0bzlpOW1kMXNkbSJ9.vCe0J6NDTrmxEkxaYVYI8g';
+
+        function handleMarkerHover(el, el2) {
+                el.addEventListener('mouseenter', () => {
+                    el.style.transform = 'translate(-10px, -10px)';
+                    el2.style.transform = 'translate(10px, 10px)';
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translate(0px, 0px)';
+                    el2.style.transform = 'translate(0px, 0px)';
+                });
+        }
 
         async function getJson(url, updateSource) {
             try {
@@ -196,6 +213,7 @@
 
                 const el = document.createElement('div');
                 el.className = 'pop_marker';
+                el.setAttribute('data-city', pop.city);
 
                 new mapboxgl.Marker(el)
                     .setLngLat(feature.geometry.coordinates)
@@ -207,31 +225,34 @@
                     )
                     .addTo(map);
             }
-        }
 
-        async function loadCity(map) {
-                const cityList = await getJson('./data/city.json');
+            const cityList = await getJson('./data/city.json');
 
-                map.addSource('city', {
-                    type: 'geojson',
-                    data: cityList
-                });
+            map.addSource('city', {
+                type: 'geojson',
+                data: cityList
+            });
 
-                for (const feature of cityList.features) {
-                    const el = document.createElement('div');
-                    el.className = 'city_marker';
+            for (const feature of cityList.features) {
+                const el = document.createElement('div');
+                el.className = 'city_marker';
 
-                    new mapboxgl.Marker(el)
-                        .setLngLat(feature.geometry.coordinates)
-                        // .setPopup(
-                        //     new mapboxgl.Popup({ className: 'popup', offset: 25 })
-                        //         .setHTML(
-                        //             `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-                        //         )
-                        // )
-                        .addTo(map);
+                new mapboxgl.Marker(el)
+                    .setLngLat(feature.geometry.coordinates)
+                    .setPopup(
+                        new mapboxgl.Popup({ className: 'popup', offset: 25 })
+                            .setHTML(
+                                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+                            )
+                    )
+                    .addTo(map);
+
+                if (popList.some(pop => pop.city === feature.properties.title)) {
+                    const popEl = document.querySelector(`.pop_marker[data-city="${feature.properties.title}"]`);
+                    if (popEl) handleMarkerHover(el, popEl);
                 }
             }
+        }
 
         if (!mapboxgl.supported()) {
             alert('Your browser does not support Mapbox GL');
@@ -244,11 +265,9 @@
             });
 
             map.on('load', async () => {
-                loadCity(map);
                 loadPoP(map);
             });
         }
-
     </script>
 </body>
 </html>
