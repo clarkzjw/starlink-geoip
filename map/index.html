@@ -282,6 +282,46 @@
                             cityPoPUp
                         )
                         .addTo(map);
+
+                    // add event listener for cityEl, show a line when clicked
+                    cityEl.addEventListener('click', () => {
+                        let conn = [];
+                        for (const cityPoPLocation of cityPoPLocations) {
+                            const lineFeature = {
+                                'type': 'Feature',
+                                'properties': {
+                                    'title': 'City PoP Connection'
+                                },
+                                'geometry': {
+                                    'type': 'LineString',
+                                    'coordinates': [
+                                        feature.geometry.coordinates,
+                                        cityPoPLocation
+                                    ]
+                                }
+                            };
+                            conn.push(lineFeature);
+                        }
+                        map.addSource('line', {
+                            'type': 'geojson',
+                            'data': {
+                                'type': 'FeatureCollection',
+                                'features': conn,
+                            }
+                        });
+                        map.addLayer({
+                            'id': 'line',
+                            'type': 'line',
+                            'source': 'line',
+                            'layout': {
+                                'line-cap': 'round',
+                            },
+                            'paint': {
+                                'line-color': '#F06317',
+                                'line-width': 2
+                            }
+                        });
+                    });
                 }
             }
         }
