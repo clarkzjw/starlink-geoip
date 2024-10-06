@@ -8,9 +8,12 @@ import requests
 import geocoder
 import pycountry
 from pprint import pprint
+from pathlib import Path
 
 
 GEOIP_JSON_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-latest.json"
+DATA_DIR = os.getenv("DATA_DIR", "../starlink-geoip-data")
+GEOIP_FEED_DIR = Path(DATA_DIR).joinpath("map")
 
 
 def get_geoip_json() -> dict:
