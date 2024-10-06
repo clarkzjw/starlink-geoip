@@ -129,8 +129,8 @@
         .city_marker {
             background-image: url('./assets/dish.png');
             background-size: cover;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             cursor: pointer;
         }
@@ -163,10 +163,10 @@
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xhcmt6anciLCJhIjoiY2xyMngxMW44MTdkMzJ0bzlpOW1kMXNkbSJ9.vCe0J6NDTrmxEkxaYVYI8g';
 
-        async function getPoP(updateSource) {
+        async function getJson(url, updateSource) {
             try {
                 const response = await fetch(
-                    './data/pop.json',
+                    url,
                     { method: 'GET' }
                 );
                 return response.json();
@@ -177,7 +177,7 @@
         }
 
         async function loadPoP(map) {
-            const popList = await getPoP();
+            const popList = await getJson('./data/pop.json');
 
             for (const pop of popList) {
                 if (pop.show === false) continue;
@@ -209,6 +209,30 @@
             }
         }
 
+        async function loadCity(map) {
+                const cityList = await getJson('./data/city.json');
+
+                map.addSource('city', {
+                    type: 'geojson',
+                    data: cityList
+                });
+
+                for (const feature of cityList.features) {
+                    const el = document.createElement('div');
+                    el.className = 'city_marker';
+
+                    new mapboxgl.Marker(el)
+                        .setLngLat(feature.geometry.coordinates)
+                        // .setPopup(
+                        //     new mapboxgl.Popup({ className: 'popup', offset: 25 })
+                        //         .setHTML(
+                        //             `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+                        //         )
+                        // )
+                        .addTo(map);
+                }
+            }
+
         if (!mapboxgl.supported()) {
             alert('Your browser does not support Mapbox GL');
         } else {
@@ -220,6 +244,7 @@
             });
 
             map.on('load', async () => {
+                loadCity(map);
                 loadPoP(map);
             });
         }
