@@ -268,8 +268,6 @@
                 });
             });
 
-
-
             $("#ip-info").click(async function () {
                 var footer = '<h3>Disclaimer</h3><li>This website does not record or store your IP addresses.</li> <li>To determine your IP addresses, a request is sent to Cloudflare.</li> <li>The following information is based on <a href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">Cloudflare trace</a> and <a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">Starlink GeoIP database</a></li><li>Some browser extensions or strict privacy settings might block Cross-Origin requests.</li><br>';
                 $("#popupContent").html('Click the following button to get your IP address and the associated Starlink PoP location.' + footer + '<button id="getIP">Get IP</button>\t<button id="closePopup">Close</button>');
@@ -419,6 +417,12 @@
                 }
                 if (pop.code === "jtnaidn1" || pop.code === "jtnaidn2") {
                     feature.properties.description = "customer.jtnaidn1.pop.starlinkisp.net.<br>customer.jtnaidn2.pop.starlinkisp.net."
+                }
+                if (pop.code === "dtcrakx1") {
+                    feature.properties.description = "This is confirmed to be a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>. <br>" + feature.properties.description
+                }
+                if (pop.code === "pthpakx" || pop.code === "iqltcan1") {
+                    feature.properties.description = "Not confirmed, this is probably a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>. <br>" + feature.properties.description
                 }
 
                 new mapboxgl.Marker(popEl)
