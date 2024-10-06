@@ -168,18 +168,6 @@
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xhcmt6anciLCJhIjoiY2xyMngxMW44MTdkMzJ0bzlpOW1kMXNkbSJ9.vCe0J6NDTrmxEkxaYVYI8g';
 
-        function handleMarkerHover(el, el2) {
-                el.addEventListener('mouseenter', () => {
-                    el.style.transform = 'translate(-10px, -10px)';
-                    el2.style.transform = 'translate(10px, 10px)';
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    el.style.transform = 'translate(0px, 0px)';
-                    el2.style.transform = 'translate(0px, 0px)';
-                });
-        }
-
         async function getJson(url, updateSource) {
             try {
                 const response = await fetch(
@@ -227,7 +215,6 @@
             }
 
             const cityList = await getJson('./data/city.json');
-
             map.addSource('city', {
                 type: 'geojson',
                 data: cityList
@@ -237,7 +224,7 @@
                 const el = document.createElement('div');
                 el.className = 'city_marker';
 
-                new mapboxgl.Marker(el)
+                const cityMarker = new mapboxgl.Marker(el)
                     .setLngLat(feature.geometry.coordinates)
                     .setPopup(
                         new mapboxgl.Popup({ className: 'popup', offset: 25 })
@@ -249,7 +236,16 @@
 
                 if (popList.some(pop => pop.city === feature.properties.title)) {
                     const popEl = document.querySelector(`.pop_marker[data-city="${feature.properties.title}"]`);
-                    if (popEl) handleMarkerHover(el, popEl);
+                    if (popEl) {
+                        const moveDistance = 0.1;
+                        const cityOrginalPosition = feature.geometry.coordinates;
+
+                        const cityNewLocation = [cityOrginalPosition[0] - moveDistance, cityOrginalPosition[1] - moveDistance];
+                        const popNewLocation = [cityOrginalPosition[0] + moveDistance, cityOrginalPosition[1] + moveDistance];
+
+                        new mapboxgl.Marker(popEl).setLngLat(popNewLocation).addTo(map);
+                        new mapboxgl.Marker(el).setLngLat(cityNewLocation).addTo(map);
+                    }
                 }
             }
         }
