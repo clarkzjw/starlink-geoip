@@ -241,13 +241,14 @@
                 for (const pop of popList) {
                     popListStr += "<br><br>DNS: <code>" + pop.dns + "</code><br>City: " + pop.city + "<br>Country: " + pop.country;
                 }
-                var cityMsg = '<h3>Legend</h3>The "dish" icon on the map indicates the GeoIP location of Starlink subnets, as defined in ' +
+                var introMsg = '<h3>Legend</h3>The "dish" icon on the map indicates the GeoIP location of Starlink subnets, as defined in ' +
                     '<a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">https://geoip.starlinkisp.net</a>.<br>' +
                     'It does not necessarily mean there are active users in this region nor does it represent a ground station.<br>' +
                     'This map only represents the planned naming and addressing of Starlink ISP.<br><br>' +
                     'When the "dish" icon is clicked, one or multiple orange-colored link(s) will be shown on the map, indicates users assigned with IP addresses from subnets at this location are probably associated with the corresponding Starlink PoP.<br>' +
-                    'There is no guarantee that this is 100% accurate, as this is only determinted by the output of <code>nslookup ip</code>.<br>' +
                     '<h3>Note</h3>This website is automatically generated using Starlink GeoIP database and it might contain potential error prone links as planned naming and addressing might not reflect actual deployment.<br><br>' +
+                    'There is no guarantee that this is 100% accurate, as this is only determinted by the output of <code>nslookup ip</code>.<br><br>' +
+                    'The concept of "city" in Starlink\'s GeoIP planning does not necessarily correspond to an actual single city.<br>For example, a Starlink dish within the Arctic circle has the public IPv4 address 170.203.201.xx, which is associated with the Seattle PoP, listed under 170.203.201.0/24,CA,CA-BC,Vancouver in the GeoIP feed.' +
                     '<h3>Disclaimer</h3>No accuracy, service quality, availability, or other related information is implied or guaranteed.<br>' +
                     'All data on this site is provided as a best-effort, not peer-reviewed or quality controlled.<br>' +
                     'This site is not affiliated with SpaceX or Starlink by any means.<br><br>' +
@@ -257,11 +258,11 @@
                     '<button id="closePopup">Close</button>';
                 var popMsg = '<h3>Known Starlink PoPs</h3>Based on <a href=\"https://geoip.starlinkisp.net/feed.csv\" target=\"_blank\">https://geoip.starlinkisp.net</a> and <code>nslookup</code>.<br>There is no guarantee that this is 100% accurate to reflect the actual deployment.' + popListStr + '<br><br>' + '<br><br><button id="closePopup">Close</button>';
 
-                $("#popupContent").html(cityMsg);
+                $("#popupContent").html(introMsg);
                 $("#popupModal").show();
 
                 $("#city-legend, #pop-legend").click(function () {
-                    var message = (this.id === "city-legend") ? cityMsg : popMsg;
+                    var message = (this.id === "city-legend") ? introMsg : popMsg;
                     $("#popupContent").html(message);
                     $("#popupModal").show();
                 });
@@ -409,6 +410,16 @@
                 const popEl = document.createElement('div');
                 popEl.className = 'pop_marker';
                 popEl.setAttribute('data-city', pop.city);
+
+                if (pop.code === 'sttlwax1' || pop.code === 'sttlwax9') {
+                    feature.properties.description = "customer.sttlwax1.pop.starlinkisp.net.<br>customer.sttlwax9.pop.starlinkisp.net."
+                }
+                if (pop.code === "rdmdwax3" || pop.code === "rdmdwax3rk3") {
+                    feature.properties.description = "customer.rdmdwax3.pop.starlinkisp.net.<br>customer.rdmdwax3rk3.pop.starlinkisp.net."
+                }
+                if (pop.code === "jtnaidn1" || pop.code === "jtnaidn2") {
+                    feature.properties.description = "customer.jtnaidn1.pop.starlinkisp.net.<br>customer.jtnaidn2.pop.starlinkisp.net."
+                }
 
                 new mapboxgl.Marker(popEl)
                     .setLngLat(feature.geometry.coordinates)
