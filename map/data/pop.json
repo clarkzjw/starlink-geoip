@@ -421,5 +421,14 @@
         "lat": 33.4255104,
         "lon": -111.9400054,
         "show": true
+    },
+    {
+        "code": "kentwax1",
+        "dns": "customer.kentwax1.pop.starlinkisp.net.",
+        "city": "Kent",
+        "country": "USA",
+        "lat": 47.3854669,
+        "lon": -122.2346573,
+        "show": true
     }
 ]
