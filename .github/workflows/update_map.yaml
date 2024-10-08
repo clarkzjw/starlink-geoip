@@ -2,7 +2,7 @@ name: Update GEOIP Map
 
 on:
   schedule:
-      - cron: "0 0 * * *"
+      - cron: "15 * * * *"
   push:
     branches:
       - master
