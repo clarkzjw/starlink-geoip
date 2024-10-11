@@ -261,8 +261,8 @@
                     'The related code and data for this website is available at <br><a href="https://github.com/clarkzjw/starlink-geoip" target="_blank">https://github.com/clarkzjw/starlink-geoip</a><br><a href="https://github.com/clarkzjw/starlink-geoip-data" target="_blank">https://github.com/clarkzjw/starlink-geoip-data</a><br><br>' +
                     'See also <a href="https://www.google.com/maps/d/u/0/viewer?mid=1805q6rlePY4WZd8QMOaNe2BqAgFkYBY&ll=35.87196263258574%2C29.77614822666377&z=3" target="_blank">Unofficial Starlink Global Gateways & PoPs</a><br><br>' +
                     '(Click the dish icon at the bottom right to show this message again)<br><br>' +
-                    '<button id="closePopup">Close</button>';
-                var popMsg = '<h3>Known Starlink PoPs</h3>Based on <a href=\"https://geoip.starlinkisp.net/feed.csv\" target=\"_blank\">https://geoip.starlinkisp.net</a> and <code>nslookup</code>.<br>There is no guarantee that this is 100% accurate to reflect the actual deployment.' + popListStr + '<br><br>' + '<br><br><button id="closePopup">Close</button>';
+                    '<button id="closePopup">Close</button><br><br><br>';
+                var popMsg = '<h3>Known Starlink PoPs</h3>Based on <a href=\"https://geoip.starlinkisp.net/feed.csv\" target=\"_blank\">https://geoip.starlinkisp.net</a> and <code>nslookup</code>.<br>There is no guarantee that this is 100% accurate to reflect the actual deployment.' + popListStr + '<br><br>' + '<button id="closePopup">Close</button><br><br><br>';
 
                 $("#popupContent").html(introMsg);
                 $("#popupModal").show();
@@ -276,7 +276,7 @@
 
             $("#ip-info").click(async function () {
                 var footer = '<h3>Disclaimer</h3><li>This website does not record or store your IP addresses.</li> <li>To determine your IP addresses, a request is sent to Cloudflare.</li> <li>The following information is based on <a href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">Cloudflare trace</a> and <a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">Starlink GeoIP database</a></li><li>Some browser extensions or strict privacy settings might block Cross-Origin requests.</li><br>';
-                $("#popupContent").html('Click the following button to get your IP address and the associated Starlink PoP location.' + footer + '<button id="getIP">Get IP</button>\t<button id="closePopup">Close</button>');
+                $("#popupContent").html('Click the following button to get your IP address and the associated Starlink PoP location.' + footer + '<button id="getIP">Get IP</button>\t<button id="closePopup">Close</button><br><br><br>');
                 $("#popupModal").show();
             });
 
