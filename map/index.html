@@ -427,8 +427,11 @@
                 if (pop.code === "dtcrakx1") {
                     feature.properties.description = "This is confirmed to be a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>. <br>" + feature.properties.description
                 }
-                if (pop.code === "pthpakx" || pop.code === "iqltcan1") {
+                if (pop.code === "pthpakx") {
                     feature.properties.description = "Not confirmed, this is probably a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>. <br>" + feature.properties.description
+                }
+                if (pop.code === "iqltcan1") {
+                    feature.properties.description = "This seems to be a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>, see <a href='https://x.com/FrankReardon1/status/1755786452439310664' target='_blank'>https://x.com/FrankReardon1/status/1755786452439310664</a> <br>" + feature.properties.description
                 }
 
                 new mapboxgl.Marker(popEl)
