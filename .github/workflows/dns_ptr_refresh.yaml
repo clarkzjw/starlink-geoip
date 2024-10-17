@@ -2,7 +2,7 @@ name: GeoIP Refresh Force PTR
 
 on:
   schedule:
-      - cron: "30 */6 * * *"
+      - cron: "15 */3 * * *"
 
 jobs:
   build:
