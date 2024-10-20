@@ -47,7 +47,11 @@ def get_pop_list(geoipJson: dict):
         f.truncate()
 
 def convert_country_code(two_letter_code: str) -> str:
-    return pycountry.countries.get(alpha_2=two_letter_code).name
+    country = pycountry.countries.get(alpha_2=two_letter_code)
+    if country is not None:
+        return country.name
+    print("Country code {} not found".format(two_letter_code))
+    return two_letter_code
 
 
 def get_city_list(geoipJson: dict):
