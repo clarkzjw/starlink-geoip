@@ -430,5 +430,23 @@
         "lat": 47.3854669,
         "lon": -122.2346573,
         "show": true
+    },
+    {
+        "code": "nrbiken1",
+        "dns": "customer.nrbiken1.pop.starlinkisp.net.",
+        "city": "Nairobi",
+        "country": "Kenya",
+        "lat": -1.2895537,
+        "lon": 36.8030332,
+        "show": true
+    },
+    {
+        "code": "wrswpol1",
+        "dns": "customer.wrswpol1.pop.starlinkisp.net.",
+        "city": "Warsaw",
+        "country": "Poland",
+        "lat": 52.244593,
+        "lon": 20.993393,
+        "show": true
     }
 ]
