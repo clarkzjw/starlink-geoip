@@ -45,6 +45,6 @@ jobs:
           BRANCH: master
           FOLDER: starlink-geoip-data
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          MESSAGE: "Atlas probe list updated"
+          MESSAGE: "GitHub Action Update - RIPE Atlas Probe List for Starlink"
           SKIP_EMPTY_COMMITS: true
           CLEAR_GLOBS_FILE: ".clear-target-files"

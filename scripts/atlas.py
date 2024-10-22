@@ -82,13 +82,6 @@ if __name__ == '__main__':
     with open(Path(DATA_DIR).joinpath("atlas/probes.json"), "w") as f:
         json.dump(probe_list, f, indent=4)
 
-    with open(Path(DATA_DIR).joinpath("atlas/probes-{}.json".format(date)), "w") as f:
-        json.dump(probe_list, f, indent=4)
-
     with open(Path(DATA_DIR).joinpath("atlas/active_probes.csv"), "w") as f:
-        for key, value in active_probe.items():
-            f.write(f"{key},{value}\n")
-
-    with open(Path(DATA_DIR).joinpath("atlas/active_probes-{}.csv".format(date)), 'w') as f:
         for key, value in active_probe.items():
             f.write(f"{key},{value}\n")

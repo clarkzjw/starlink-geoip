@@ -42,6 +42,6 @@ jobs:
           BRANCH: master
           FOLDER: starlink-geoip-data
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          MESSAGE: "Monthly latency snapshot updated"
+          MESSAGE: "GitHub Action Update - Monthly Starlink Latency Snapshot"
           SKIP_EMPTY_COMMITS: true
           CLEAR_GLOBS_FILE: ".clear-target-files"

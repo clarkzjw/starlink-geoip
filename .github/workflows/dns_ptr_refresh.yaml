@@ -42,6 +42,6 @@ jobs:
           BRANCH: master
           FOLDER: starlink-geoip-data
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          MESSAGE: "DNS PTR Updated"
+          MESSAGE: "GitHub Action Update - DNS PTR Records for GeoIP Feed"
           SKIP_EMPTY_COMMITS: true
           CLEAR_GLOBS_FILE: ".clear-target-files"
