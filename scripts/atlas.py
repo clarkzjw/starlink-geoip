@@ -3,14 +3,25 @@ import sys
 import time
 import json
 import httpx
+import datetime
 import subprocess
 
 from pprint import pprint
 from pathlib import Path
 
+
+
 ASN = [14593, 45700]
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
+
+
+def get_date() -> str:
+    now = datetime.datetime.now(tz=datetime.timezone.utc)
+    return now.strftime("%Y%m%d-%H%M")
+
+
+date = get_date()
 
 
 def new_client():
@@ -71,6 +82,13 @@ if __name__ == '__main__':
     with open(Path(DATA_DIR).joinpath("atlas/probes.json"), "w") as f:
         json.dump(probe_list, f, indent=4)
 
+    with open(Path(DATA_DIR).joinpath("atlas/probes-{}.json".format(date)), "w") as f:
+        json.dump(probe_list, f, indent=4)
+
     with open(Path(DATA_DIR).joinpath("atlas/active_probes.csv"), "w") as f:
+        for key, value in active_probe.items():
+            f.write(f"{key},{value}\n")
+
+    with open(Path(DATA_DIR).joinpath("atlas/active_probes-{}.csv".format(date)), 'w') as f:
         for key, value in active_probe.items():
             f.write(f"{key},{value}\n")

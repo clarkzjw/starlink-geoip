@@ -46,6 +46,6 @@ jobs:
           BRANCH: master
           FOLDER: starlink-geoip-data
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          MESSAGE: "Map Updated"
+          MESSAGE: "GEOIP map updated"
           SKIP_EMPTY_COMMITS: true
           CLEAR_GLOBS_FILE: ".clear-target-files"
