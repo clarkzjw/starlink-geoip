@@ -65,6 +65,9 @@ if __name__ == '__main__':
     for probe_id in get_probes_list():
         print(f"Getting info for probe {probe_id}")
         probe_info = get_probe_info(probe_id)
+        # remove last_connected and total_uptime
+        probe_info.pop('last_connected', None)
+        probe_info.pop('total_uptime', None)
         probe_status = probe_info['status']['name']
         status.append(probe_status)
         probe_list.append(probe_info)
