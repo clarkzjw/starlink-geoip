@@ -2,7 +2,7 @@ name: Monthly latency json refresh
 
 on:
   schedule:
-      - cron: "0 0 2 * *"
+      - cron: "0 0 */7 * *"
 
 jobs:
   build:
