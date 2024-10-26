@@ -144,6 +144,15 @@
             border-radius: 50%;
         }
 
+        .dc_marker {
+            background-image: url('./assets/data-center.png');
+            background-size: cover;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
         .mapboxgl-popup-tip {
             display: none;
         }
@@ -158,8 +167,9 @@
     <div id="legend" class="legend" style="display: block">
         <div><img id="city-legend" style="width: 40px; height: 40px;" src="./assets/dish.png"></img></div>
         <br>
-        <div><img id="pop-legend" style="width: 40px; height: 40px; border-radius: 50%;" src="./assets/pop.png"></img>
-        </div>
+        <div><img id="pop-legend" style="width: 40px; height: 40px; border-radius: 50%;" src="./assets/pop.png"></img></div>
+        <br>
+        <div><img id="netfac-legend" style="width: 40px; height: 40px; border-radius: 50%;" src="./assets/data-center.png"></img></div>
     </div>
 
     <div id="info" class="info" style="display: block">
@@ -245,6 +255,7 @@
 
             getJson(POP_JSON).then(popList => {
                 for (const pop of popList) {
+                    if (pop.dns === "") continue;
                     popListStr += "<br><br>DNS: <code>" + pop.dns + "</code><br>City: " + pop.city + "<br>Country: " + pop.country;
                 }
                 var introMsg = '<h1>Unofficial Starlink GeoIP Map</h1><h3>Legend</h3>The "dish" icon on the map indicates the GeoIP location of Starlink subnets, as defined in ' +
@@ -269,6 +280,14 @@
 
                 $("#city-legend, #pop-legend").click(function () {
                     var message = (this.id === "city-legend") ? introMsg : popMsg;
+                    $("#popupContent").html(message);
+                    $("#popupModal").show();
+                });
+                $("#netfac-legend").click(function () {
+                    var message = 'The orange marker represents the actual Interconnection Facilities (<i>netfac</i>) of Starlink.<br>' +
+                    'The data is colllected from <a href="https://www.peeringdb.com" target="_blank">https://www.peeringdb.com</a>.<br><br>' +
+                    'Usually, a real Starlink "PoP" becomes operational once it is assigned with a PoP code in DNS PTR records <br><b>AND</b> a <i>netfac</i> record is present in PeeringDB.<br><br>' +
+                    '<button id="closePopup">Close</button><br>';
                     $("#popupContent").html(message);
                     $("#popupModal").show();
                 });
@@ -412,7 +431,15 @@
                 };
 
                 const popEl = document.createElement('div');
-                popEl.className = 'pop_marker';
+                if (pop.type === "pop") {
+                    popEl.className = 'pop_marker';
+                } else if (pop.type === "netfac") {
+                    popEl.className = 'dc_marker';
+                } else if (pop.type === "community_gateway") {
+                    popEl.className = 'pop_marker';
+                } else {
+                    popEl.className = 'pop_marker';
+                }
                 popEl.setAttribute('data-city', pop.city);
 
                 if (pop.code === 'sttlwax1' || pop.code === 'sttlwax9') {
@@ -424,16 +451,8 @@
                 if (pop.code === "jtnaidn1" || pop.code === "jtnaidn2") {
                     feature.properties.description = "customer.jtnaidn1.pop.starlinkisp.net.<br>customer.jtnaidn2.pop.starlinkisp.net."
                 }
-                if (pop.code === "dtcrakx1") {
-                    feature.properties.description = "This is confirmed to be a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>. <br>" + feature.properties.description
-                }
-                if (pop.code === "pthpakx") {
-                    feature.properties.description = "Not confirmed, this is probably a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>. <br>" + feature.properties.description
-                }
-                if (pop.code === "iqltcan1") {
-                    feature.properties.description = "This seems to be a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>, see <a href='https://x.com/FrankReardon1/status/1755786452439310664' target='_blank'>https://x.com/FrankReardon1/status/1755786452439310664</a> <br>" + feature.properties.description
-                }
 
+                let popHtml = `<h3>${feature.properties.title}</h3>` + pop.note + `<p>${feature.properties.description}</p>`;
                 new mapboxgl.Marker(popEl)
                     .setLngLat(feature.geometry.coordinates)
                     .setPopup(
@@ -443,10 +462,7 @@
                             closeOnClick: true,
                             closeOnMove: true,
                             offset: 25
-                        })
-                            .setHTML(
-                                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-                            )
+                        }).setHTML(popHtml)
                     )
                     .addTo(map);
             }
@@ -484,7 +500,6 @@
                     }
                 }
                 cityPoPList = [...new Set(cityPoPList)];
-                // console.log('Connected PoP for ' + feature.properties.title + ': ' + cityPoPList);
 
                 // get PoP coordinates from PoPList
                 let cityPoPLocations = [];
@@ -493,10 +508,9 @@
                         cityPoPLocations.push([pop.lon, pop.lat]);
                     }
                 }
-                // console.log('PoP locations for ' + feature.properties.title + ': ' + cityPoPLocations);
 
                 if (popList.some(pop => pop.city === feature.properties.title)) {
-                    const popEl = document.querySelector(`.pop_marker[data-city="${feature.properties.title}"]`);
+                    const popEl = document.querySelector(`.pop_marker[data-city="${feature.properties.title}"], .dc_marker[data-city="${feature.properties.title}"]`);
                     if (popEl) {
                         const moveDistance = 0.01;
                         const cityOrginalPosition = feature.geometry.coordinates;

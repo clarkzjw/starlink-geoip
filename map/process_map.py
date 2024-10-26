@@ -4,6 +4,7 @@ import sys
 import csv
 import time
 import json
+import httpx
 import requests
 import geocoder
 import pycountry
@@ -12,6 +13,8 @@ from pathlib import Path
 
 
 GEOIP_JSON_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-latest.json"
+NETFAC_JSON_TEMPLATE_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/peeringdb/net-{}.json"
+PEERINGDB_NET_ID = [18747, 36005]
 DATA_DIR = os.getenv("DATA_DIR", "../starlink-geoip-data")
 GEOIP_MAP_DIR = Path(DATA_DIR).joinpath("map")
 
@@ -54,6 +57,55 @@ def convert_country_code(two_letter_code: str) -> str:
     return two_letter_code
 
 
+def get_netfac_list():
+    token = os.getenv("GEOCODER_TOKEN", "")
+    if len(token) == 0:
+        print("Please set GEOCODER_TOKEN in environment variable")
+        sys.exit(1)
+
+    netfac_geojson = {
+        "type": "FeatureCollection",
+        "features": []
+    }
+
+    netfac_ids = []
+    peeringdb_client = httpx.Client(base_url='https://www.peeringdb.com/')
+    for netid in PEERINGDB_NET_ID:
+        netfac_json = requests.get(NETFAC_JSON_TEMPLATE_URL.format(netid))
+        netfac_json = json.loads(netfac_json.content)
+        netfac_json = netfac_json["data"][0]["netfac_set"]
+        for netfac in netfac_json:
+            time.sleep(10)
+            netfac_ids.append(netfac["id"])
+            response = peeringdb_client.get(f'api/netfac/{netfac["id"]}')
+            netfac_detail = response.json()
+            name = netfac_detail["data"][0]["name"]
+            address = ""
+            fac_id = netfac_detail["data"][0]["fac_id"]
+            lat, lon = netfac_detail["data"][0]["fac"]["latitude"], netfac_detail["data"][0]["fac"]["longitude"]
+
+            if lat is None or lon is None:
+                address += ",".join([netfac_detail["data"][0]["fac"]["address1"], netfac_detail["data"][0]["fac"]["city"], netfac_detail["data"][0]["fac"]["country"]])
+                g = geocoder.google(address, key=token)
+                lat, lon = g.json["lat"], g.json["lng"]
+
+            netfac_geojson["features"].append({
+                "type": "Feature",
+                "geometry": {
+                        "type": "Point",
+                        "coordinates": [float(lon), float(lat)]
+                    },
+                "properties": {
+                    "title": name,
+                    "name": name,
+                    "description": "https://www.peeringdb.com/fac/{}".format(fac_id),
+                }
+            })
+
+    peeringdb_client.close()
+    json.dump(netfac_geojson, open(Path(GEOIP_MAP_DIR).joinpath("netfac.json"), "w"), indent=4)
+
+
 def get_city_list(geoipJson: dict):
     token = os.getenv("GEOCODER_TOKEN", "")
     if len(token) == 0:
@@ -86,8 +138,8 @@ def get_city_list(geoipJson: dict):
                 city_json["features"].append({
                     "type": "Feature",
                     "geometry": {
-                    "type": "Point",
-                    "coordinates": [float(source_gps["lng"]), float(source_gps["lat"])]
+                            "type": "Point",
+                            "coordinates": [float(source_gps["lng"]), float(source_gps["lat"])]
                         },
                     "properties": {
                         "title": city,
@@ -105,3 +157,4 @@ if __name__ == "__main__":
 
     get_pop_list(geoipJson)
     get_city_list(geoipJson)
+    get_netfac_list()
