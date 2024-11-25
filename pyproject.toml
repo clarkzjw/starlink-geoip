@@ -15,6 +15,7 @@ httpx = "^0.27.0"
 schedule = "^1.2.2"
 jsondiff = "^2.2.1"
 pycountry = "^24.6.1"
+pandas = "^2.2.3"
 
 
 [build-system]
