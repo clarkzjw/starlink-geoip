@@ -16,6 +16,8 @@ from collections import defaultdict
 
 
 GEOIP_FEED = "https://geoip.starlinkisp.net/feed.csv"
+BGP_FEED = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/bgp/starlink-bgp.csv"
+
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
 GEOIP_FEED_DIR = Path(DATA_DIR).joinpath("feed")
 GEOIP_DATA_DIR = Path(DATA_DIR).joinpath("geoip")
@@ -39,6 +41,27 @@ def get_feed() -> str:
     with httpx.Client() as client:
         file = client.get(GEOIP_FEED)
         return file.content.decode("utf-8")
+
+
+def get_bgp_feed() -> str:
+    with httpx.Client() as client:
+        file = client.get(BGP_FEED)
+        return file.content.decode("utf-8")
+
+
+def get_bgp_list() -> list:
+    bgp_list = []
+    bgp_feed = get_bgp_feed()
+    for line in bgp_feed.splitlines()[1:]:
+        bgp_list.append(line.split(",")[0])
+    return bgp_list
+
+
+def subnet_in_bgp(subnet: str, bgp_list: list) -> bool:
+    for bgp_subnet in bgp_list:
+        if ipaddress.ip_network(subnet).overlaps(ipaddress.ip_network(bgp_subnet)):
+            return True
+    return False
 
 
 def save_feed(feed: str):
@@ -101,8 +124,11 @@ def process_geoip():
     valid = {}
     nxdomain_list = []
     servfail_list = []
+    bgp_not_active_list = []
     geoip_json = {}
     pop_subnet_count = defaultdict(int)
+
+    bgp_list = get_bgp_list()
 
     for line in last_feed.splitlines():
         if line:
@@ -121,6 +147,9 @@ def process_geoip():
                 except:
                     print("Invalid subnet: {}".format(subnet))
                     continue
+
+            if not subnet_in_bgp(subnet, bgp_list):
+                bgp_not_active_list.append(line)
 
             for ip in subnet_ips:
                 ip = str(ip)
@@ -161,7 +190,8 @@ def process_geoip():
         "valid": valid,
         "nxdomain": nxdomain_list,
         "servfail": servfail_list,
-        "pop_subnet_count": sorted(pop_subnet_count.items())
+        "pop_subnet_count": sorted(pop_subnet_count.items()),
+        "bgp_not_active": bgp_not_active_list
     }
 
     should_update = True
