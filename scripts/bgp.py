@@ -39,24 +39,22 @@ def get_bgp_list():
     count = 0
     total = len(jsonObj)
 
-    list = []
-    for line in jsonObj.iterrows():
-        ASN = line[1]['ASN']
-        count += 1
-        if count % 10000 == 0:
-            print(f"Iterating {count} BGP entries, {count/total:.2%} done")
-
-        if ASN in STARLINK_ASN:
-            CIDR = line[1]['CIDR']
-            HITS = line[1]['Hits']
-            list.append(f"{CIDR}, {ASN}, {HITS}\n")
-
     with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp.csv"), "w") as f1:
         with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp-{}.csv".format(date)), "w") as f2:
-            f1.write("CIDR,ASN,Hits\n")
+            f1.write("CIDR,ASN\n")
             f2.write("CIDR,ASN,Hits\n")
-            f1.writelines(list)
-            f2.writelines(list)
+
+            for line in jsonObj.iterrows():
+                ASN = line[1]['ASN']
+                count += 1
+                if count % 10000 == 0:
+                    print(f"Iterating {count} BGP entries, {count/total:.2%} done")
+
+                if ASN in STARLINK_ASN:
+                    CIDR = line[1]['CIDR']
+                    HITS = line[1]['Hits']
+                    f1.write(f"{CIDR}, {ASN}\n")
+                    f2.write(f"{CIDR}, {ASN}, {HITS}\n")
 
 
 if __name__ == '__main__':
