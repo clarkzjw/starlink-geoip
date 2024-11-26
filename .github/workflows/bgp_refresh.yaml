@@ -3,9 +3,6 @@ name: Refresh BGP
 on:
   schedule:
       - cron: "50 */6 * * *"
-  push:
-    branches:
-      - master
 
 jobs:
   build:
