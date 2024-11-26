@@ -4,12 +4,21 @@ import datetime
 
 import pandas as pd
 
+from ipaddress import ip_network
+from dataclasses import dataclass
 from pathlib import Path
 
 
 STARLINK_ASN = [14593, 45700]
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
+
+
+@dataclass
+class Record:
+    CIDR: str
+    ASN: int
+    Hits: int
 
 
 def get_date() -> str:
@@ -39,22 +48,42 @@ def get_bgp_list():
     count = 0
     total = len(jsonObj)
 
+    list = {
+        14593: {"IPv4": [], "IPv6": []},
+        45700: {"IPv4": [], "IPv6": []}
+    }
+
+    for line in jsonObj.iterrows():
+        ASN = line[1]['ASN']
+        count += 1
+        if count % 10000 == 0:
+            print(f"Iterating {count} BGP entries, {count/total:.2%} done")
+
+        if ASN in STARLINK_ASN:
+            CIDR = line[1]['CIDR']
+            HITS = line[1]['Hits']
+            r = Record(CIDR, ASN, HITS)
+            if ip_network(CIDR).version == 4:
+                list[ASN]["IPv4"].append(r)
+            elif ip_network(CIDR).version == 6:
+                list[ASN]["IPv6"].append(r)
+
+    for ASN in STARLINK_ASN:
+        list[ASN]["IPv4"] = sorted(list[ASN]["IPv4"], key=lambda x: x.CIDR)
+        list[ASN]["IPv6"] = sorted(list[ASN]["IPv6"], key=lambda x: x.CIDR)
+
     with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp.csv"), "w") as f1:
         with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp-{}.csv".format(date)), "w") as f2:
             f1.write("CIDR,ASN\n")
             f2.write("CIDR,ASN,Hits\n")
 
-            for line in jsonObj.iterrows():
-                ASN = line[1]['ASN']
-                count += 1
-                if count % 10000 == 0:
-                    print(f"Iterating {count} BGP entries, {count/total:.2%} done")
-
-                if ASN in STARLINK_ASN:
-                    CIDR = line[1]['CIDR']
-                    HITS = line[1]['Hits']
-                    f1.write(f"{CIDR}, {ASN}\n")
-                    f2.write(f"{CIDR}, {ASN}, {HITS}\n")
+            for ASN in STARLINK_ASN:
+                for r in list[ASN]["IPv4"]:
+                    f1.write(f"{r.CIDR},{r.ASN}\n")
+                    f2.write(f"{r.CIDR},{r.ASN},{r.Hits}\n")
+                for r in list[ASN]["IPv6"]:
+                    f1.write(f"{r.CIDR},{r.ASN}\n")
+                    f2.write(f"{r.CIDR},{r.ASN},{r.Hits}\n")
 
 
 if __name__ == '__main__':
