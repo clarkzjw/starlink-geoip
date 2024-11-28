@@ -72,18 +72,14 @@ def get_bgp_list():
         list[ASN]["IPv4"] = sorted(list[ASN]["IPv4"], key=lambda x: x.CIDR)
         list[ASN]["IPv6"] = sorted(list[ASN]["IPv6"], key=lambda x: x.CIDR)
 
-    with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp.csv"), "w") as f1:
-        with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp-{}.csv".format(date)), "w") as f2:
-            f1.write("CIDR,ASN\n")
-            f2.write("CIDR,ASN,Hits\n")
+    with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp.csv"), "w") as f:
+        f.write("CIDR,ASN\n")
 
-            for ASN in STARLINK_ASN:
-                for r in list[ASN]["IPv4"]:
-                    f1.write(f"{r.CIDR},{r.ASN}\n")
-                    f2.write(f"{r.CIDR},{r.ASN},{r.Hits}\n")
-                for r in list[ASN]["IPv6"]:
-                    f1.write(f"{r.CIDR},{r.ASN}\n")
-                    f2.write(f"{r.CIDR},{r.ASN},{r.Hits}\n")
+        for ASN in STARLINK_ASN:
+            for r in list[ASN]["IPv4"]:
+                f.write(f"{r.CIDR},{r.ASN}\n")
+            for r in list[ASN]["IPv6"]:
+                f.write(f"{r.CIDR},{r.ASN}\n")
 
 
 if __name__ == '__main__':
