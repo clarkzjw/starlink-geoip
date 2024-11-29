@@ -2,7 +2,7 @@ name: Refresh BGP
 
 on:
   schedule:
-      - cron: "50 */6 * * *"
+      - cron: "50 */3 * * *"
 
 jobs:
   build:
