@@ -121,6 +121,10 @@ def get_city_list(geoipJson: dict):
     for country in geoipJson:
         for state in geoipJson[country]:
             for city in geoipJson[country][state]:
+                # international waters:
+                # https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#User-assigned_code_elements
+                if country == "XZ":
+                    continue
                 country_full = convert_country_code(country)
                 print("{}, {}, {}".format(country, state, city))
 
