@@ -6,14 +6,21 @@
 # visualize geojson with https://geojson.io/
 
 import os
+import sys
 import json
+import time
 import httpx
 import subprocess
 
 from pathlib import Path
+from pprint import pprint
+
+import geocoder
+from shapely.geometry import Polygon
 
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
+token = os.getenv("GEOCODER_TOKEN", "")
 
 
 def new_client():
@@ -63,10 +70,46 @@ def classify():
         # waitlisted Service date is unknown at this time
         filepath = Path(DATA_DIR).joinpath("availability/{}.geojson".format(status.replace(" ", "_")))
         with open(filepath, "w") as f:
-            f.write(json.dumps({
+            obj = {
                 "type": "FeatureCollection",
                 "features": [feature for feature in status_dict[status]]
-            }, indent=4))
+            }
+            f.write(json.dumps(obj, indent=4))
+
+            csv_filepath = Path(DATA_DIR).joinpath("availability/{}.csv".format(status.replace(" ", "_")))
+            with open(csv_filepath, "w") as csv_f:
+                count = 0
+                for feature in obj["features"]:
+                    for i in feature["geometry"]["coordinates"]:
+                        for j in i:
+                            time.sleep(0.1)
+                            count += 1
+                            print(count)
+
+                            polygon = Polygon(j)
+                            g = geocoder.google("{}, {}".format(polygon.centroid.y, polygon.centroid.x), key=token)
+                            if g.json is None:
+                                for k in j:
+                                    g = geocoder.google("{}, {}".format(k[1], k[0]), key=token)
+                                    if g.json:
+                                        country = g.json["country"]
+                                        lat = k[1]
+                                        lon = k[0]
+                                        break
+                            else:
+                                if "country" not in g.json:
+                                    country = g.json["address"]
+                                else:
+                                    country = g.json["country"]
+                                lat = polygon.centroid.y
+                                lon = polygon.centroid.x
+
+                            if country == "AQ" and count > 1:
+                                continue
+                            else:
+                                line = "{},{},{},{}\n".format(country, lat, lon, "http://maps.google.com/maps?z=12&t=m&q=loc:{}+{}".format(lat, lon))
+                                csv_f.write(line)
+                                print(line)
 
 
 if __name__ == "__main__":

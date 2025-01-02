@@ -16,6 +16,7 @@ schedule = "^1.2.2"
 jsondiff = "^2.2.1"
 pycountry = "^24.6.1"
 pandas = "^2.2.3"
+shapely = "^2.0.6"
 
 
 [build-system]
