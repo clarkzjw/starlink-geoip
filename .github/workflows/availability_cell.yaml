@@ -39,7 +39,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install npm -y && npm install geobuf -g
 
       - name: Refresh Availability Cell Info
-        run: PYTHONUNBUFFERED=1 poetry run python3 scripts/availability.py
+        run: env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 scripts/availability.py
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop
