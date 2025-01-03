@@ -1,6 +1,7 @@
 import os
 import csv
 import sys
+import time
 import json
 import httpx
 import datetime
@@ -152,6 +153,7 @@ def process_geoip():
                 bgp_not_active_list.append(line)
 
             for ip in subnet_ips:
+                time.sleep(0.05)
                 ip = str(ip)
                 cmd = ["nslookup", ip, "1.1.1.1"]
                 try:
