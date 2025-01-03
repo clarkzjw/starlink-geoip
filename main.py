@@ -155,7 +155,7 @@ def process_geoip():
             for ip in subnet_ips:
                 time.sleep(0.05)
                 ip = str(ip)
-                cmd = ["nslookup", ip, "1.1.1.1"]
+                cmd = ["nslookup", "-timeout=1", "-retry=1", ip, "1.1.1.1"]
                 try:
                     output = subprocess.check_output(cmd).decode("utf-8")
                     if "Truncated" in output.splitlines()[0]:
