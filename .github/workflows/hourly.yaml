@@ -1,0 +1,150 @@
+name: Hourly Jobs
+
+on:
+  schedule:
+      - cron: "0 * * * *"
+      - cron: "0 */3 * * *"
+      - cron: "0 */6 * * *"
+
+jobs:
+  bgp:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+    name: Refresh BGP
+    if: github.event.schedule == '0 */3 * * *'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Get latest data
+        run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'poetry'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
+      - name: Refresh BGP
+        run: poetry run python3 scripts/bgp.py
+      - name: Push BGP
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:clarkzjw/starlink-geoip-data.git
+          BRANCH: master
+          FOLDER: starlink-geoip-data
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          MESSAGE: "GitHub Action Update - BGP Announcement for Starlink"
+          SKIP_EMPTY_COMMITS: true
+          CLEAR_GLOBS_FILE: ".clear-target-files"
+
+  geoip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+    name: Refresh GeoIP
+    if: github.event.schedule == '0 * * * *'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Get latest data
+        run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'poetry'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
+      - name: Refresh GeoIP
+        run: poetry run python3 main.py
+      - name: Push GeoIP
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:clarkzjw/starlink-geoip-data.git
+          BRANCH: master
+          FOLDER: starlink-geoip-data
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          MESSAGE: "GitHub Action Update - Starlink GeoIP Feed"
+          SKIP_EMPTY_COMMITS: true
+          CLEAR_GLOBS_FILE: ".clear-target-files"
+
+  dns:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+    name: Refresh DNS PTR
+    if: github.event.schedule == '0 * * * *'
+    needs: [geoip]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Get latest data
+        run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'poetry'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
+      - name: Refresh GeoIP (Force refresh DNS PTR)
+        run: poetry run python3 main.py ptr-refresh
+      - name: Push DNS PTR
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:clarkzjw/starlink-geoip-data.git
+          BRANCH: master
+          FOLDER: starlink-geoip-data
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          MESSAGE: "GitHub Action Update - DNS PTR Records for GeoIP Feed"
+          SKIP_EMPTY_COMMITS: true
+          CLEAR_GLOBS_FILE: ".clear-target-files"
+
+  map:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+    name: Refresh Map
+    if: github.event.schedule == '0 */6 * * *'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Get latest data
+        run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'poetry'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
+      - name: Refresh GeoIP Map
+        working-directory: ./map
+        run: cp ./data/*.json ../starlink-geoip-data/map/ && env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 process_map.py
+      - name: Push GeoIP Map
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:clarkzjw/starlink-geoip-data.git
+          BRANCH: master
+          FOLDER: starlink-geoip-data
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          MESSAGE: "GitHub Action Update - Map"
+          SKIP_EMPTY_COMMITS: true
+          CLEAR_GLOBS_FILE: ".clear-target-files"
