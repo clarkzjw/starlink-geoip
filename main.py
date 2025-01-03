@@ -174,13 +174,13 @@ def process_geoip():
                     if "NXDOMAIN" in e.output.decode("utf-8"):
                         print(e.output)
                         NXDOMAIN += 1
-                        if NXDOMAIN > 10:
+                        if NXDOMAIN > 5:
                             nxdomain_list.append(line)
                             break
                     elif "SERVFAIL" in e.output.decode("utf-8"):
                         print(e.output)
                         SERVFAIL +=1
-                        if SERVFAIL > 10:
+                        if SERVFAIL > 5:
                             servfail_list.append(line)
                             break
                 except:
