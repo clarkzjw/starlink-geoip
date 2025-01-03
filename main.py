@@ -133,6 +133,7 @@ def process_geoip():
 
     for line in last_feed.splitlines():
         if line:
+            print("Processing line: {}".format(line))
             NXDOMAIN = 0
             SERVFAIL = 0
             num += 1
@@ -155,9 +156,11 @@ def process_geoip():
             for ip in subnet_ips:
                 time.sleep(0.05)
                 ip = str(ip)
-                cmd = ["nslookup", "-timeout=1", "-retry=1", ip, "1.1.1.1"]
+                print("Processing IP: {}".format(ip))
+                cmd = ["nslookup", "-timeout=1", "-retry=1", ip, "8.8.8.8"]
+                print(cmd)
                 try:
-                    output = subprocess.check_output(cmd).decode("utf-8")
+                    output = subprocess.check_output(cmd, timeout=3).decode("utf-8")
                     if "Truncated" in output.splitlines()[0]:
                         domain = output.splitlines()[1].split('=')[1].strip()
                     else:
