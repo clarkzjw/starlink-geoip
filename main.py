@@ -67,11 +67,11 @@ def subnet_in_bgp(subnet: str, bgp_list: list) -> bool:
 
 def save_feed(feed: str):
     filename = GEOIP_FEED_DIR.joinpath("feed-{}.csv".format(date))
-    with open(filename, 'w') as f:
+    with open(filename, "w") as f:
         f.write(feed)
-    with open(GEOIP_FEED_DIR.joinpath("feed-latest.csv"), 'w') as f:
+    with open(GEOIP_FEED_DIR.joinpath("feed-latest.csv"), "w") as f:
         f.write(feed)
-    with open(GEOIP_FEED_DIR.joinpath("latest"), 'w') as f:
+    with open(GEOIP_FEED_DIR.joinpath("latest"), "w") as f:
         f.write(str(filename))
 
 
@@ -111,9 +111,9 @@ def get_last_feed() -> tuple:
         save_feed(get_feed())
         return get_last_feed()
 
-    with open(GEOIP_FEED_DIR.joinpath("latest"), 'r') as f:
+    with open(GEOIP_FEED_DIR.joinpath("latest"), "r") as f:
         last_feedname = f.read().strip("\n")
-        with open(last_feedname, 'r') as f:
+        with open(last_feedname, "r") as f:
             last_feed = f.read()
             return last_feedname, last_feed
 
@@ -137,10 +137,10 @@ def process_geoip():
             NXDOMAIN = 0
             SERVFAIL = 0
             num += 1
-            subnet = line.split(',')[0]
-            country_code = line.split(',')[1]
-            state_code = line.split(',')[2]
-            city = line.split(',')[3]
+            subnet = line.split(",")[0]
+            country_code = line.split(",")[1]
+            state_code = line.split(",")[2]
+            city = line.split(",")[3]
             try:
                 subnet_ips = ipaddress.IPv6Network(subnet).hosts()
             except ipaddress.AddressValueError:
@@ -162,17 +162,28 @@ def process_geoip():
                 try:
                     output = subprocess.check_output(cmd, timeout=3).decode("utf-8")
                     if "Truncated" in output.splitlines()[0]:
-                        domain = output.splitlines()[1].split('=')[1].strip()
+                        domain = output.splitlines()[1].split("=")[1].strip()
                     else:
-                        domain = output.splitlines()[0].split('=')[1].strip()
+                        domain = output.splitlines()[0].split("=")[1].strip()
                     print(num, ip, domain)
+                    # TODO:
+                    # Temporary fix for not updating new IPs such as 216.234.196.0/24 from as7850.net
+                    # https://github.com/clarkzjw/starlink-geoip-data/commit/0c47b3fa395c5bda1c4c280da0bef5afbaf2b885
+                    if (
+                        ".as7850.net." in domain
+                        or ".abq.ixnm.net." in domain
+                        or ".citylinkfiber.net." in domain
+                    ):
+                        continue
                     if country_code not in valid.keys():
                         valid[country_code] = {}
                     if state_code not in valid[country_code].keys():
                         valid[country_code][state_code] = {}
                     if city not in valid[country_code][state_code].keys():
                         valid[country_code][state_code][city] = {"ips": []}
-                    valid[country_code][state_code][city]["ips"].append((subnet, domain))
+                    valid[country_code][state_code][city]["ips"].append(
+                        (subnet, domain)
+                    )
                     pop_subnet_count[domain] += 1
                     break
                 except subprocess.CalledProcessError as e:
@@ -184,7 +195,7 @@ def process_geoip():
                             break
                     elif "SERVFAIL" in e.output.decode("utf-8"):
                         print(e.output)
-                        SERVFAIL +=1
+                        SERVFAIL += 1
                         if SERVFAIL > 5:
                             servfail_list.append(line)
                             break
@@ -196,20 +207,20 @@ def process_geoip():
         "nxdomain": nxdomain_list,
         "servfail": servfail_list,
         "pop_subnet_count": sorted(pop_subnet_count.items()),
-        "bgp_not_active": bgp_not_active_list
+        "bgp_not_active": bgp_not_active_list,
     }
 
     should_update = True
     if FORCE_PTR_REFRESH:
         tmp_geoip_filename = GEOIP_DATA_DIR.joinpath("tmp_geoip.json")
-        with open(tmp_geoip_filename, 'w') as f:
+        with open(tmp_geoip_filename, "w") as f:
             json.dump(geoip_json, f, indent=2)
 
-        with open(GEOIP_DATA_DIR.joinpath("tmp_geoip.json"), 'r') as f:
+        with open(GEOIP_DATA_DIR.joinpath("tmp_geoip.json"), "r") as f:
             now_geoip = f.read()
             now_geoip = json.loads(now_geoip)
 
-        with open(GEOIP_DATA_DIR.joinpath("geoip-latest.json"), 'r') as f:
+        with open(GEOIP_DATA_DIR.joinpath("geoip-latest.json"), "r") as f:
             last_geoip = f.read()
             last_geoip = json.loads(last_geoip)
 
@@ -222,11 +233,11 @@ def process_geoip():
 
     if should_update:
         geoip_filename = GEOIP_DATA_DIR.joinpath("geoip-{}.json".format(date))
-        with open(geoip_filename, 'w') as f:
+        with open(geoip_filename, "w") as f:
             json.dump(geoip_json, f, indent=2)
-        with open(GEOIP_DATA_DIR.joinpath("geoip-latest.json"), 'w') as f:
+        with open(GEOIP_DATA_DIR.joinpath("geoip-latest.json"), "w") as f:
             json.dump(geoip_json, f, indent=2)
-        with open(GEOIP_DATA_DIR.joinpath("latest"), 'w') as f:
+        with open(GEOIP_DATA_DIR.joinpath("latest"), "w") as f:
             f.write(str(geoip_filename))
 
 
@@ -246,17 +257,17 @@ def create_map_data():
                 city_list.append(city)
                 for pop in geoip[country][state][city]["ips"]:
                     if pop[1] != "undefined.hostname.localhost.":
-                        location_code = pop[1].split('.')[1]
+                        location_code = pop[1].split(".")[1]
                         pop_list.append(location_code)
 
     pop_list = sorted(list(set(pop_list)))
     city_list = sorted(list(set(city_list)))
 
-    with open("./geoip/pop.csv", newline='') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
+    with open("./geoip/pop.csv", newline="") as csvfile:
+        reader = csv.reader(csvfile, delimiter=",")
 
-        with open("./geoip/pop_location.csv", 'w', newline='') as output:
-            writer = csv.writer(output, delimiter=',')
+        with open("./geoip/pop_location.csv", "w", newline="") as output:
+            writer = csv.writer(output, delimiter=",")
             for row in reader:
                 print(row[1])
                 location = geocoder.bing("{},{}".format(row[1], row[2]), key=token)
