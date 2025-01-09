@@ -171,7 +171,7 @@ def process_geoip():
                     # https://github.com/clarkzjw/starlink-geoip-data/commit/0c47b3fa395c5bda1c4c280da0bef5afbaf2b885
                     if (
                         ".as7850.net." in domain
-                        or ".abq.ixnm.net." in domain
+                        or ".ixnm.net." in domain
                         or ".citylinkfiber.net." in domain
                     ):
                         continue
