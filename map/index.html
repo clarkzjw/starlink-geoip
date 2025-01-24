@@ -256,7 +256,7 @@
             getJson(POP_JSON).then(popList => {
                 for (const pop of popList) {
                     if (pop.dns === "") continue;
-                    popListStr += "<br><br>DNS: <code>" + pop.dns + "</code><br>City: " + pop.city + "<br>Country: " + pop.country;
+                    popListStr += "<br><br>DNS: <code>" + pop.dns + "</code><br>City: " + pop.city + "<br>Country: " + pop.country + "<br>Note: " + pop.note;
                 }
                 var introMsg = '<h1>Unofficial Starlink GeoIP Map</h1><h3>Legend</h3>The "dish" icon on the map indicates the GeoIP location of Starlink customer subnets, as defined in ' +
                     '<a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">https://geoip.starlinkisp.net</a>.<br>' +
