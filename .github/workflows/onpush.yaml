@@ -1,0 +1,42 @@
+name: Hourly Jobs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  map:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+    name: Refresh Map
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Get latest data
+        run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'poetry'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
+      - name: Refresh GeoIP Map
+        working-directory: ./map
+        run: cp ./data/pop.json ../starlink-geoip-data/map/ && env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 process_map.py
+      - name: Push GeoIP Map
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:clarkzjw/starlink-geoip-data.git
+          BRANCH: master
+          FOLDER: starlink-geoip-data
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          MESSAGE: "GitHub Action Update - Map"
+          SKIP_EMPTY_COMMITS: true
+          CLEAR_GLOBS_FILE: ".clear-target-files"
