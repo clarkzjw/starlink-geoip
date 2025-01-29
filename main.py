@@ -174,7 +174,7 @@ def process_geoip():
                         or ".ixnm.net." in domain
                         or ".citylinkfiber.net." in domain
                     ):
-                        continue
+                        break
                     if country_code not in valid.keys():
                         valid[country_code] = {}
                     if state_code not in valid[country_code].keys():
