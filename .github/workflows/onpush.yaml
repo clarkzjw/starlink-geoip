@@ -1,4 +1,4 @@
-name: Hourly Jobs
+name: On Push
 
 on:
   push:

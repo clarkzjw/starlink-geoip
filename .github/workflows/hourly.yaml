@@ -3,7 +3,7 @@ name: Hourly Jobs
 on:
   schedule:
       - cron: "0 * * * *"
-      - cron: "30 */6 * * *"
+      - cron: "0 */12 * * *"
 
 jobs:
   bgp:
@@ -120,7 +120,7 @@ jobs:
       packages: write
       id-token: write
     name: Refresh Map
-    if: github.event.schedule == '30 */12 * * *'
+    if: github.event.schedule == '0 */12 * * *'
     needs: [dns]
     steps:
       - name: Check out code
