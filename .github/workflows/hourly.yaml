@@ -120,7 +120,8 @@ jobs:
       packages: write
       id-token: write
     name: Refresh Map
-    if: github.event.schedule == '30 */6 * * *'
+    if: github.event.schedule == '30 */12 * * *'
+    needs: [dns]
     steps:
       - name: Check out code
         uses: actions/checkout@v4
