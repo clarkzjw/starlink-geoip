@@ -547,6 +547,17 @@
         "note": "This is a <a href=\"https://krg.ca/en-CA/KRG-deploying-Starlink-gateway-terminals-to-bring-high-speed-internet-access-to-Ungava-Bay\" target=\"_blank\">community gateway</a>.<br>"
     },
     {
+        "code": "brckcan1",
+        "dns": "customer.brckcan1.pop.starlinkisp.net.",
+        "city": "Brucejack",
+        "country": "Canada",
+        "lat": 56.465761,
+        "lon": -130.186728,
+        "show": true,
+        "type": "pop",
+        "note": "This should be a community gateway at the Brucejack Mine.<br>"
+    },
+    {
         "code": "cpclspx1",
         "dns": "customer.cpclspx1.pop.starlinkisp.net.",
         "city": "Cape Canaveral",
