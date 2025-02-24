@@ -174,6 +174,7 @@ def process_geoip():
                         or ".ixnm.net." in domain
                         or ".citylinkfiber.net." in domain
                         or ".host.net.id." in domain
+                        or "mta1.spacex.com." in domain
                     ):
                         break
                     if country_code not in valid.keys():
