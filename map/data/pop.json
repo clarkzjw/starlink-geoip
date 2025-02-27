@@ -591,15 +591,15 @@
         "note": "Equinix WA1 - Warsaw, Centrum LIM<br><a href=\"https://www.peeringdb.com/fac/509\" target=\"_blank\">https://www.peeringdb.com/fac/509</a><br>"
     },
     {
-        "code": "",
-        "dns": "",
+        "code": "jhngzaf1",
+        "dns": "customer.jhngzaf1.pop.starlinkisp.net.",
         "city": "Johannesburg",
         "country": "South Africa",
         "lat": -26.137957,
         "lon": 28.197517,
         "show": true,
         "type": "netfac",
-        "note": "This PoP does not appear in the GeoIP feed yet, although there is already an entry in PeeringDB.<br>Teraco Johannesburg Campus, South Africa<br><a href=\"https://www.peeringdb.com/fac/850\" target=\"_blank\">https://www.peeringdb.com/fac/850</a><br>"
+        "note": "Teraco Johannesburg Campus, South Africa<br><a href=\"https://www.peeringdb.com/fac/850\" target=\"_blank\">https://www.peeringdb.com/fac/850</a><br>"
     },
     {
         "code": "mlnnita1",
