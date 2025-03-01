@@ -2,8 +2,12 @@ name: Hourly Jobs
 
 on:
   schedule:
-      - cron: "0 * * * *"
-      - cron: "0 */12 * * *"
+    - cron: "0 * * * *"
+    - cron: "30 */12 * * *"
+
+  push:
+    branches:
+      - master
 
 jobs:
   bgp:
@@ -13,7 +17,6 @@ jobs:
       packages: write
       id-token: write
     name: Refresh BGP
-    if: github.event.schedule == '0 * * * *' || github.event_name == 'push'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -48,7 +51,6 @@ jobs:
       packages: write
       id-token: write
     name: Refresh GeoIP
-    if: github.event.schedule == '0 * * * *' || github.event_name == 'push'
     needs: [bgp]
     steps:
       - name: Check out code
@@ -84,7 +86,6 @@ jobs:
       packages: write
       id-token: write
     name: Refresh DNS PTR
-    if: github.event.schedule == '0 * * * *' || github.event_name == 'push'
     needs: [geoip]
     steps:
       - name: Check out code
@@ -120,7 +121,6 @@ jobs:
       packages: write
       id-token: write
     name: Refresh Map
-    if: github.event.schedule == '0 */12 * * *' || github.event_name == 'push'
     needs: [dns]
     steps:
       - name: Check out code
@@ -138,9 +138,11 @@ jobs:
         run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
       - name: Refresh GeoIP Map
         working-directory: ./map
+        if: github.event.schedule == '30 */12 * * *' && github.event_name == 'schedule'
         run: cp ./data/pop.json ../starlink-geoip-data/map/ && env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 process_map.py
       - name: Push GeoIP Map
         uses: s0/git-publish-subdir-action@develop
+        if: github.event.schedule == '30 */12 * * *' && github.event_name == 'schedule'
         env:
           REPO: git@github.com:clarkzjw/starlink-geoip-data.git
           BRANCH: master
