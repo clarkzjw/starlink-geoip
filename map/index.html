@@ -54,7 +54,7 @@
             z-index: 1000;
             display: block;
             overflow-y: auto;
-            max-height: 80vh;
+            max-height: 90vh;
             width: 90%;
             max-width: 1000px;
         }
@@ -165,6 +165,8 @@
     <div id="map"></div>
 
     <div id="legend" class="legend" style="display: block">
+        <div><img id="stat-legend" style="width: 40px; height: 40px;" src="./assets/dish.png"></img></div>
+        <br>
         <div><img id="city-legend" style="width: 40px; height: 40px;" src="./assets/dish.png"></img></div>
         <br>
         <div><img id="pop-legend" style="width: 40px; height: 40px; border-radius: 50%;" src="./assets/pop.png"></img></div>
@@ -272,11 +274,21 @@
                     'The related code and data for this website is available at <br><a href="https://github.com/clarkzjw/starlink-geoip" target="_blank">https://github.com/clarkzjw/starlink-geoip</a><br><a href="https://github.com/clarkzjw/starlink-geoip-data" target="_blank">https://github.com/clarkzjw/starlink-geoip-data</a><br><br>' +
                     'See also <a href="https://www.google.com/maps/d/u/0/viewer?mid=1805q6rlePY4WZd8QMOaNe2BqAgFkYBY&ll=35.87196263258574%2C29.77614822666377&z=3" target="_blank">Unofficial Starlink Global Gateways & PoPs</a>, <a href="https://arxiv.org/abs/2412.18243" target="_blank">A Large-Scale IPv6-Based Measurement of the Starlink Network</a>, and <a href="https://oac.uvic.ca/starlink/" target="_blank">https://oac.uvic.ca/starlink/</a>.<br><br>' +
                     '(Click the dish icon at the bottom right to show this message again)<br><br>' +
-                    '<button id="closePopup">Close</button><br><br>';
-                var popMsg = '<h3>Known Starlink PoPs</h3>Based on <a href=\"https://geoip.starlinkisp.net/feed.csv\" target=\"_blank\">https://geoip.starlinkisp.net</a> and <code>nslookup</code>.<br>There is no guarantee that this is 100% accurate to reflect the actual deployment.' + popListStr + '<br><br>' + '<button id="closePopup">Close</button><br><br><br>';
+                    '<button id="closePopup">Close</button><br><br><br>';
+                var popMsg = '<h3>Known Starlink PoPs Per Naming Scheme</h3>Based on <a href=\"https://geoip.starlinkisp.net/feed.csv\" target=\"_blank\">https://geoip.starlinkisp.net</a> and <code>nslookup</code>.<br>There is no guarantee that this is 100% accurate to reflect the actual deployment.' + popListStr + '<br><br>' + '<button id="closePopup">Close</button><br><br><br>';
 
                 $("#popupContent").html(introMsg);
                 $("#popupModal").show();
+
+                $("#stat-legend").click(function () {
+                    var message = '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-subnet-count.png" alt="No. of Subnet Entries as Planned in GeoIP" width="600" height="auto"><br>' +
+                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-subnet-ip-count.png" alt="No. of Usable IPv4 Addresses as Planned in GeoIP" width="600" height="auto"><br>' +
+                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-v6_56_subnet-count.png" alt="No. of Usable /56 IPv6 Subnets as Planned in GeoIP" width="600" height="auto"><br>' +
+                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-country-city-count.png" alt="No. of Countries, Territories and Cities as Planned in GeoIP" width="600" height="auto"><br>' +
+                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-pop-density.png" alt="No. of Subnets Entries Served per PoP as Planned in GeoIP" width="600" height="auto"><br>';
+                    $("#popupContent").html(message);
+                    $("#popupModal").show();
+                });
 
                 $("#city-legend, #pop-legend").click(function () {
                     var message = (this.id === "city-legend") ? introMsg : popMsg;

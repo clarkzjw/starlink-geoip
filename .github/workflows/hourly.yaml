@@ -3,7 +3,7 @@ name: Hourly Jobs
 on:
   schedule:
     - cron: "0 * * * *"
-    - cron: "30 0 */7 * *"
+    - cron: "30 0 * * *"
 
   push:
     branches:
@@ -138,11 +138,11 @@ jobs:
         run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
       - name: Refresh GeoIP Map
         working-directory: ./map
-        if: github.event.schedule == '30 0 */7 * *' && github.event_name == 'schedule'
+        if: github.event.schedule == '30 0 * * *' && github.event_name == 'schedule'
         run: cp ./data/pop.json ../starlink-geoip-data/map/ && env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 process_map.py
       - name: Push GeoIP Map
         uses: s0/git-publish-subdir-action@develop
-        if: github.event.schedule == '30 0 */7 * *' && github.event_name == 'schedule'
+        if: github.event.schedule == '30 0 * * *' && github.event_name == 'schedule'
         env:
           REPO: git@github.com:clarkzjw/starlink-geoip-data.git
           BRANCH: master
