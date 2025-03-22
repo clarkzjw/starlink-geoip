@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# flake8: noqa: E501
+
 # npm install geobuf
 # npx geobuf2json < availability-cells.pb > availability-cells.geojson
 
@@ -24,12 +27,12 @@ token = os.getenv("GEOCODER_TOKEN", "")
 
 
 def new_client():
-    return httpx.Client(base_url='https://api.starlink.com')
+    return httpx.Client(base_url="https://api.starlink.com")
 
 
 def retrive_availability_cells():
     client = new_client()
-    response = client.get('/public-files/availability-cells.pb')
+    response = client.get("/public-files/availability-cells.pb")
     client.close()
     with open(Path(DATA_DIR).joinpath("availability/availability-cells.pb"), "wb") as f:
         f.write(response.content)
@@ -40,7 +43,15 @@ def ensure_dir():
 
 
 def convert():
-    subprocess.run(["bash", "-c", "npx geobuf2json < availability-cells.pb > availability-cells.geojson"], cwd=Path(DATA_DIR).joinpath("availability"), check=True)
+    subprocess.run(
+        [
+            "bash",
+            "-c",
+            "npx geobuf2json < availability-cells.pb > availability-cells.geojson",
+        ],
+        cwd=Path(DATA_DIR).joinpath("availability"),
+        check=True,
+    )
     filepath = Path(DATA_DIR).joinpath("availability/availability-cells.geojson")
     with open(filepath, "r") as f:
         data = json.load(f)
@@ -50,7 +61,9 @@ def convert():
 
 def classify():
     status_dict = {}
-    with open(Path(DATA_DIR).joinpath("availability/availability-cells.geojson"), "r") as f:
+    with open(
+        Path(DATA_DIR).joinpath("availability/availability-cells.geojson"), "r"
+    ) as f:
         data = json.load(f)
         for feature in data["features"]:
             status = feature["properties"]["status"]
@@ -68,29 +81,43 @@ def classify():
         # waitlisted Sold Out
         # waitlisted Expanding in 2025
         # waitlisted Service date is unknown at this time
-        filepath = Path(DATA_DIR).joinpath("availability/{}.geojson".format(status.replace(" ", "_")))
+        filepath = Path(DATA_DIR).joinpath(
+            "availability/{}.geojson".format(status.replace(" ", "_"))
+        )
         with open(filepath, "w") as f:
             obj = {
                 "type": "FeatureCollection",
-                "features": [feature for feature in status_dict[status]]
+                "features": [feature for feature in status_dict[status]],
             }
             f.write(json.dumps(obj, indent=4))
 
-            csv_filepath = Path(DATA_DIR).joinpath("availability/{}.csv".format(status.replace(" ", "_")))
+            csv_filepath = Path(DATA_DIR).joinpath(
+                "availability/{}.csv".format(status.replace(" ", "_"))
+            )
             with open(csv_filepath, "w") as csv_f:
+                print(csv_filepath)
                 count = 0
                 for feature in obj["features"]:
-                    for i in feature["geometry"]["coordinates"]:
+                    polygonType = feature["geometry"]["type"]
+                    if polygonType == "Polygon":
+                        coordinates = [feature["geometry"]["coordinates"]]
+                    elif polygonType == "MultiPolygon":
+                        coordinates = feature["geometry"]["coordinates"]
+                    for i in coordinates:
                         for j in i:
                             time.sleep(0.1)
                             count += 1
-                            print(count)
 
                             polygon = Polygon(j)
-                            g = geocoder.google("{}, {}".format(polygon.centroid.y, polygon.centroid.x), key=token)
+                            g = geocoder.google(
+                                "{}, {}".format(polygon.centroid.y, polygon.centroid.x),
+                                key=token,
+                            )
                             if g.json is None:
                                 for k in j:
-                                    g = geocoder.google("{}, {}".format(k[1], k[0]), key=token)
+                                    g = geocoder.google(
+                                        "{}, {}".format(k[1], k[0]), key=token
+                                    )
                                     if g.json:
                                         country = g.json["country"]
                                         lat = k[1]
@@ -107,7 +134,14 @@ def classify():
                             if country == "AQ" and count > 1:
                                 continue
                             else:
-                                line = "{},{},{},{}\n".format(country, lat, lon, "http://maps.google.com/maps?z=12&t=m&q=loc:{}+{}".format(lat, lon))
+                                line = "{},{},{},{}\n".format(
+                                    country,
+                                    lat,
+                                    lon,
+                                    "http://maps.google.com/maps?z=12&t=m&q=loc:{}+{}".format(
+                                        lat, lon
+                                    ),
+                                )
                                 csv_f.write(line)
                                 print(line)
 

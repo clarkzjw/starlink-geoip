@@ -1,6 +1,9 @@
-name: Daily Jobs
+name: Weekly Jobs
 
 on:
+  push:
+    branches:
+      - master
   schedule:
       - cron: "45 0 */7 * *"
 
