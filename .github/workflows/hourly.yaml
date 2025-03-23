@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "0 * * * *"
     - cron: "30 0 * * *"
+    - cron: "45 */12 * * *"
 
   push:
     branches:
@@ -17,6 +18,7 @@ jobs:
       packages: write
       id-token: write
     name: Refresh BGP
+    if: github.event.schedule == '45 */12 * * *' && github.event_name == 'schedule'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -51,7 +53,6 @@ jobs:
       packages: write
       id-token: write
     name: Refresh GeoIP
-    needs: [bgp]
     steps:
       - name: Check out code
         uses: actions/checkout@v4
