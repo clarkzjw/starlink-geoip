@@ -1,18 +1,17 @@
-name: Refresh Map
+name: Refresh BGP
 
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: "50 */12 * * *"
 
 jobs:
-  map:
+  bgp:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: write
       id-token: write
-    name: Refresh Map
+    name: Refresh BGP
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -27,16 +26,15 @@ jobs:
           cache: 'poetry'
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
-      - name: Refresh GeoIP Map
-        working-directory: ./map
-        run: cp ./data/pop.json ../starlink-geoip-data/map/ && env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 process_map.py
-      - name: Push GeoIP Map
+      - name: Refresh BGP
+        run: env PYTHONUNBUFFERED=1 poetry run python3 scripts/bgp.py
+      - name: Push BGP
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: git@github.com:clarkzjw/starlink-geoip-data.git
           BRANCH: master
           FOLDER: starlink-geoip-data
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          MESSAGE: "GitHub Action Update - Map"
+          MESSAGE: "GitHub Action Update - BGP Announcement for Starlink"
           SKIP_EMPTY_COMMITS: true
           CLEAR_GLOBS_FILE: ".clear-target-files"
