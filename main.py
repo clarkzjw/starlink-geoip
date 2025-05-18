@@ -209,7 +209,7 @@ def process_geoip():
         "nxdomain": nxdomain_list,
         "servfail": servfail_list,
         "pop_subnet_count": sorted(pop_subnet_count.items()),
-        "bgp_not_active": bgp_not_active_list,
+        # "bgp_not_active": bgp_not_active_list,
     }
 
     should_update = True
