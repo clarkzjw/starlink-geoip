@@ -1,5 +1,16 @@
 [
     {
+        "code": "",
+        "dns": "",
+        "city": "Salt Lake City",
+        "country": "USA",
+        "lat": 40.480032,
+        "lon": -111.904533,
+        "show": true,
+        "type": "netfac",
+        "note": "There are two Interconnection Facilities (netfac) in Salt Lake City as indicated by PeeringDB.<br>GeoIP records only have one `sltyutx1`. <br>DataBank Salt Lake City (SLC2)<br><a href=\"https://www.peeringdb.com/fac/4294\" href=\"_blank\">https://www.peeringdb.com/fac/4294</a><br>"
+    },
+    {
         "code": "aafbgux1",
         "dns": "customer.aafbgux1.pop.starlinkisp.net.",
         "city": "Andersen Air Force Base",
@@ -66,6 +77,28 @@
         "note": "Cirion Buenos Aires - BUE1<br><a href=\"https://www.peeringdb.com/fac/1550\" target=\"_blank\">https://www.peeringdb.com/fac/1550</a><br>"
     },
     {
+        "code": "brckcan1",
+        "dns": "customer.brckcan1.pop.starlinkisp.net.",
+        "city": "Brucejack",
+        "country": "Canada",
+        "lat": 56.465761,
+        "lon": -130.186728,
+        "show": true,
+        "type": "pop",
+        "note": "This should be a community gateway at the Brucejack Mine.<br>"
+    },
+    {
+        "code": "brseaus1",
+        "dns": "customer.brseaus1.pop.starlinkisp.net.",
+        "city": "Brisbane",
+        "country": "Australia",
+        "lat": -27.4654445,
+        "lon": 153.0273969,
+        "show": true,
+        "type": "netfac",
+        "note": "NEXTDC B1 - Brisbane, Australia<br><a href=\"https://www.peeringdb.com/fac/1340\" target=\"_blank\">https://www.peeringdb.com/fac/1340</a><br>"
+    },
+    {
         "code": "chcoilx1",
         "dns": "customer.chcoilx1.pop.starlinkisp.net.",
         "city": "Chicago",
@@ -75,6 +108,39 @@
         "show": true,
         "type": "netfac",
         "note": "CoreSite - Chicago (CH1)<br><a href=\"https://www.peeringdb.com/fac/440\" target=\"_blank\">https://www.peeringdb.com/fac/440</a><br>"
+    },
+    {
+        "code": "chrhnzl1",
+        "dns": "customer.chrhnzl1.pop.starlinkisp.net.",
+        "city": "Christchurch",
+        "country": "New Zealand",
+        "lat": -43.529015,
+        "lon": 172.596289,
+        "show": true,
+        "type": "netfac",
+        "note": "Spark Christchurch Exchange<br><a href=\"https://www.peeringdb.com/fac/7541\" target=\"_blank\">https://www.peeringdb.com/fac/7541</a><br>"
+    },
+    {
+        "code": "clgycan1",
+        "dns": "customer.clgycan1.pop.starlinkisp.net.",
+        "city": "Calgary",
+        "country": "Canada",
+        "lat": 51.0275074,
+        "lon": -114.0718831,
+        "show": true,
+        "type": "netfac",
+        "note": "Equinix CL3 - Calgary (formerly Q9 Calgary Three)<br><a href=\"https://www.peeringdb.com/fac/3251\" target=\"_blank\">https://www.peeringdb.com/fac/3251</a><br>"
+    },
+    {
+        "code": "cpclspx1",
+        "dns": "customer.cpclspx1.pop.starlinkisp.net.",
+        "city": "Cape Canaveral",
+        "country": "USA",
+        "lat": 28.46,
+        "lon": -80.53,
+        "show": true,
+        "type": "pop",
+        "note": "Not confirmed, this is <b>probably</b> a community gateway reversed for internal use. See <a href=\"https://x.com/GregScott_photo/status/1862483470817140902\" target=\"_blank\">https://x.com/GregScott_photo/status/1862483470817140902</a>.<br>"
     },
     {
         "code": "dllstxx1",
@@ -143,6 +209,17 @@
         "note": "Globenet Fortaleza CLS<br><a href=\"https://www.peeringdb.com/fac/5304\" target=\"_blank\">https://www.peeringdb.com/fac/5304</a><br>"
     },
     {
+        "code": "gtmygtm1",
+        "dns": "customer.gtmygtm1.pop.starlinkisp.net.",
+        "city": "Guatemala City",
+        "country": "Guatemala",
+        "lat": 14.6537315,
+        "lon": -90.5491616,
+        "show": true,
+        "type": "netfac",
+        "note": "KIO Guatemala 1 (GTM1), Guatemala<br><a href=\"https://www.peeringdb.com/fac/4589\" target=\"_blank\">https://www.peeringdb.com/fac/4589</a><br>"
+    },
+    {
         "code": "iqltcan1",
         "dns": "customer.iqltcan1.pop.starlinkisp.net.",
         "city": "Iqaluit",
@@ -152,6 +229,17 @@
         "show": true,
         "type": "community_gateway",
         "note": "This is a <a href='https://www.starlinkinternet.info/community-gateway' target='_blank'>community gateway</a>, see photos from <a href='https://x.com/FrankReardon1/status/1755786452439310664' target='_blank'>https://x.com/FrankReardon1/status/1755786452439310664</a><br>and a document from the <a href='https://assembly.nu.ca/sites/default/files/2024-05/2024-05-22-Letter%20from%20MDJ%20to%20COW%20Chair%20Hickes-Winter%202024%20Committments%20Follow%20Up-eng.pdf' target='_blank'>Legislative Assembly of Nunavut</a>.<br>"
+    },
+    {
+        "code": "jhngzaf1",
+        "dns": "customer.jhngzaf1.pop.starlinkisp.net.",
+        "city": "Johannesburg",
+        "country": "South Africa",
+        "lat": -26.137957,
+        "lon": 28.197517,
+        "show": true,
+        "type": "netfac",
+        "note": "Teraco Johannesburg Campus, South Africa<br><a href=\"https://www.peeringdb.com/fac/850\" target=\"_blank\">https://www.peeringdb.com/fac/850</a><br>"
     },
     {
         "code": "jtnaidn1",
@@ -174,6 +262,28 @@
         "show": true,
         "type": "netfac",
         "note": "NTT Jakarta 2 Data Center (JKT2)<br><a href=\"https://www.peeringdb.com/fac/5865\" target=\"_blank\">https://www.peeringdb.com/fac/5865</a><br>"
+    },
+    {
+        "code": "kentwax1",
+        "dns": "customer.kentwax1.pop.starlinkisp.net.",
+        "city": "Kent",
+        "country": "USA",
+        "lat": 47.3854669,
+        "lon": -122.2346573,
+        "show": true,
+        "type": "pop",
+        "note": "Not confirmed, this is <b>probably</b> a testing site for Starlink.<br>"
+    },
+    {
+        "code": "kjjqcan1",
+        "dns": "customer.kjjqcan1.pop.starlinkisp.net.",
+        "city": "Kuujjuaq",
+        "country": "Canada",
+        "lat": 58.10322210359546,
+        "lon": -68.40237197628633,
+        "show": true,
+        "type": "pop",
+        "note": "This is a <a href=\"https://krg.ca/en-CA/KRG-deploying-Starlink-gateway-terminals-to-bring-high-speed-internet-access-to-Ungava-Bay\" target=\"_blank\">community gateway</a>.<br>"
     },
     {
         "code": "krcipak1",
@@ -253,6 +363,28 @@
         "note": "Digital Realty Madrid MAD3<br><a href=\"https://www.peeringdb.com/fac/7414\" target=\"_blank\">https://www.peeringdb.com/fac/7414</a><br>"
     },
     {
+        "code": "mlbeaus1",
+        "dns": "customer.mlbeaus1.pop.starlinkisp.net.",
+        "city": "Melbourne",
+        "country": "Australia",
+        "lat": -37.821681,
+        "lon": 144.915458,
+        "show": true,
+        "type": "netfac",
+        "note": "Equinix ME1/ME2 - Melbourne, Australia<br><a href=\"https://www.peeringdb.com/fac/1988\" target=\"_blank\">https://www.peeringdb.com/fac/1988</a><br>"
+    },
+    {
+        "code": "mlnnita1",
+        "dns": "customer.mlnnita1.pop.starlinkisp.net.",
+        "city": "Milan",
+        "country": "Italy",
+        "lat": 45.478016,
+        "lon": 9.101828,
+        "show": true,
+        "type": "netfac",
+        "note": "Retelit Avalon 1<br><a href=\"https://www.peeringdb.com/fac/1974\" target=\"_blank\">https://www.peeringdb.com/fac/1974</a><br>"
+    },
+    {
         "code": "mmbiind1",
         "dns": "customer.mmbiind1.pop.starlinkisp.net.",
         "city": "Mumbai",
@@ -260,8 +392,8 @@
         "lat": 19.0759837,
         "lon": 72.8776559,
         "show": true,
-        "type": "pop",
-        "note": "This is a planned PoP in GeoIP allocation, not yet operational."
+        "type": "netfac",
+        "note": "Equinix MB2 - Mumbai (GPX Mumbai 2)<br><a href=\"https://www.peeringdb.com/fac/7377\" target=\"_blank\">https://www.peeringdb.com/fac/7377</a><br>"
     },
     {
         "code": "mmmiflx1",
@@ -286,6 +418,17 @@
         "note": "ePLDT VITRO Makati 2<br><a href=\"https://www.peeringdb.com/fac/4809\" target=\"_blank\">https://www.peeringdb.com/fac/4809</a><br>"
     },
     {
+        "code": "mntlcan1",
+        "dns": "customer.mntlcan1.pop.starlinkisp.net.",
+        "city": "Montreal",
+        "country": "Canada",
+        "lat": -73.570471,
+        "lon": 45.497188,
+        "show": true,
+        "type": "netfac",
+        "note": "Cologix MTL3<br><a href=\"https://www.peeringdb.com/fac/1944\" target=\"_blank\">https://www.peeringdb.com/fac/1944</a><br>"
+    },
+    {
         "code": "mplsmnx1",
         "dns": "customer.mplsmnx1.pop.starlinkisp.net.",
         "city": "Minneapolis",
@@ -295,6 +438,28 @@
         "show": true,
         "type": "netfac",
         "note": "Cologix MIN2<br><a href=\"https://www.peeringdb.com/fac/2325\" target=\"_blank\">https://www.peeringdb.com/fac/2325</a><br>"
+    },
+    {
+        "code": "msctomn1",
+        "dns": "customer.msctomn1.pop.starlinkisp.net.",
+        "city": "Muscat",
+        "country": "Oman",
+        "lat": 23.72680095494799,
+        "lon": 57.79422307236845,
+        "show": true,
+        "type": "netfac",
+        "note": "Seemingly it's operational? Although it does not have an entry in PeeringDB yet.<br>Equinix MC1 - Muscat?<br>"
+    },
+    {
+        "code": "nrbiken1",
+        "dns": "customer.nrbiken1.pop.starlinkisp.net.",
+        "city": "Nairobi",
+        "country": "Kenya",
+        "lat": -1.35008,
+        "lon": 36.749228,
+        "show": true,
+        "type": "netfac",
+        "note": "icolo.io Nairobi One (NBO1)<br><a href=\"https://www.peeringdb.com/fac/6448\" target=\"_blank\">https://www.peeringdb.com/fac/6448</a><br>"
     },
     {
         "code": "nwyynyx1",
@@ -371,16 +536,6 @@
         "note": "This is <b>probably</b> a community gateway installed on cruise ships."
     },
     {
-        "code": "rcxship2",
-        "dns": "customer.rcxship2.pop.starlinkisp.net.",
-        "city": "Unknown",
-        "country": "Unknown",
-        "lat": 0,
-        "lon": 0,
-        "show": false,
-        "note": "Unknown"
-    },
-    {
         "code": "rdmdwax3",
         "dns": "customer.rdmdwax3.pop.starlinkisp.net.",
         "city": "Redmond",
@@ -400,6 +555,16 @@
         "lon": -122.121512,
         "show": true,
         "type": "pop",
+        "note": "Unknown"
+    },
+    {
+        "code": "sea",
+        "dns": "customer.sea.pop.starlinkisp.net.",
+        "city": "Unknown",
+        "country": "Unknown",
+        "lat": 0,
+        "lon": 0,
+        "show": false,
         "note": "Unknown"
     },
     {
@@ -423,17 +588,6 @@
         "show": true,
         "type": "netfac",
         "note": "EdgeConneX Salt Lake City (EDCSLC01)<br><a href=\"https://www.peeringdb.com/fac/2077\" target=\"_blank\">https://www.peeringdb.com/fac/2077</a><br>"
-    },
-    {
-        "code": "",
-        "dns": "",
-        "city": "Salt Lake City",
-        "country": "USA",
-        "lat": 40.480032,
-        "lon": -111.904533,
-        "show": true,
-        "type": "netfac",
-        "note": "There are two Interconnection Facilities (netfac) in Salt Lake City as indicated by PeeringDB.<br>GeoIP records only have one `sltyutx1`. <br>DataBank Salt Lake City (SLC2)<br><a href=\"https://www.peeringdb.com/fac/4294\" href=\"_blank\">https://www.peeringdb.com/fac/4294</a><br>"
     },
     {
         "code": "sngesgp1",
@@ -488,6 +642,27 @@
         "lon": 0,
         "show": false,
         "note": "Not confirmed, this is <b>probably</b> a community gateway installed on SpaceX recovery drone ships \"A Shortfall of Gravitas\". See <a href=\"https://space-offshore.com/a-shortfall-of-gravitas/\" target=\"_blank\">A Shortfall of Gravitas</a>."
+    },
+    {
+        "code": "srbaidn2",
+        "dns": "customer.srbaidn2.pop.starlinkisp.net.",
+        "city": "Surabaya",
+        "country": "Indonesia",
+        "lat": 112.74282,
+        "lon": -7.273023,
+        "show": true,
+        "type": "netfac",
+        "note": "Omadata Data Center<br><a href=\"https://www.peeringdb.com/fac/5642\" target=\"_blank\">https://www.peeringdb.com/fac/5642</a><br>"
+    },
+    {
+        "code": "strespx2",
+        "dns": "customer.strespx2.pop.starlinkisp.net.",
+        "city": "Unknown",
+        "country": "Unknown",
+        "lat": 0,
+        "lon": 0,
+        "show": false,
+        "note": "Unknown"
     },
     {
         "code": "sttlwax1",
@@ -545,61 +720,6 @@
         "note": "EdgeConneX Phoenix (EDCPHX01)<br><a href=\"https://www.peeringdb.com/fac/1917\" target=\"_blank\">https://www.peeringdb.com/fac/1917</a><br>"
     },
     {
-        "code": "kentwax1",
-        "dns": "customer.kentwax1.pop.starlinkisp.net.",
-        "city": "Kent",
-        "country": "USA",
-        "lat": 47.3854669,
-        "lon": -122.2346573,
-        "show": true,
-        "type": "pop",
-        "note": "Not confirmed, this is <b>probably</b> a testing site for Starlink.<br>"
-    },
-    {
-        "code": "kjjqcan1",
-        "dns": "customer.kjjqcan1.pop.starlinkisp.net.",
-        "city": "Kuujjuaq",
-        "country": "Canada",
-        "lat": 58.10322210359546,
-        "lon": -68.40237197628633,
-        "show": true,
-        "type": "pop",
-        "note": "This is a <a href=\"https://krg.ca/en-CA/KRG-deploying-Starlink-gateway-terminals-to-bring-high-speed-internet-access-to-Ungava-Bay\" target=\"_blank\">community gateway</a>.<br>"
-    },
-    {
-        "code": "brckcan1",
-        "dns": "customer.brckcan1.pop.starlinkisp.net.",
-        "city": "Brucejack",
-        "country": "Canada",
-        "lat": 56.465761,
-        "lon": -130.186728,
-        "show": true,
-        "type": "pop",
-        "note": "This should be a community gateway at the Brucejack Mine.<br>"
-    },
-    {
-        "code": "cpclspx1",
-        "dns": "customer.cpclspx1.pop.starlinkisp.net.",
-        "city": "Cape Canaveral",
-        "country": "USA",
-        "lat": 28.46,
-        "lon": -80.530000,
-        "show": true,
-        "type": "pop",
-        "note": "Not confirmed, this is <b>probably</b> a community gateway reversed for internal use. See <a href=\"https://x.com/GregScott_photo/status/1862483470817140902\" target=\"_blank\">https://x.com/GregScott_photo/status/1862483470817140902</a>.<br>"
-    },
-    {
-        "code": "nrbiken1",
-        "dns": "customer.nrbiken1.pop.starlinkisp.net.",
-        "city": "Nairobi",
-        "country": "Kenya",
-        "lat": -1.35008,
-        "lon": 36.749228,
-        "show": true,
-        "type": "netfac",
-        "note": "icolo.io Nairobi One (NBO1)<br><a href=\"https://www.peeringdb.com/fac/6448\" target=\"_blank\">https://www.peeringdb.com/fac/6448</a><br>"
-    },
-    {
         "code": "wrswpol1",
         "dns": "customer.wrswpol1.pop.starlinkisp.net.",
         "city": "Warsaw",
@@ -609,113 +729,5 @@
         "show": true,
         "type": "netfac",
         "note": "Equinix WA1 - Warsaw, Centrum LIM<br><a href=\"https://www.peeringdb.com/fac/509\" target=\"_blank\">https://www.peeringdb.com/fac/509</a><br>"
-    },
-    {
-        "code": "jhngzaf1",
-        "dns": "customer.jhngzaf1.pop.starlinkisp.net.",
-        "city": "Johannesburg",
-        "country": "South Africa",
-        "lat": -26.137957,
-        "lon": 28.197517,
-        "show": true,
-        "type": "netfac",
-        "note": "Teraco Johannesburg Campus, South Africa<br><a href=\"https://www.peeringdb.com/fac/850\" target=\"_blank\">https://www.peeringdb.com/fac/850</a><br>"
-    },
-    {
-        "code": "mlnnita1",
-        "dns": "customer.mlnnita1.pop.starlinkisp.net.",
-        "city": "Milan",
-        "country": "Italy",
-        "lat": 45.478016,
-        "lon": 9.101828,
-        "show": true,
-        "type": "netfac",
-        "note": "Retelit Avalon 1<br><a href=\"https://www.peeringdb.com/fac/1974\" target=\"_blank\">https://www.peeringdb.com/fac/1974</a><br>"
-    },
-    {
-        "code": "clgycan1",
-        "dns": "customer.clgycan1.pop.starlinkisp.net.",
-        "city": "Calgary",
-        "country": "Canada",
-        "lat": 51.0275074,
-        "lon": -114.0718831,
-        "show": true,
-        "type": "netfac",
-        "note": "Equinix CL3 - Calgary (formerly Q9 Calgary Three)<br><a href=\"https://www.peeringdb.com/fac/3251\" target=\"_blank\">https://www.peeringdb.com/fac/3251</a><br>"
-    },
-    {
-        "code": "strespx2",
-        "dns": "customer.strespx2.pop.starlinkisp.net.",
-        "city": "Unknown",
-        "country": "Unknown",
-        "lat": 0,
-        "lon": 0,
-        "show": false,
-        "note": "Unknown"
-    },
-    {
-        "code": "sea",
-        "dns": "customer.sea.pop.starlinkisp.net.",
-        "city": "Unknown",
-        "country": "Unknown",
-        "lat": 0,
-        "lon": 0,
-        "show": false,
-        "note": "Unknown"
-    },
-    {
-        "code": "mlbeaus1",
-        "dns": "customer.mlbeaus1.pop.starlinkisp.net.",
-        "city": "Melbourne",
-        "country": "Australia",
-        "lat": -37.821681,
-        "lon": 144.915458,
-        "show": true,
-        "type": "netfac",
-        "note": "Equinix ME1/ME2 - Melbourne, Australia<br><a href=\"https://www.peeringdb.com/fac/1988\" target=\"_blank\">https://www.peeringdb.com/fac/1988</a><br>"
-    },
-    {
-        "code": "brseaus1",
-        "dns": "customer.brseaus1.pop.starlinkisp.net.",
-        "city": "Brisbane",
-        "country": "Australia",
-        "lat": -27.4654445,
-        "lon": 153.0273969,
-        "show": true,
-        "type": "netfac",
-        "note": "NEXTDC B1 - Brisbane, Australia<br><a href=\"https://www.peeringdb.com/fac/1340\" target=\"_blank\">https://www.peeringdb.com/fac/1340</a><br>"
-    },
-    {
-        "code": "chrhnzl1",
-        "dns": "customer.chrhnzl1.pop.starlinkisp.net.",
-        "city": "Christchurch",
-        "country": "New Zealand",
-        "lat": -43.529015,
-        "lon": 172.596289,
-        "show": true,
-        "type": "netfac",
-        "note": "Spark Christchurch Exchange<br><a href=\"https://www.peeringdb.com/fac/7541\" target=\"_blank\">https://www.peeringdb.com/fac/7541</a><br>"
-    },
-    {
-        "code": "msctomn1",
-        "dns": "customer.msctomn1.pop.starlinkisp.net.",
-        "city": "Muscat",
-        "country": "Oman",
-        "lat": 23.72680095494799,
-        "lon": 57.79422307236845,
-        "show": true,
-        "type": "netfac",
-        "note": "Seemingly it's operational? Although it does not have an entry in PeeringDB yet.<br>Equinix MC1 - Muscat?<br>"
-    },
-    {
-        "code": "gtmygtm1",
-        "dns": "customer.gtmygtm1.pop.starlinkisp.net.",
-        "city": "Guatemala City",
-        "country": "Guatemala",
-        "lat": 14.6537315,
-        "lon": -90.5491616,
-        "show": true,
-        "type": "netfac",
-        "note": "KIO Guatemala 1 (GTM1), Guatemala<br><a href=\"https://www.peeringdb.com/fac/4589\" target=\"_blank\">https://www.peeringdb.com/fac/4589</a><br>"
     }
 ]
