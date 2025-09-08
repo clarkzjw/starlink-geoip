@@ -141,6 +141,8 @@ def process_geoip():
             country_code = line.split(",")[1]
             state_code = line.split(",")[2]
             city = line.split(",")[3]
+            if subnet == "143.105.1.0/24":
+                continue
             try:
                 subnet_ips = ipaddress.IPv6Network(subnet).hosts()
             except ipaddress.AddressValueError:
