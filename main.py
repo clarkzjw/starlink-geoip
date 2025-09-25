@@ -141,8 +141,8 @@ def process_geoip():
             country_code = line.split(",")[1]
             state_code = line.split(",")[2]
             city = line.split(",")[3]
-            if subnet == "143.105.1.0/24":
-                continue
+            # if subnet == "143.105.1.0/24":
+            #     continue
             try:
                 subnet_ips = ipaddress.IPv6Network(subnet).hosts()
             except ipaddress.AddressValueError:
@@ -159,7 +159,7 @@ def process_geoip():
                 time.sleep(0.05)
                 ip = str(ip)
                 print("Processing IP: {}".format(ip))
-                cmd = ["nslookup", "-timeout=1", "-retry=1", ip, "8.8.8.8"]
+                cmd = ["nslookup", "-timeout=1", "-retry=1", ip, "dns31.cloudns.net"]
                 print(cmd)
                 try:
                     output = subprocess.check_output(cmd, timeout=3).decode("utf-8")
@@ -171,16 +171,16 @@ def process_geoip():
                     # TODO:
                     # Temporary fix for not updating new IPs such as 216.234.196.0/24 from as7850.net
                     # https://github.com/clarkzjw/starlink-geoip-data/commit/0c47b3fa395c5bda1c4c280da0bef5afbaf2b885
-                    if (
-                        ".as7850.net." in domain
-                        or ".ixnm.net." in domain
-                        or ".citylinkfiber.net." in domain
-                        or ".host.net.id." in domain
-                        or "mta1.spacex.com." in domain
-                        or "mta2.spacex.com." in domain
-                        or "mx6.spacex.com." in domain
-                    ):
-                        break
+                    # if (
+                    #     ".as7850.net." in domain
+                    #     or ".ixnm.net." in domain
+                    #     or ".citylinkfiber.net." in domain
+                    #     or ".host.net.id." in domain
+                    #     or "mta1.spacex.com." in domain
+                    #     or "mta2.spacex.com." in domain
+                    #     or "mx6.spacex.com." in domain
+                    # ):
+                    #     break
                     if country_code not in valid.keys():
                         valid[country_code] = {}
                     if state_code not in valid[country_code].keys():
