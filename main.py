@@ -192,6 +192,8 @@ def process_geoip():
                 except:
                     continue
 
+    valid = dict(sorted(valid.items()))
+
     geoip_json = {
         "valid": valid,
         "nxdomain": nxdomain_list,
