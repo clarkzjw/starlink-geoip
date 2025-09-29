@@ -157,7 +157,7 @@ def process_geoip():
                 time.sleep(0.05)
                 ip = str(ip)
                 print("Processing IP: {}".format(ip))
-                cmd = ["nslookup", "-timeout=1", "-retry=3", ip, "dns31.cloudns.net"]
+                cmd = ["nslookup", "-timeout=1", "-retry=3", ip, "ns2-36.azuregov-dns.us"]
                 try:
                     output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
                     if "Truncated" in output.splitlines()[0]:
