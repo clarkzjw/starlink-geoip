@@ -10,6 +10,7 @@ import jsondiff
 import ipaddress
 import subprocess
 import threading
+from concurrent.futures import ThreadPoolExecutor
 
 from pprint import pprint
 from pathlib import Path
@@ -131,7 +132,9 @@ def process_geoip():
 
     bgp_list = get_bgp_list()
 
-    for line in last_feed.splitlines():
+    def _process_geoip_line(line: str) -> None:
+        nonlocal num, valid, nxdomain_list, servfail_list, bgp_not_active_list, pop_subnet_count
+
         if line:
             print("Processing line: {}".format(line))
             NXDOMAIN = 0
@@ -148,11 +151,12 @@ def process_geoip():
                     subnet_ips = ipaddress.IPv4Network(subnet).hosts()
                 except ipaddress.AddressValueError:
                     print("Invalid subnet: {}".format(subnet))
-                    continue
+                    return
 
             if not subnet_in_bgp(subnet, bgp_list):
                 bgp_not_active_list.append(line)
 
+            retry = False
             for ip in subnet_ips:
                 time.sleep(0.05)
                 ip = str(ip)
@@ -160,11 +164,15 @@ def process_geoip():
                 cmd = ["dig", "@8.8.8.8", "-x", ip, "+trace", "+all"]
                 try:
                     output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
-                    for line in output.splitlines():
-                        if "PTR" in line and ".arpa." in line and "customer." in line:
-                            if line.startswith(";"):
+                    for _line in output.splitlines():
+                        if (
+                            "PTR" in _line
+                            and ".arpa." in _line
+                            and "customer." in _line
+                        ):
+                            if _line.startswith(";"):
                                 continue
-                            domain = line.split("PTR")[1].strip()
+                            domain = _line.split("PTR")[1].strip()
                             print(num, ip, domain)
                             if country_code not in valid.keys():
                                 valid[country_code] = {}
@@ -175,23 +183,37 @@ def process_geoip():
                             valid[country_code][state_code][city]["ips"].append(
                                 (subnet, domain)
                             )
+                            # sort valid[country_code][state_code][city]["ips"] based on subnet
+                            valid[country_code][state_code][city]["ips"].sort(
+                                key=lambda x: ipaddress.ip_network(x[0]).network_address
+                            )
                             pop_subnet_count[domain] += 1
                             break
-                        if "NXDOMAIN" in line:
-                            print("NXDOMAIN")
+                        if "NXDOMAIN" in _line:
+                            print(f"{ip}, NXDOMAIN")
                             NXDOMAIN += 1
+                            retry = True
                             if NXDOMAIN > 5:
                                 nxdomain_list.append(line)
+                                retry = False
                                 break
-                        if "SERVFAIL" in line:
-                            print("SERVFAIL")
+                        if "SERVFAIL" in _line:
+                            print(f"{ip} SERVFAIL")
                             SERVFAIL += 1
+                            retry = True
                             if SERVFAIL > 5:
                                 servfail_list.append(line)
+                                retry = False
                                 break
-                    break
+                    if retry:
+                        continue
+                    else:
+                        break
                 except:
                     continue
+
+    with ThreadPoolExecutor() as executor:
+        list(executor.map(_process_geoip_line, last_feed.splitlines()))
 
     valid = dict(sorted(valid.items()))
 
