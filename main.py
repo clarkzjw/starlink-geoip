@@ -157,25 +157,31 @@ def process_geoip():
                 time.sleep(0.05)
                 ip = str(ip)
                 print("Processing IP: {}".format(ip))
-                cmd = ["nslookup", "-timeout=1", "-retry=3", ip, "8.8.8.8"]
+                cmd = ["dig", "@8.8.8.8", "-x", ip, "+trace", "+all"]
                 try:
                     output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
-                    if "Truncated" in output.splitlines()[0]:
-                        domain = output.splitlines()[1].split("=")[1].strip()
-                    else:
-                        domain = output.splitlines()[0].split("=")[1].strip()
-                    print(num, ip, domain)
-                    if country_code not in valid.keys():
-                        valid[country_code] = {}
-                    if state_code not in valid[country_code].keys():
-                        valid[country_code][state_code] = {}
-                    if city not in valid[country_code][state_code].keys():
-                        valid[country_code][state_code][city] = {"ips": []}
-                    valid[country_code][state_code][city]["ips"].append(
-                        (subnet, domain)
-                    )
-                    pop_subnet_count[domain] += 1
-                    break
+                    for line in output.splitlines():
+                        if "PTR" in line and ".arpa." in line and "customer." in line:
+                            if line.startswith(";"):
+                                continue
+                            domain = line.split("PTR")[1].strip()
+                            print(num, ip, domain)
+                            if country_code not in valid.keys():
+                                valid[country_code] = {}
+                            if state_code not in valid[country_code].keys():
+                                valid[country_code][state_code] = {}
+                            if city not in valid[country_code][state_code].keys():
+                                valid[country_code][state_code][city] = {"ips": []}
+                            valid[country_code][state_code][city]["ips"].append(
+                                (subnet, domain)
+                            )
+                            pop_subnet_count[domain] += 1
+                            break
+                        if "NXDOMAIN" in line:
+                            print("NXDOMAIN")
+                        if "SERVFAIL" in line:
+                            print("SERVFAIL")
+
                 except subprocess.CalledProcessError as e:
                     if "NXDOMAIN" in e.output.decode("utf-8"):
                         print(e.output)
