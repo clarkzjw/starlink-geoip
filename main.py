@@ -146,7 +146,7 @@ def process_geoip():
             except ipaddress.AddressValueError:
                 try:
                     subnet_ips = ipaddress.IPv4Network(subnet).hosts()
-                except:
+                except ipaddress.AddressValueError:
                     print("Invalid subnet: {}".format(subnet))
                     continue
 
