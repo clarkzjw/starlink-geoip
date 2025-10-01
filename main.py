@@ -179,22 +179,17 @@ def process_geoip():
                             break
                         if "NXDOMAIN" in line:
                             print("NXDOMAIN")
+                            NXDOMAIN += 1
+                            if NXDOMAIN > 5:
+                                nxdomain_list.append(line)
+                                break
                         if "SERVFAIL" in line:
                             print("SERVFAIL")
-
-                except subprocess.CalledProcessError as e:
-                    if "NXDOMAIN" in e.output.decode("utf-8"):
-                        print(e.output)
-                        NXDOMAIN += 1
-                        if NXDOMAIN > 5:
-                            nxdomain_list.append(line)
-                            break
-                    elif "SERVFAIL" in e.output.decode("utf-8"):
-                        print(e.output)
-                        SERVFAIL += 1
-                        if SERVFAIL > 5:
-                            servfail_list.append(line)
-                            break
+                            SERVFAIL += 1
+                            if SERVFAIL > 5:
+                                servfail_list.append(line)
+                                break
+                    break
                 except:
                     continue
 
