@@ -156,9 +156,10 @@ def process_geoip():
             if not subnet_in_bgp(subnet, bgp_list):
                 bgp_not_active_list.append(line)
 
+            subnet_ips = list(subnet_ips)[:5]
             retry = False
             for ip in subnet_ips:
-                time.sleep(0.05)
+                time.sleep(0.1)
                 ip = str(ip)
                 print("Processing IP: {}".format(ip))
                 cmd = ["dig", "@8.8.8.8", "-x", ip, "+trace", "+all"]
@@ -189,7 +190,7 @@ def process_geoip():
                             )
                             pop_subnet_count[domain] += 1
                             break
-                        if "NXDOMAIN" in _line:
+                        elif "NXDOMAIN" in _line:
                             print(f"{ip}, NXDOMAIN")
                             NXDOMAIN += 1
                             retry = True
@@ -197,7 +198,7 @@ def process_geoip():
                                 nxdomain_list.append(line)
                                 retry = False
                                 break
-                        if "SERVFAIL" in _line:
+                        elif "SERVFAIL" in _line:
                             print(f"{ip} SERVFAIL")
                             SERVFAIL += 1
                             retry = True
