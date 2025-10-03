@@ -1,5 +1,4 @@
 import os
-import sys
 import time
 import json
 import httpx
@@ -9,7 +8,6 @@ import subprocess
 import pycountry
 
 from copy import deepcopy
-from pprint import pprint
 from pathlib import Path
 
 
@@ -27,39 +25,53 @@ date = get_date()
 
 
 def new_client():
-    return httpx.Client(base_url='https://atlas.ripe.net/api/v2/')
+    return httpx.Client(base_url="https://atlas.ripe.net/api/v2/")
 
 
 def get_probes_list():
     list = []
     client = new_client()
     for asn in ASN:
-        response = client.get('probes', params={'asn': asn, 'limit': 200})
-        for probe in response.json()['results']:
-            list.append(probe['id'])
-        while response.json()['next']:
-            response = client.get(response.json()['next'])
-            for probe in response.json()['results']:
-                list.append(probe['id'])
+        response = client.get("probes", params={"asn": asn, "limit": 200})
+        for probe in response.json()["results"]:
+            list.append(probe["id"])
+        while response.json()["next"]:
+            response = client.get(response.json()["next"])
+            for probe in response.json()["results"]:
+                list.append(probe["id"])
     client.close()
     return list
 
 
 def get_probe_info(id: str):
-    client = new_client()
-    response = client.get(f'probes/{id}')
-    client.close()
-    return response.json()
+    attempts = 5
+    for attempt in range(1, attempts + 1):
+        client = new_client()
+        try:
+            response = client.get(f"probes/{id}", timeout=10.0)
+            response.raise_for_status()
+            return response.json()
+        except httpx.ReadTimeout as e:
+            print(f"Timeout getting probe {id} (attempt {attempt}/{attempts}): {e}")
+        except httpx.HTTPError as e:
+            print(f"HTTP error getting probe {id} (attempt {attempt}/{attempts}): {e}")
+        finally:
+            client.close()
+        time.sleep(min(2 ** (attempt - 1), 10))
+    # return {"id": id, "error": "failed_to_fetch"}
+    return None
 
 
 def get_dns_ptr(ip):
     try:
-        return subprocess.check_output(f"dig -x {ip} +short", shell=True).decode().strip()
+        return (
+            subprocess.check_output(f"dig -x {ip} +short", shell=True).decode().strip()
+        )
     except subprocess.CalledProcessError:
         return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     probe_list = []
     probe_list_original = []
 
@@ -67,32 +79,44 @@ if __name__ == '__main__':
     for probe_id in get_probes_list():
         print(f"Getting info for probe {probe_id}")
         probe_info = get_probe_info(probe_id)
-
+        if not probe_info:
+            print(f"Failed to get info for probe {probe_id}, skipping.")
+            continue
         probe_info_original = deepcopy(probe_info)
         probe_list_original.append(probe_info_original)
 
         # remove certain fields
-        probe_info.pop('last_connected', None)
-        probe_info.pop('total_uptime', None)
-        probe_info.pop('tags', None)
-        probe_info.pop('status_since', None)
+        probe_info.pop("last_connected", None)
+        probe_info.pop("total_uptime", None)
+        probe_info.pop("tags", None)
+        probe_info.pop("status_since", None)
 
         # insert new fields
-        if probe_info['asn_v4'] in ASN:
-            probe_info['ipv4_ptr'] = get_dns_ptr(probe_info['address_v4'])
-        if probe_info['asn_v6'] in ASN:
-            probe_info['ipv6_ptr'] = get_dns_ptr(probe_info['address_v6'])
+        if probe_info["asn_v4"] in ASN:
+            probe_info["ipv4_ptr"] = get_dns_ptr(probe_info["address_v4"])
+        if probe_info["asn_v6"] in ASN:
+            probe_info["ipv6_ptr"] = get_dns_ptr(probe_info["address_v6"])
 
         probe_list.append(probe_info)
 
-        probe_status = probe_info['status']['name']
+        probe_status = probe_info["status"]["name"]
         is_public_probe = probe_info["is_public"]
         if probe_status == "Connected" and is_public_probe:
-            country_name = pycountry.countries.get(alpha_2=probe_info['country_code']).name
-            if probe_info['asn_v4'] in ASN:
-                active_probe[probe_id] = [get_dns_ptr(probe_info['address_v4']), probe_info['country_code'], country_name]
+            country_name = pycountry.countries.get(
+                alpha_2=probe_info["country_code"]
+            ).name
+            if probe_info["asn_v4"] in ASN:
+                active_probe[probe_id] = [
+                    get_dns_ptr(probe_info["address_v4"]),
+                    probe_info["country_code"],
+                    country_name,
+                ]
             else:
-                active_probe[probe_id] = [get_dns_ptr(probe_info['address_v6']), probe_info['country_code'], country_name]
+                active_probe[probe_id] = [
+                    get_dns_ptr(probe_info["address_v6"]),
+                    probe_info["country_code"],
+                    country_name,
+                ]
         time.sleep(0.5)
 
     active_probe = dict(sorted(active_probe.items(), key=lambda item: item[1]))

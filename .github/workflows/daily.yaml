@@ -1,6 +1,9 @@
 name: Daily Jobs
 
 on:
+  push:
+    branches:
+      - master
   schedule:
       - cron: "45 0 * * *"
 
@@ -27,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
       - name: Refresh Atlas probe list
-        run: poetry run python3 scripts/atlas.py
+        run: env PYTHONUNBUFFERED=1 poetry run python3 scripts/atlas.py
       - name: Push
         uses: s0/git-publish-subdir-action@develop
         env:
@@ -62,7 +65,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Refresh PeeringDB Info
-        run: poetry run python3 scripts/peeringdb.py
+        run: env PYTHONUNBUFFERED=1 poetry run python3 scripts/peeringdb.py
       - name: Push
         uses: s0/git-publish-subdir-action@develop
         env:
