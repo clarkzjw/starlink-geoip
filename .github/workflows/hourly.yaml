@@ -1,9 +1,6 @@
 name: Hourly Jobs
 
 on:
-  push:
-    branches:
-      - master
   schedule:
     - cron: "0 * * * *"
     - cron: "30 0 * * *"
