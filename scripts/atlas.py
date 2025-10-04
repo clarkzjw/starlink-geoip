@@ -65,10 +65,12 @@ def get_probe_info(id: str):
 def get_dns_ptr(ip):
     try:
         return (
-            subprocess.check_output(f"dig -x {ip} +short", shell=True).decode().strip()
+            subprocess.check_output(f"dig -x {ip} +short", shell=True)
+            .decode("utf-8")
+            .strip()
         )
     except subprocess.CalledProcessError:
-        return None
+        return ""
 
 
 if __name__ == "__main__":
