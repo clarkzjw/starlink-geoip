@@ -65,7 +65,7 @@ def get_probe_info(id: str):
 def get_dns_ptr(ip):
     try:
         return (
-            subprocess.check_output(f"dig -x {ip} +short", shell=True)
+            subprocess.check_output(f"dig @1.1.1.1 -x {ip} +short +retry=3", shell=True)
             .decode("utf-8")
             .strip()
         )
