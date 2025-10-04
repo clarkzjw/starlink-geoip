@@ -102,11 +102,15 @@ if __name__ == "__main__":
         probe_status = probe_info["status"]["name"]
         is_public_probe = probe_info["is_public"]
         if probe_status == "Connected" and is_public_probe:
-            country = pycountry.countries.get(alpha_2=probe_info["country_code"])
-            if country is None:
+            if probe_info["country_code"] is None:
                 country_name = ""
+                probe_info["country_code"] = ""
             else:
-                country_name = country.name
+                country = pycountry.countries.get(alpha_2=probe_info["country_code"])
+                if country is None:
+                    country_name = ""
+                else:
+                    country_name = country.name
             if probe_info["asn_v4"] in ASN:
                 active_probe[probe_id] = [
                     get_dns_ptr(probe_info["address_v4"]),
