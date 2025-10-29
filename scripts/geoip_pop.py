@@ -1,6 +1,8 @@
 import os
+import sys
 import httpx
 
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -8,28 +10,52 @@ import pandas as pd
 GEOIP_FEED = "https://geoip.starlinkisp.net/feed.csv"
 POP_FEED = "https://geoip.starlinkisp.net/pops.csv"
 
+datetime_now = datetime.now(tz=timezone.utc)
+year = datetime_now.year
+dt_string = datetime_now.strftime("%Y%m%d-%H%M")
+
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
 FEED_DATA_DIR = Path(DATA_DIR).joinpath("feed")
+POP_FEED_DATA_DIR = Path(DATA_DIR).joinpath("pop")
 GEOIP_DATA_DIR = Path(DATA_DIR).joinpath("geoip")
 
 FORCE_PTR_REFRESH = False
 
 
 def get_feed():
+    for dir_path in [FEED_DATA_DIR, GEOIP_DATA_DIR, POP_FEED_DATA_DIR]:
+        _dir = dir_path.joinpath(f"{year}")
+        if not _dir.exists():
+            _dir.mkdir(parents=True, exist_ok=True)
+
     with httpx.Client() as client:
         feeds_urls = [GEOIP_FEED, POP_FEED]
         for url in feeds_urls:
             geoip_file = client.get(url)
             content = geoip_file.content.decode("utf-8")
             filename = url.split("/")[-1]
-            with open(FEED_DATA_DIR.joinpath(filename), "w") as f:
+            if filename == "feed.csv":
+                filename = (
+                    Path(FEED_DATA_DIR)
+                    .joinpath(f"{year}")
+                    .joinpath(f"feed_{dt_string}.csv")
+                )
+                latest = Path(FEED_DATA_DIR).joinpath("feed-latest.csv")
+            elif filename == "pops.csv":
+                filename = (
+                    Path(POP_FEED_DATA_DIR)
+                    .joinpath(f"{year}")
+                    .joinpath(f"pops_{dt_string}.csv")
+                )
+                latest = Path(POP_FEED_DATA_DIR).joinpath("pops-latest.csv")
+            else:
+                print("Unknown feed filename")
+                sys.exit(1)
+
+            with open(filename, "w") as f:
                 f.write(content)
-
-
-def init():
-    for dir_path in [FEED_DATA_DIR, GEOIP_DATA_DIR]:
-        if not dir_path.exists():
-            dir_path.mkdir(parents=True, exist_ok=True)
+            with open(latest, "w") as f:
+                f.write(content)
 
 
 def join_feed():
@@ -68,8 +94,7 @@ def join_feed():
 
 
 if __name__ == "__main__":
-    init()
 
     get_feed()
 
-    join_feed()
+    # join_feed()
