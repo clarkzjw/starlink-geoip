@@ -1,6 +1,9 @@
 import os
 import sys
 import httpx
+import ipaddress
+import threading
+import subprocess
 
 from datetime import datetime, timezone
 from pathlib import Path
@@ -100,13 +103,48 @@ def join_feed():
     # )
 
 
+def parse_subnet(subnet: str) -> None | ipaddress.IPv6Address | ipaddress.IPv4Address:
+    try:
+        subnet_ip = ipaddress.IPv6Network(subnet).network_address
+    except ipaddress.AddressValueError:
+        try:
+            subnet_ip = ipaddress.IPv4Network(subnet).network_address
+        except ipaddress.AddressValueError:
+            print("Invalid subnet: {}".format(subnet))
+            return None
+    return subnet_ip
+
+
+def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str:
+    print(f"Digging PTR for IP: {ip}")
+    try:
+        cmd = ["dig", "@8.8.8.8", "-x", str(ip), "+trace", "+all"]
+
+        output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
+        for _line in output.splitlines():
+            if "PTR" in _line and ".arpa." in _line and (not _line.startswith(";")):
+                domain = _line.split("PTR")[1].strip()
+                return domain
+        return ""
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing dig command: {e}")
+        return ""
+
+
 def update_dns_ptr(df: pd.DataFrame):
-    pass
+    for index, row in df.iterrows():
+        subnet_ip = parse_subnet(row["cidr"])
+        print(subnet_ip)
+        if subnet_ip is None:
+            continue
+        row["ptr"] = dig_ptr(subnet_ip)
+        print(row)
+        sys.exit(0)
 
 
 if __name__ == "__main__":
 
-    get_feed()
+    # get_feed()
 
     df = join_feed()
 
