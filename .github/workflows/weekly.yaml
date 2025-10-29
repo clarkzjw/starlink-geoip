@@ -1,42 +1,42 @@
-name: Weekly Jobs
+# name: Weekly Jobs
 
-on:
-  schedule:
-      - cron: "45 0 */7 * *"
+# on:
+#   schedule:
+#       - cron: "45 0 */7 * *"
 
-jobs:
-  availability:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
-      id-token: write
-    name: Refresh Availability Cell Info
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-      - name: Get latest data
-        run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
-      - name: Install poetry
-        run: pipx install poetry
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'poetry'
-      - name: Install dependencies
-        run: poetry install
-      - name: Install npm
-        run: sudo apt-get update && sudo apt-get install npm -y && npm install geobuf -g
-      - name: Refresh Availability Cell Info
-        run: env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 scripts/availability.py
-      - name: Push
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: git@github.com:clarkzjw/starlink-geoip-data.git
-          BRANCH: master
-          FOLDER: starlink-geoip-data
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          MESSAGE: "GitHub Action Update - Starlink Availability Cell Info"
-          SKIP_EMPTY_COMMITS: true
-          CLEAR_GLOBS_FILE: ".clear-target-files"
+# jobs:
+#   availability:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+#       packages: write
+#       id-token: write
+#     name: Refresh Availability Cell Info
+#     steps:
+#       - name: Check out code
+#         uses: actions/checkout@v4
+#       - name: Get latest data
+#         run: rm -rf starlink-geoip-data && git clone https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
+#       - name: Install poetry
+#         run: pipx install poetry
+#       - name: Setup Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.11'
+#           cache: 'poetry'
+#       - name: Install dependencies
+#         run: poetry install
+#       - name: Install npm
+#         run: sudo apt-get update && sudo apt-get install npm -y && npm install geobuf -g
+#       - name: Refresh Availability Cell Info
+#         run: env GEOCODER_TOKEN=${{ secrets.GEOCODER_TOKEN }} poetry run python3 scripts/availability.py
+#       - name: Push
+#         uses: s0/git-publish-subdir-action@develop
+#         env:
+#           REPO: git@github.com:clarkzjw/starlink-geoip-data.git
+#           BRANCH: master
+#           FOLDER: starlink-geoip-data
+#           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+#           MESSAGE: "GitHub Action Update - Starlink Availability Cell Info"
+#           SKIP_EMPTY_COMMITS: true
+#           CLEAR_GLOBS_FILE: ".clear-target-files"
