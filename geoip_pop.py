@@ -250,7 +250,7 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
 
 if __name__ == "__main__":
 
-    # get_feed()
+    get_feed()
 
     df = join_feed()
 
