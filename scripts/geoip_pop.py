@@ -91,16 +91,6 @@ def join_feed():
         merged_df = merged_left
 
     return merged_df
-    # merged_df.to_csv(
-    #     GEOIP_DATA_DIR.joinpath("geoip-pops-latest.csv"),
-    #     index=False,
-    # )
-    # merged_df.to_csv(
-    #     GEOIP_DATA_DIR.joinpath(f"{year}{month}").joinpath(
-    #         f"geoip-pops-{dt_string}.csv"
-    #     ),
-    #     index=False,
-    # )
 
 
 def parse_subnet(subnet: str) -> None | ipaddress.IPv6Address | ipaddress.IPv4Address:
@@ -138,11 +128,7 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
         return ""
 
 
-def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10) -> pd.DataFrame:
-    """
-    Populate 'ptr' and 'processed'/'attempts' columns. If a dig times out,
-    the row is put back into the retry queue and retried up to max_attempts.
-    """
+def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
     if "ptr" not in df.columns:
         df["ptr"] = ""
     if "processed" not in df.columns:
@@ -160,8 +146,8 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10) -> pd.DataFrame:
     # indices to process in the current round
     to_process = df.index.tolist()
 
-    lock = threading.Lock()  # protects writes to df and retry list
-    chunk_lock = threading.Lock()  # protects processed_chunks counter
+    lock = threading.Lock()
+    chunk_lock = threading.Lock()
 
     while to_process:
         # build chunks for this round
@@ -228,8 +214,23 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10) -> pd.DataFrame:
         if to_process:
             print(f"Retrying {len(to_process)} rows (attempts < {max_attempts})")
 
-    # drop processed,attempts columns
-    # df = df.drop(columns=["processed", "attempts"])
+    def check_ptr_pop_match(row) -> bool:
+        ptr = row["ptr"]
+        pop = row["pop"]
+        # e.g., undefined.hostname.localhost., 0-179-184-103.host.net.id.
+        if not ptr.startswith("customer."):
+            return False
+        try:
+            parts = ptr.split(".")
+            if len(parts) < 6:
+                return False
+            ptr_pop = parts[1]
+            return ptr_pop == pop
+        except Exception:
+            return False
+
+    df["match"] = df.apply(check_ptr_pop_match, axis=1)
+    df = df.drop(columns=["processed", "attempts"])
 
     df.to_csv(
         GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv"),
