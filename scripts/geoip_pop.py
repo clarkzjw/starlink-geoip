@@ -115,61 +115,132 @@ def parse_subnet(subnet: str) -> None | ipaddress.IPv6Address | ipaddress.IPv4Ad
     return subnet_ip
 
 
-def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str:
+def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
+    """
+    Return domain string when PTR found, empty string when no PTR,
+    and None when a TimeoutExpired occurred (to indicate a retry is needed).
+    """
     print(f"Digging PTR for IP: {ip}")
     try:
         cmd = ["dig", "@8.8.8.8", "-x", str(ip), "+trace", "+all"]
-
-        output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
+        output = subprocess.check_output(cmd, timeout=10).decode("utf-8")
         for _line in output.splitlines():
             if "PTR" in _line and ".arpa." in _line and (not _line.startswith(";")):
                 domain = _line.split("PTR")[1].strip()
                 return domain
         return ""
+    except subprocess.TimeoutExpired:
+        print(f"Timeout expired for dig command on IP: {ip}")
+        # signal to caller that a timeout occurred and this row should be retried
+        return None
     except subprocess.CalledProcessError as e:
         print(f"Error executing dig command: {e}")
         return ""
 
 
-def update_dns_ptr(df: pd.DataFrame) -> pd.DataFrame:
+def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10) -> pd.DataFrame:
+    """
+    Populate 'ptr' and 'processed'/'attempts' columns. If a dig times out,
+    the row is put back into the retry queue and retried up to max_attempts.
+    """
     if "ptr" not in df.columns:
         df["ptr"] = ""
+    if "processed" not in df.columns:
+        df["processed"] = False
+    if "attempts" not in df.columns:
+        df["attempts"] = 0
 
     total = len(df)
     if total == 0:
         return df
 
     cpu_count = os.cpu_count() or 1
-    threads = cpu_count * 16
+    threads = max(1, cpu_count * 8)
 
-    # Create chunks of index positions
-    indices = df.index.tolist()
-    chunk_size = (total + threads - 1) // threads
-    chunks = [indices[i : i + chunk_size] for i in range(0, total, chunk_size)]
+    # indices to process in the current round
+    to_process = df.index.tolist()
 
-    lock = threading.Lock()
-    threads_list = []
+    lock = threading.Lock()  # protects writes to df and retry list
+    chunk_lock = threading.Lock()  # protects processed_chunks counter
 
-    def worker(idx_slice):
-        for idx in idx_slice:
-            subnet = df.at[idx, "cidr"]
-            subnet_ip = parse_subnet(subnet)
-            if subnet_ip is None:
-                continue
-            ptr_rec = dig_ptr(subnet_ip)
-            # protect write to shared DataFrame
-            with lock:
-                df.at[idx, "ptr"] = ptr_rec
+    while to_process:
+        # build chunks for this round
+        chunk_size = (len(to_process) + threads - 1) // threads
+        chunks = [
+            to_process[i : i + chunk_size]
+            for i in range(0, len(to_process), chunk_size)
+        ]
 
-    for chunk in chunks:
-        t = threading.Thread(target=worker, args=(chunk,), daemon=True)
-        threads_list.append(t)
-        t.start()
+        total_chunks = len(chunks)
+        processed_chunks = 0
+        threads_list = []
+        retries: list[int] = []
 
-    for t in threads_list:
-        t.join()
+        def worker(idx_slice):
+            nonlocal processed_chunks
+            for idx in idx_slice:
+                # skip if already processed by other thread/round
+                with lock:
+                    if df.at[idx, "processed"]:
+                        continue
+                    df.at[idx, "attempts"] = int(df.at[idx, "attempts"]) + 1
+                subnet = df.at[idx, "cidr"]
+                subnet_ip = parse_subnet(subnet)
+                if subnet_ip is None:
+                    with lock:
+                        df.at[idx, "processed"] = True
+                    continue
+                ptr_rec = dig_ptr(subnet_ip)
+                if ptr_rec is None:
+                    # timeout: schedule retry (but do not mark processed)
+                    with lock:
+                        retries.append(idx)
+                else:
+                    with lock:
+                        df.at[idx, "ptr"] = ptr_rec
+                        df.at[idx, "processed"] = True
+            # chunk finished: update and print progress
+            with chunk_lock:
+                processed_chunks += 1
+                print(
+                    f"Processed {processed_chunks}/{total_chunks} chunks (round size {len(to_process)})"
+                )
 
-    return df
+        for chunk in chunks:
+            t = threading.Thread(target=worker, args=(chunk,), daemon=True)
+            threads_list.append(t)
+            t.start()
+
+        for t in threads_list:
+            t.join()
+
+        # prepare next round: keep only retries that haven't exhausted attempts
+        next_round = []
+        with lock:
+            for idx in set(retries):
+                if int(df.at[idx, "attempts"]) < max_attempts:
+                    next_round.append(idx)
+                else:
+                    # give up after max_attempts
+                    df.at[idx, "processed"] = True
+        to_process = sorted(next_round)
+
+        if to_process:
+            print(f"Retrying {len(to_process)} rows (attempts < {max_attempts})")
+
+    # drop processed,attempts columns
+    # df = df.drop(columns=["processed", "attempts"])
+
+    df.to_csv(
+        GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv"),
+        index=False,
+    )
+    df.to_csv(
+        GEOIP_DATA_DIR.joinpath(f"{year}{month}").joinpath(
+            f"geoip-pops-ptr-{dt_string}.csv"
+        ),
+        index=False,
+    )
 
 
 if __name__ == "__main__":
