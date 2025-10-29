@@ -12,6 +12,7 @@ POP_FEED = "https://geoip.starlinkisp.net/pops.csv"
 
 datetime_now = datetime.now(tz=timezone.utc)
 year = datetime_now.year
+month = datetime_now.month
 dt_string = datetime_now.strftime("%Y%m%d-%H%M")
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
@@ -61,7 +62,7 @@ def get_feed():
 def join_feed():
     geoip_feed_header = "cidr,country,region,city"
     feed_df = pd.read_csv(
-        FEED_DATA_DIR.joinpath("feed.csv"),
+        FEED_DATA_DIR.joinpath("feed-latest.csv"),
         header=None,
         names=geoip_feed_header.split(","),
         index_col=False,
@@ -69,7 +70,7 @@ def join_feed():
 
     pop_feed_header = "cidr,pop,code"
     pop_df = pd.read_csv(
-        FEED_DATA_DIR.joinpath("pops.csv"),
+        POP_FEED_DATA_DIR.joinpath("pops-latest.csv"),
         header=None,
         names=pop_feed_header.split(","),
         index_col=False,
@@ -86,9 +87,14 @@ def join_feed():
     else:
         merged_df = merged_left
 
-    print(merged_df.head())
     merged_df.to_csv(
-        FEED_DATA_DIR.joinpath("geoip_with_pops.csv"),
+        GEOIP_DATA_DIR.joinpath("geoip-pops-latest.csv"),
+        index=False,
+    )
+    merged_df.to_csv(
+        GEOIP_DATA_DIR.joinpath(f"{year}{month}").joinpath(
+            f"geoip-pops-{dt_string}.csv"
+        ),
         index=False,
     )
 
@@ -97,4 +103,4 @@ if __name__ == "__main__":
 
     get_feed()
 
-    # join_feed()
+    join_feed()
