@@ -131,15 +131,45 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str:
         return ""
 
 
-def update_dns_ptr(df: pd.DataFrame):
-    for index, row in df.iterrows():
-        subnet_ip = parse_subnet(row["cidr"])
-        print(subnet_ip)
-        if subnet_ip is None:
-            continue
-        row["ptr"] = dig_ptr(subnet_ip)
-        print(row)
-        sys.exit(0)
+def update_dns_ptr(df: pd.DataFrame) -> pd.DataFrame:
+    if "ptr" not in df.columns:
+        df["ptr"] = ""
+
+    total = len(df)
+    if total == 0:
+        return df
+
+    cpu_count = os.cpu_count() or 1
+    threads = cpu_count * 16
+
+    # Create chunks of index positions
+    indices = df.index.tolist()
+    chunk_size = (total + threads - 1) // threads
+    chunks = [indices[i : i + chunk_size] for i in range(0, total, chunk_size)]
+
+    lock = threading.Lock()
+    threads_list = []
+
+    def worker(idx_slice):
+        for idx in idx_slice:
+            subnet = df.at[idx, "cidr"]
+            subnet_ip = parse_subnet(subnet)
+            if subnet_ip is None:
+                continue
+            ptr_rec = dig_ptr(subnet_ip)
+            # protect write to shared DataFrame
+            with lock:
+                df.at[idx, "ptr"] = ptr_rec
+
+    for chunk in chunks:
+        t = threading.Thread(target=worker, args=(chunk,), daemon=True)
+        threads_list.append(t)
+        t.start()
+
+    for t in threads_list:
+        t.join()
+
+    return df
 
 
 if __name__ == "__main__":
