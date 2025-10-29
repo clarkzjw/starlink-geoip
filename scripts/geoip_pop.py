@@ -129,8 +129,8 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
 
 
 def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
-    if "ptr" not in df.columns:
-        df["ptr"] = ""
+    if "dns_ptr" not in df.columns:
+        df["dns_ptr"] = ""
     if "processed" not in df.columns:
         df["processed"] = False
     if "attempts" not in df.columns:
@@ -183,7 +183,7 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
                         retries.append(idx)
                 else:
                     with lock:
-                        df.at[idx, "ptr"] = ptr_rec
+                        df.at[idx, "dns_ptr"] = ptr_rec
                         df.at[idx, "processed"] = True
             # chunk finished: update and print progress
             with chunk_lock:
@@ -215,7 +215,7 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
             print(f"Retrying {len(to_process)} rows (attempts < {max_attempts})")
 
     def check_ptr_pop_match(row) -> bool:
-        ptr = row["ptr"]
+        ptr = row["dns_ptr"]
         pop = row["pop"]
         # e.g., undefined.hostname.localhost., 0-179-184-103.host.net.id.
         if not ptr.startswith("customer."):
