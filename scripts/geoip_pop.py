@@ -87,20 +87,27 @@ def join_feed():
     else:
         merged_df = merged_left
 
-    merged_df.to_csv(
-        GEOIP_DATA_DIR.joinpath("geoip-pops-latest.csv"),
-        index=False,
-    )
-    merged_df.to_csv(
-        GEOIP_DATA_DIR.joinpath(f"{year}{month}").joinpath(
-            f"geoip-pops-{dt_string}.csv"
-        ),
-        index=False,
-    )
+    return merged_df
+    # merged_df.to_csv(
+    #     GEOIP_DATA_DIR.joinpath("geoip-pops-latest.csv"),
+    #     index=False,
+    # )
+    # merged_df.to_csv(
+    #     GEOIP_DATA_DIR.joinpath(f"{year}{month}").joinpath(
+    #         f"geoip-pops-{dt_string}.csv"
+    #     ),
+    #     index=False,
+    # )
+
+
+def update_dns_ptr(df: pd.DataFrame):
+    pass
 
 
 if __name__ == "__main__":
 
     get_feed()
 
-    join_feed()
+    df = join_feed()
+
+    update_dns_ptr(df)
