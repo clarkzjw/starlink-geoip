@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import httpx
 import ipaddress
 import threading
@@ -128,7 +129,7 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
         return ""
 
 
-def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
+def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     if "dns_ptr" not in df.columns:
         df["dns_ptr"] = ""
     if "processed" not in df.columns:
@@ -171,6 +172,7 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
                         continue
                     df.at[idx, "attempts"] = int(df.at[idx, "attempts"]) + 1
                 subnet = df.at[idx, "cidr"]
+                time.sleep(0.1)
                 subnet_ip = parse_subnet(subnet)
                 if subnet_ip is None:
                     with lock:
