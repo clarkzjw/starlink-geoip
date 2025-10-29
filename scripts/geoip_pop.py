@@ -229,8 +229,12 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 10):
         except Exception:
             return False
 
-    df["match"] = df.apply(check_ptr_pop_match, axis=1)
+    df["pop_dns_ptr_match"] = df.apply(check_ptr_pop_match, axis=1)
     df = df.drop(columns=["processed", "attempts"])
+
+    df_with_pop = df[df["pop"].notna()]
+    df_without_pop = df[df["pop"].isna()]
+    df = pd.concat([df_with_pop, df_without_pop], ignore_index=True)
 
     df.to_csv(
         GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv"),
