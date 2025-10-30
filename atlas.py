@@ -3,17 +3,21 @@ import time
 import json
 import httpx
 import datetime
-import subprocess
 
+import pandas as pd
 import pycountry
 
 from copy import deepcopy
 from pathlib import Path
 
+from util import GEOIP
+
 
 ASN = [14593, 45700]
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
+if not os.path.exists(Path(DATA_DIR).joinpath("atlas")):
+    os.makedirs(Path(DATA_DIR).joinpath("atlas"))
 
 
 def get_date() -> str:
@@ -22,15 +26,16 @@ def get_date() -> str:
 
 
 date = get_date()
+geoip_client = GEOIP()
 
 
-def new_client():
+def new_atlas_client():
     return httpx.Client(base_url="https://atlas.ripe.net/api/v2/")
 
 
 def get_probes_list():
     list = []
-    client = new_client()
+    client = new_atlas_client()
     for asn in ASN:
         response = client.get("probes", params={"asn": asn, "limit": 200})
         for probe in response.json()["results"]:
@@ -46,7 +51,7 @@ def get_probes_list():
 def get_probe_info(id: str):
     attempts = 5
     for attempt in range(1, attempts + 1):
-        client = new_client()
+        client = new_atlas_client()
         try:
             response = client.get(f"probes/{id}", timeout=10.0)
             response.raise_for_status()
@@ -58,26 +63,18 @@ def get_probe_info(id: str):
         finally:
             client.close()
         time.sleep(min(2 ** (attempt - 1), 10))
-    # return {"id": id, "error": "failed_to_fetch"}
     return None
 
 
-def get_dns_ptr(ip):
-    try:
-        return (
-            subprocess.check_output(f"dig @1.1.1.1 -x {ip} +short +retry=3", shell=True)
-            .decode("utf-8")
-            .strip()
-        )
-    except subprocess.CalledProcessError:
-        return ""
+def get_dns_ptr(ip) -> str:
+    return geoip_client.get_pop_by_ip(ip)
 
 
-if __name__ == "__main__":
+def refresh_atlas_probes():
     probe_list = []
     probe_list_original = []
 
-    active_probe = {}
+    active_rows = []
     for probe_id in get_probes_list():
         print(f"Getting info for probe {probe_id}")
         probe_info = get_probe_info(probe_id)
@@ -104,30 +101,34 @@ if __name__ == "__main__":
         probe_status = probe_info["status"]["name"]
         is_public_probe = probe_info["is_public"]
         if probe_status == "Connected" and is_public_probe:
-            if probe_info["country_code"] is None:
-                country_name = ""
-                probe_info["country_code"] = ""
+            # determine country code/name
+            country_code = probe_info.get("country_code") or ""
+            country = (
+                pycountry.countries.get(alpha_2=country_code) if country_code else None
+            )
+            country_name = country.name if country else ""
+
+            # determine ptr depending on ASN/AF
+            if probe_info.get("asn_v4") in ASN:
+                ptr = get_dns_ptr(probe_info.get("address_v4"))
             else:
-                country = pycountry.countries.get(alpha_2=probe_info["country_code"])
-                if country is None:
-                    country_name = ""
-                else:
-                    country_name = country.name
-            if probe_info["asn_v4"] in ASN:
-                active_probe[probe_id] = [
-                    get_dns_ptr(probe_info["address_v4"]),
-                    probe_info["country_code"],
-                    country_name,
-                ]
-            else:
-                active_probe[probe_id] = [
-                    get_dns_ptr(probe_info["address_v6"]),
-                    probe_info["country_code"],
-                    country_name,
-                ]
+                ptr = get_dns_ptr(probe_info.get("address_v6"))
+
+            active_rows.append(
+                {
+                    "probe_id": probe_id,
+                    "ptr": ptr,
+                    "country_code": country_code,
+                    "country_name": country_name,
+                }
+            )
         time.sleep(0.5)
 
-    active_probe = dict(sorted(active_probe.items(), key=lambda item: item[1]))
+    active_probe_df = pd.DataFrame(active_rows)
+    if not active_probe_df.empty:
+        active_probe_df = active_probe_df.sort_values(
+            by=["ptr", "country_code", "country_name"]
+        )
 
     with open(Path(DATA_DIR).joinpath("atlas/probes.json"), "w") as f:
         json.dump(probe_list, f, indent=4)
@@ -135,5 +136,10 @@ if __name__ == "__main__":
         json.dump(probe_list_original, f, indent=4)
 
     with open(Path(DATA_DIR).joinpath("atlas/active_probes.csv"), "w") as f:
-        for key, value in active_probe.items():
-            f.write(f"{key},{value[0]},{value[1]},{value[2]}\n")
+        if not active_rows:
+            pass
+        else:
+            for _, row in active_probe_df.iterrows():
+                f.write(
+                    f"{row['probe_id']},{row['ptr']},{row['country_code']},{row['country_name']}\n"
+                )

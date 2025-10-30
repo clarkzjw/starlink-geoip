@@ -33,7 +33,7 @@ jobs:
       - name: Install project dependencies
         run: poetry install
       - name: Refresh GeoIP
-        run: env PYTHONUNBUFFERED=1 poetry run python3 geoip_pop.py
+        run: env PYTHONUNBUFFERED=1 poetry run python3 run.py
       - name: Push GeoIP
         uses: s0/git-publish-subdir-action@develop
         env:

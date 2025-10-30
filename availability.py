@@ -9,14 +9,12 @@
 # visualize geojson with https://geojson.io/
 
 import os
-import sys
 import json
 import time
 import httpx
 import subprocess
 
 from pathlib import Path
-from pprint import pprint
 
 import geocoder
 from shapely.geometry import Polygon
@@ -146,7 +144,7 @@ def classify():
                                 print(line)
 
 
-if __name__ == "__main__":
+def refresh_availability_zone():
     ensure_dir()
     retrive_availability_cells()
     convert()

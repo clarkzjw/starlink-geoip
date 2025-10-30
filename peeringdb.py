@@ -11,18 +11,20 @@ DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
 
 
 def new_client():
-    return httpx.Client(base_url='https://www.peeringdb.com/')
+    return httpx.Client(base_url="https://www.peeringdb.com/")
 
 
 def retrive_net(netid: int):
     client = new_client()
-    response = client.get(f'api/net/{netid}')
+    response = client.get(f"api/net/{netid}")
     client.close()
     return response.json()
 
 
-if __name__ == "__main__":
+def refresh_peeringdb():
     for netid in NETID:
         data = retrive_net(netid)
-        with open(Path(DATA_DIR).joinpath("peeringdb/net-{}.json".format(netid)), "w") as f:
+        with open(
+            Path(DATA_DIR).joinpath("peeringdb/net-{}.json".format(netid)), "w"
+        ) as f:
             f.write(json.dumps(data, indent=4))
