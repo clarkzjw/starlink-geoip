@@ -23,13 +23,13 @@ jobs:
         run: rm -rf starlink-geoip-data && git clone --depth=1 https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
       - name: Install dependencies
         run: echo ${{ secrets.USERPWD }} | sudo -S apt-get update && sudo -S apt-get install pipx dnsutils -y
+      - name: Install poetry
+        run: pipx install poetry && pipx ensurepath
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'poetry'
-      - name: Install poetry
-        run: pipx install poetry && pipx ensurepath
       - name: Install project dependencies
         run: poetry install
       - name: Refresh GeoIP
