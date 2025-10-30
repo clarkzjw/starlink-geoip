@@ -373,15 +373,6 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
     return result
 
 
-def refresh_geoip_pop():
-
-    get_feed()
-
-    df = join_feed()
-
-    update_dns_ptr(df)
-
-
 def convert_to_geoip_json():
     print("Converting geoip-pops-ptr CSV to JSON format")
     CSV_PATH = GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv")
@@ -395,6 +386,12 @@ def convert_to_geoip_json():
         print(f"Wrote {JSON_PATH}")
 
 
-if __name__ == "__main__":
-    refresh_geoip_pop()
+def refresh_geoip_pop():
+
+    get_feed()
+
+    df = join_feed()
+
+    update_dns_ptr(df)
+
     convert_to_geoip_json()
