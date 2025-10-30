@@ -6,10 +6,11 @@ import ipaddress
 import threading
 import subprocess
 import json
-
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any
+from collections import Counter
+
+from datetime import datetime, timezone
 
 import pandas as pd
 
@@ -101,10 +102,10 @@ def join_feed():
 
     feed_only_mask = ~feed_df["cidr"].isin(pop_df["cidr"])
     feed_only = feed_df[feed_only_mask]
+    common_df = feed_df[~feed_only_mask]
 
     if not feed_only.empty:
-        feed_only_reindexed = feed_only.reindex(columns=merged_left.columns)
-        merged_df = pd.concat([merged_left, feed_only_reindexed], ignore_index=True)
+        merged_df = pd.concat([common_df, feed_only], ignore_index=True)
     else:
         merged_df = merged_left
 
@@ -311,12 +312,33 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
         else r.get(k, "") if isinstance(r, dict) else r.get(k, "")
     )
 
-    result: Dict[str, Any] = {"valid": {}}
+    # prepare top-level keys in desired order
+    # result: Dict[str, Any] = {"valid": {}, "dns_ptr_pop_not_match": {}}
+    result = {
+        "valid": {},
+        "dns_ptr_pop_not_match": {},
+        "pop_subnet_count": [],
+    }
+
+    # counter for all non-empty dns_ptr values (regardless of match)
+    ptr_counter: Counter = Counter()
 
     for _, row in df.iterrows():
         cidr = get(row, "cidr")
         dns_ptr = (get(row, "dns_ptr") or "").strip()
+        if dns_ptr:
+            ptr_counter[dns_ptr] += 1
 
+        # interpret pop_dns_ptr_match robustly
+        pdpm_raw = get(row, "pop_dns_ptr_match")
+        if isinstance(pdpm_raw, bool):
+            pdpm = pdpm_raw
+        elif pdpm_raw is None:
+            pdpm = False
+        else:
+            pdpm = str(pdpm_raw).strip().lower() == "true"
+
+        # require dns_ptr to place into either valid or dns_ptr_pop_not_match
         if not dns_ptr:
             continue
 
@@ -327,11 +349,18 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
         if not country:
             continue
 
-        country_dict = result["valid"].setdefault(country, {})
+        target_bucket = "valid" if pdpm else "dns_ptr_pop_not_match"
+        country_dict = result[target_bucket].setdefault(country, {})
         region_dict = country_dict.setdefault(region, {})
         city_dict = region_dict.setdefault(city, {})
         ips = city_dict.setdefault("ips", [])
         ips.append([cidr, dns_ptr])
+
+    # build pop_subnet_count as list of [dns_ptr, count] sorted desc
+    pop_subnet_count = [[ptr, cnt] for ptr, cnt in ptr_counter.most_common()]
+    # sort pop_subnet_count by ptr
+    pop_subnet_count.sort(key=lambda x: x[0])
+    result["pop_subnet_count"] = pop_subnet_count
 
     return result
 
@@ -346,15 +375,14 @@ def refresh_geoip_pop():
 
 
 if __name__ == "__main__":
-    # refresh_geoip_pop()
-    # read CSV, convert and write JSON
-    CSV_PATH = Path("geoip-pops-ptr-latest.csv")
-    JSON_PATH = Path("geoip-latest-2.json")
+    refresh_geoip_pop()
 
-    if not CSV_PATH.exists():
-        raise SystemExit(f"CSV not found at {CSV_PATH}")
-    df = pd.read_csv(CSV_PATH, dtype=str, keep_default_na=False)
-    geojson = convert_geoip_to_json(df)
-    with open(JSON_PATH, "w") as f:
-        json.dump(geojson, f, indent=2, sort_keys=True)
-    print(f"Wrote {JSON_PATH}")
+    CSV_PATH = GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv")
+    JSON_PATH = GEOIP_DATA_DIR.joinpath("geoip-latest.json")
+
+    if CSV_PATH.exists():
+        df = pd.read_csv(CSV_PATH, dtype=str, keep_default_na=False)
+        geojson = convert_geoip_to_json(df)
+        with open(JSON_PATH, "w") as f:
+            json.dump(geojson, f, indent=2)
+        print(f"Wrote {JSON_PATH}")
