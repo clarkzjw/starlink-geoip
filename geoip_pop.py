@@ -113,7 +113,7 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
     """
     print(f"Digging PTR for IP: {ip}")
     try:
-        cmd = ["dig", "@8.8.8.8", "-x", str(ip), "+trace", "+all"]
+        cmd = ["dig", "-x", str(ip), "+trace", "+all"]
         output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
         for _line in output.splitlines():
             if "PTR" in _line and ".arpa." in _line and (not _line.startswith(";")):
