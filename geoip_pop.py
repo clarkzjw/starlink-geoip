@@ -24,7 +24,14 @@ FEED_DATA_DIR = Path(DATA_DIR).joinpath("feed")
 POP_FEED_DATA_DIR = Path(DATA_DIR).joinpath("pop")
 GEOIP_DATA_DIR = Path(DATA_DIR).joinpath("geoip")
 
-FORCE_PTR_REFRESH = False
+FEED_LATEST_FILE = FEED_DATA_DIR.joinpath("feed-latest.csv")
+POP_LATEST_FILE = POP_FEED_DATA_DIR.joinpath("pops-latest.csv")
+GEOIP_LATEST_FILE = GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv")
+
+
+def read_file(file_path: Path) -> str:
+    with open(file_path, "r") as f:
+        return f.read()
 
 
 def get_feed():
@@ -46,6 +53,10 @@ def get_feed():
                     .joinpath(f"feed-{dt_string}.csv")
                 )
                 latest = Path(FEED_DATA_DIR).joinpath("feed-latest.csv")
+                old_file = read_file(FEED_LATEST_FILE)
+                if content == old_file:
+                    print("Feed file unchanged; skipping update.")
+                    continue
             elif filename == "pops.csv":
                 filename = (
                     Path(POP_FEED_DATA_DIR)
@@ -53,6 +64,10 @@ def get_feed():
                     .joinpath(f"pops-{dt_string}.csv")
                 )
                 latest = Path(POP_FEED_DATA_DIR).joinpath("pops-latest.csv")
+                old_file = read_file(POP_LATEST_FILE)
+                if content == old_file:
+                    print("POP file unchanged; skipping update.")
+                    continue
             else:
                 print("Unknown feed filename")
                 sys.exit(1)
@@ -109,7 +124,7 @@ def parse_subnet(subnet: str) -> None | ipaddress.IPv6Address | ipaddress.IPv4Ad
 def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
     print(f"Digging PTR for IP: {ip}")
     try:
-        cmd = ["dig", "-x", str(ip), "+trace", "+all"]
+        cmd = ["dig", "-x", str(ip), "+trace", "+all", "+dnssec"]
         output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
         for _line in output.splitlines():
             if (
@@ -233,6 +248,11 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     df_without_pop = df[df["pop"].isna()]
     df = pd.concat([df_with_pop, df_without_pop], ignore_index=True)
 
+    old_df = pd.read_csv(GEOIP_LATEST_FILE)
+    if old_df.equals(df):
+        print("No changes in geoip-pops-ptr data; skipping update.")
+        return
+
     df.to_csv(
         GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv"),
         index=False,
@@ -252,3 +272,7 @@ def refresh_geoip_pop():
     df = join_feed()
 
     update_dns_ptr(df)
+
+
+if __name__ == "__main__":
+    refresh_geoip_pop()
