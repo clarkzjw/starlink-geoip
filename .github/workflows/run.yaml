@@ -21,15 +21,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Get latest data
         run: rm -rf starlink-geoip-data && git clone --depth=1 https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
-      - name: Install poetry
-        run: pipx install poetry
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install pipx dnsutils -y
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'poetry'
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install dnsutils -y && poetry install
+      - name: Install poetry
+        run: pipx install poetry && pipx ensurepath
+      - name: Install project dependencies
+        run: poetry install
       - name: Refresh GeoIP
         run: env PYTHONUNBUFFERED=1 poetry run python3 geoip_pop.py
       - name: Push GeoIP
