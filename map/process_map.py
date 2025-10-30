@@ -75,8 +75,12 @@ def get_netfac_list():
         for netfac in netfac_json:
             time.sleep(10)
             netfac_ids.append(netfac["id"])
-            response = peeringdb_client.get(f'api/netfac/{netfac["id"]}')
+            print("Processing PeeringDB netfac ID: {}".format(netfac["id"]))
+            response = peeringdb_client.get(f'api/netfac/{netfac["id"]}', timeout=10.0)
             netfac_detail = response.json()
+            if "data" not in netfac_detail:
+                print(netfac_detail)
+                sys.exit(1)
             name = netfac_detail["data"][0]["name"]
             address = ""
             fac_id = netfac_detail["data"][0]["fac_id"]
@@ -173,8 +177,9 @@ def get_city_list(geoipJson: dict):
 
 
 def refresh_map():
+    get_netfac_list()
+
     geoipJson = get_geoip_json()
 
     get_pop_list(geoipJson)
     get_city_list(geoipJson)
-    get_netfac_list()
