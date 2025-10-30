@@ -172,7 +172,7 @@ def get_city_list(geoipJson: dict):
     json.dump(city_json, open(Path(GEOIP_MAP_DIR).joinpath("city.json"), "w"), indent=4)
 
 
-if __name__ == "__main__":
+def refresh_map():
     geoipJson = get_geoip_json()
 
     get_pop_list(geoipJson)
