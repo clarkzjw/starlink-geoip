@@ -5,9 +5,11 @@ import httpx
 import ipaddress
 import threading
 import subprocess
+import json
 
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Dict, Any
 
 import pandas as pd
 
@@ -265,6 +267,75 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     )
 
 
+def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
+    """
+    Convert a dataframe with columns:
+      cidr,country,region,city,pop,code,dns_ptr,pop_dns_ptr_match
+    into a JSON structure matching:
+    {
+      "valid": {
+        "AD": {
+          "AD-07": {
+            "Andorra la Vella": {
+              "ips": [
+                ["2a0d:3344:3f00::/40", "customer.sfiabgr1.pop.starlinkisp.net."]
+              ]
+            }
+          }
+        }
+      }
+    }
+    Only rows with a non-empty dns_ptr and pop_dns_ptr_match == True are included.
+    """
+    # normalize column names if necessary
+    expected_cols = [
+        "cidr",
+        "country",
+        "region",
+        "city",
+        "pop",
+        "code",
+        "dns_ptr",
+        "pop_dns_ptr_match",
+    ]
+    # If df has a header row duplicated or extra, try to select matching columns
+    cols_lower = [c.lower() for c in df.columns]
+    col_map = {}
+    for ec in expected_cols:
+        if ec in cols_lower:
+            col_map[ec] = df.columns[cols_lower.index(ec)]
+    # fallback: assume columns are already correct
+    get = lambda r, k: (
+        r[col_map[k]]
+        if k in col_map
+        else r.get(k, "") if isinstance(r, dict) else r.get(k, "")
+    )
+
+    result: Dict[str, Any] = {"valid": {}}
+
+    for _, row in df.iterrows():
+        cidr = get(row, "cidr")
+        dns_ptr = (get(row, "dns_ptr") or "").strip()
+
+        if not dns_ptr:
+            continue
+
+        country = (get(row, "country") or "").strip()
+        region = (get(row, "region") or "").strip()
+        city = (get(row, "city") or "").strip()
+
+        if not country:
+            continue
+
+        country_dict = result["valid"].setdefault(country, {})
+        region_dict = country_dict.setdefault(region, {})
+        city_dict = region_dict.setdefault(city, {})
+        ips = city_dict.setdefault("ips", [])
+        ips.append([cidr, dns_ptr])
+
+    return result
+
+
 def refresh_geoip_pop():
 
     get_feed()
@@ -275,4 +346,15 @@ def refresh_geoip_pop():
 
 
 if __name__ == "__main__":
-    refresh_geoip_pop()
+    # refresh_geoip_pop()
+    # read CSV, convert and write JSON
+    CSV_PATH = Path("geoip-pops-ptr-latest.csv")
+    JSON_PATH = Path("geoip-latest-2.json")
+
+    if not CSV_PATH.exists():
+        raise SystemExit(f"CSV not found at {CSV_PATH}")
+    df = pd.read_csv(CSV_PATH, dtype=str, keep_default_na=False)
+    geojson = convert_geoip_to_json(df)
+    with open(JSON_PATH, "w") as f:
+        json.dump(geojson, f, indent=2, sort_keys=True)
+    print(f"Wrote {JSON_PATH}")
