@@ -43,14 +43,14 @@ def get_feed():
                 filename = (
                     Path(FEED_DATA_DIR)
                     .joinpath(f"{year}{month}")
-                    .joinpath(f"feed_{dt_string}.csv")
+                    .joinpath(f"feed-{dt_string}.csv")
                 )
                 latest = Path(FEED_DATA_DIR).joinpath("feed-latest.csv")
             elif filename == "pops.csv":
                 filename = (
                     Path(POP_FEED_DATA_DIR)
                     .joinpath(f"{year}{month}")
-                    .joinpath(f"pops_{dt_string}.csv")
+                    .joinpath(f"pops-{dt_string}.csv")
                 )
                 latest = Path(POP_FEED_DATA_DIR).joinpath("pops-latest.csv")
             else:
