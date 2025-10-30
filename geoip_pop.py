@@ -153,7 +153,6 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     while to_process:
         # build chunks for this round
         chunk_size = (len(to_process) + threads - 1) // threads
-        chunk_size = min(32, chunk_size)
         chunks = [
             to_process[i : i + chunk_size]
             for i in range(0, len(to_process), chunk_size)

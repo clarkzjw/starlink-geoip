@@ -10,7 +10,7 @@ on:
 
 jobs:
   geoip:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, starlink]
     permissions:
       contents: write
       packages: write
