@@ -22,7 +22,7 @@ jobs:
       - name: Get latest data
         run: rm -rf starlink-geoip-data && git clone --depth=1 https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install pipx dnsutils -y
+        run: echo ${{ secrets.USERPWD }} | sudo -S apt-get update && sudo -S apt-get install pipx dnsutils -y
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
