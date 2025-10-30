@@ -256,8 +256,11 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     df_without_pop = df[df["pop"].isna()]
     df = pd.concat([df_with_pop, df_without_pop], ignore_index=True)
 
+    df.to_csv(f"/tmp/geoip-pops-ptr-{dt_string}.csv", index=False)
+    df_cmp = pd.read_csv(f"/tmp/geoip-pops-ptr-{dt_string}.csv")
+
     old_df = pd.read_csv(GEOIP_LATEST_FILE)
-    if old_df.equals(df):
+    if old_df.equals(df_cmp):
         print("No changes in geoip-pops-ptr data; skipping update.")
         return
 
