@@ -13,7 +13,7 @@ from pathlib import Path
 GEOIP_JSON_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-latest.json"
 NETFAC_JSON_TEMPLATE_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/peeringdb/net-{}.json"
 PEERINGDB_NET_ID = [18747, 36005]
-DATA_DIR = os.getenv("DATA_DIR", "../starlink-geoip-data")
+DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
 GEOIP_MAP_DIR = Path(DATA_DIR).joinpath("map")
 
 
