@@ -100,14 +100,19 @@ def join_feed():
 
     merged_left = feed_df.merge(pop_df, on="cidr", how="left")
 
-    feed_only_mask = ~feed_df["cidr"].isin(pop_df["cidr"])
-    feed_only = feed_df[feed_only_mask]
-    common_df = feed_df[~feed_only_mask]
+    feed_only_mask = ~merged_left["cidr"].isin(pop_df["cidr"])
+    feed_only = merged_left[feed_only_mask]
+    common_df = merged_left[~feed_only_mask]
+
+    print(f"Feed only rows: {len(feed_only)}")
+    print(f"Common rows: {len(common_df)}")
 
     if not feed_only.empty:
         merged_df = pd.concat([common_df, feed_only], ignore_index=True)
     else:
         merged_df = merged_left
+
+    print(f"Total merged rows: {len(merged_df)}")
 
     return merged_df
 
