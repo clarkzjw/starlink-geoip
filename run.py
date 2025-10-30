@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
 
-if __name__ == "__main__":
-    now = datetime.now(tz=timezone.utc)
+
+def run_jobs(now: datetime):
+
     print("Current UTC date and time:", now.strftime("%Y-%m-%d %H:%M:%S"))
 
     hour = now.hour
@@ -32,3 +33,8 @@ if __name__ == "__main__":
 
     print("Refreshing GeoIP and POP data")
     geoip_pop.refresh_geoip_pop()
+
+
+if __name__ == "__main__":
+    now = datetime.now(tz=timezone.utc)
+    run_jobs(now)
