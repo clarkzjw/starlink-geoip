@@ -114,7 +114,7 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
     print(f"Digging PTR for IP: {ip}")
     try:
         cmd = ["dig", "@8.8.8.8", "-x", str(ip), "+trace", "+all"]
-        output = subprocess.check_output(cmd, timeout=10).decode("utf-8")
+        output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
         for _line in output.splitlines():
             if "PTR" in _line and ".arpa." in _line and (not _line.startswith(";")):
                 domain = _line.split("PTR")[1].strip()
@@ -142,7 +142,7 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
         return df
 
     cpu_count = os.cpu_count() or 1
-    threads = max(1, cpu_count * 8)
+    threads = max(8, cpu_count * 8)
 
     # indices to process in the current round
     to_process = df.index.tolist()
@@ -153,6 +153,7 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     while to_process:
         # build chunks for this round
         chunk_size = (len(to_process) + threads - 1) // threads
+        chunk_size = min(32, chunk_size)
         chunks = [
             to_process[i : i + chunk_size]
             for i in range(0, len(to_process), chunk_size)
