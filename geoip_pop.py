@@ -367,6 +367,9 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
     pop_subnet_count.sort(key=lambda x: x[0])
     result["pop_subnet_count"] = pop_subnet_count
 
+    # sort valid = dict(sorted(valid.items()))
+    result["valid"] = dict(sorted(result["valid"].items()))
+
     return result
 
 
@@ -379,9 +382,8 @@ def refresh_geoip_pop():
     update_dns_ptr(df)
 
 
-if __name__ == "__main__":
-    refresh_geoip_pop()
-
+def convert_to_geoip_json():
+    print("Converting geoip-pops-ptr CSV to JSON format")
     CSV_PATH = GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv")
     JSON_PATH = GEOIP_DATA_DIR.joinpath("geoip-latest.json")
 
@@ -391,3 +393,8 @@ if __name__ == "__main__":
         with open(JSON_PATH, "w") as f:
             json.dump(geojson, f, indent=2)
         print(f"Wrote {JSON_PATH}")
+
+
+if __name__ == "__main__":
+    refresh_geoip_pop()
+    convert_to_geoip_json()
