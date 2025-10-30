@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: echo ${{ secrets.USERPWD }} | sudo -S apt-get update && sudo -S apt-get install pipx dnsutils -y
       - name: Install poetry
-        run: pipx install poetry && pipx ensurepath && which poetry
+        run: pipx install poetry && pipx ensurepath
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
