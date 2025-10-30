@@ -116,7 +116,12 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
         cmd = ["dig", "-x", str(ip), "+trace", "+all"]
         output = subprocess.check_output(cmd, timeout=5).decode("utf-8")
         for _line in output.splitlines():
-            if "PTR" in _line and ".arpa." in _line and (not _line.startswith(";")):
+            if (
+                "PTR" in _line
+                and ".arpa." in _line
+                and (not _line.startswith(";"))
+                and "RRSIG" not in _line
+            ):
                 domain = _line.split("PTR")[1].strip()
                 return domain
         return ""
