@@ -29,7 +29,7 @@ FORCE_PTR_REFRESH = False
 
 def get_feed():
     for dir_path in [FEED_DATA_DIR, GEOIP_DATA_DIR, POP_FEED_DATA_DIR]:
-        _dir = dir_path.joinpath(f"{year}")
+        _dir = dir_path.joinpath(f"{year}{month}")
         if not _dir.exists():
             _dir.mkdir(parents=True, exist_ok=True)
 
@@ -42,14 +42,14 @@ def get_feed():
             if filename == "feed.csv":
                 filename = (
                     Path(FEED_DATA_DIR)
-                    .joinpath(f"{year}")
+                    .joinpath(f"{year}{month}")
                     .joinpath(f"feed_{dt_string}.csv")
                 )
                 latest = Path(FEED_DATA_DIR).joinpath("feed-latest.csv")
             elif filename == "pops.csv":
                 filename = (
                     Path(POP_FEED_DATA_DIR)
-                    .joinpath(f"{year}")
+                    .joinpath(f"{year}{month}")
                     .joinpath(f"pops_{dt_string}.csv")
                 )
                 latest = Path(POP_FEED_DATA_DIR).joinpath("pops-latest.csv")
@@ -107,10 +107,6 @@ def parse_subnet(subnet: str) -> None | ipaddress.IPv6Address | ipaddress.IPv4Ad
 
 
 def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
-    """
-    Return domain string when PTR found, empty string when no PTR,
-    and None when a TimeoutExpired occurred (to indicate a retry is needed).
-    """
     print(f"Digging PTR for IP: {ip}")
     try:
         cmd = ["dig", "-x", str(ip), "+trace", "+all"]
@@ -127,7 +123,6 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
         return ""
     except subprocess.TimeoutExpired:
         print(f"Timeout expired for dig command on IP: {ip}")
-        # signal to caller that a timeout occurred and this row should be retried
         return None
     except subprocess.CalledProcessError as e:
         print(f"Error executing dig command: {e}")
@@ -149,14 +144,12 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     cpu_count = os.cpu_count() or 1
     threads = max(8, cpu_count * 8)
 
-    # indices to process in the current round
     to_process = df.index.tolist()
 
     lock = threading.Lock()
     chunk_lock = threading.Lock()
 
     while to_process:
-        # build chunks for this round
         chunk_size = (len(to_process) + threads - 1) // threads
         chunks = [
             to_process[i : i + chunk_size]
@@ -171,7 +164,6 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
         def worker(idx_slice):
             nonlocal processed_chunks
             for idx in idx_slice:
-                # skip if already processed by other thread/round
                 with lock:
                     if df.at[idx, "processed"]:
                         continue
@@ -192,7 +184,6 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
                     with lock:
                         df.at[idx, "dns_ptr"] = ptr_rec
                         df.at[idx, "processed"] = True
-            # chunk finished: update and print progress
             with chunk_lock:
                 processed_chunks += 1
                 print(
@@ -207,7 +198,6 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
         for t in threads_list:
             t.join()
 
-        # prepare next round: keep only retries that haven't exhausted attempts
         next_round = []
         with lock:
             for idx in set(retries):
