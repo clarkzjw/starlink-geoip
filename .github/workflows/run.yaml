@@ -44,3 +44,5 @@ jobs:
           MESSAGE: "GitHub Action Update - Starlink GeoIP Feed"
           SKIP_EMPTY_COMMITS: true
           CLEAR_GLOBS_FILE: ".clear-target-files"
+      - name: Cleanup
+        run: rm -rf /tmp/geoip-pops-ptr-* && rm -rf /tmp/git-publish-subdir-action-*
