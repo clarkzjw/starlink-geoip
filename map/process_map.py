@@ -54,7 +54,7 @@ def get_geoip_json() -> dict:
 
 
 def get_pop_list(geoipJson: dict):
-    with open("./data/pop.json", "r+") as f:
+    with open("./map/data/pop.json", "r+") as f:
         pops = json.load(f)
         pop_code_list = [x["code"] for x in pops]
 
