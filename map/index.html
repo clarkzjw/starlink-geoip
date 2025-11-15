@@ -317,43 +317,43 @@
             });
 
             $(document).on('click', '#getIP', async function () {
-                var response = await getClientIP();
-                var data = response.trim().split('\n').reduce(function (obj, pair) {
-                    pair = pair.split('=');
-                    return obj[pair[0]] = pair[1], obj;
-                }, {});
-                console.log(data);
+                    var response = await getClientIP();
+                    var data = response.trim().split('\n').reduce(function (obj, pair) {
+                        pair = pair.split('=');
+                        return obj[pair[0]] = pair[1], obj;
+                    }, {});
+                    console.log(data);
 
-                let geoip = await getJson(GEOIP_JSON);
-                const popList = await getJson(POP_JSON);
+                    // Read PoP CSV and find a matching subnet for the client IP.
+                    // CSV format: subnet,pop_code,city_code
+                    var isStarlink = false;
+                    var popCode = "";
+                    try {
+                        const csvText = await fetch('https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/pop/pops-latest.csv', { method: 'GET' }).then(r => r.text());
+                        const entries = csvText.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(line => {
+                            const parts = line.split(',');
+                            return { subnet: parts[0], code: parts[1] || '' };
+                        });
 
-                var isStarlink = false;
-                var pop = "";
-
-                geoip = geoip["valid"];
-                for (var country in geoip) {
-                    for (var region in geoip[country]) {
-                        for (var city in geoip[country][region]) {
-                            for (var i = 0; i < geoip[country][region][city].ips.length; i++) {
-                                if (ipInSubnet(data.ip, geoip[country][region][city].ips[i][0])) {
-                                    isStarlink = true;
-                                    ptr = geoip[country][region][city].ips[i][1];
-                                    pop = popList.find(x => x.code === ptr.split('.')[1]).city;
-                                    break;
-                                }
+                        for (const e of entries) {
+                            if (ipInSubnet(data.ip, e.subnet)) {
+                                isStarlink = true;
+                                popCode = e.code;
+                                break;
                             }
                         }
+                    } catch (err) {
+                        console.error('Failed to fetch/parse PoP CSV', err);
                     }
-                }
 
-                var header = 'The following information is based on <a href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">Cloudflare trace</a> and <a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">Starlink GeoIP database</a>.<br><br>';
-                if (isStarlink) {
-                    $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br>Your Starlink PoP is probably <code>' + pop + '</code>' + '<br><br><button id="closePopup">Close</button>');
-                } else {
-                    $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br><br>You are not using Starlink.' + '<br><br><button id="closePopup">Close</button>');
-                }
-                $("#popupModal").show();
-            });
+                    var header = 'The following information is based on <a href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">Cloudflare trace</a> and <a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">Starlink GeoIP database</a>.<br><br>';
+                    if (isStarlink) {
+                        $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br>Your Starlink PoP code is probably <code>' + escapeHtml(popCode) + '</code>' + '<br><br><button id="closePopup">Close</button>');
+                    } else {
+                        $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br><br>You are not using Starlink.' + '<br><br><button id="closePopup">Close</button>');
+                    }
+                     $("#popupModal").show();
+                 });
         });
 
         async function getJson(url, updateSource) {
