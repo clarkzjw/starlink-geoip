@@ -134,9 +134,9 @@ def get_city_list(geoipJson: dict):
                 country_full = convert_country_code(country)
                 print("{}, {}, {}".format(country, state, city))
 
-                g = geocoder.arcgis("{}, {}, {}".format(city, state, country_full))
+                g = geocoder.arcgis("{}, {}".format(city, country_full))
                 if g.json is None:
-                    g = geocoder.arcgis("{}, {}".format(city, country_full))
+                    g = geocoder.arcgis("{}, {}, {}".format(city, state, country_full))
                     if g.json is None:
                         g = geocoder.arcgis("{}".format(city))
                 source_gps = g.json
