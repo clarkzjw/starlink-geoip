@@ -499,7 +499,7 @@
                     offset: 25
                 })
                     .setHTML(
-                        `<h4>${feature.properties.title}</h4><p>${feature.properties.description}</p>`
+                        `<h4>${feature.properties.title}</h4>` + parseDescriptionToTable(feature.properties.description)
                     );
 
                 // connected PoP for this city
@@ -556,7 +556,7 @@
         }
 
         if (!mapboxgl.supported()) {
-            alert('Your browser does not support Mapbox GL');
+                alert('Your browser does not support Mapbox GL');
         } else {
             const map = new mapboxgl.Map({
                 container: 'map',
@@ -568,6 +568,91 @@
             map.on('load', async () => {
                 loadPoPAndCity(map);
             });
+        }
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function parseDescriptionToTable(desc) {
+            if (!desc) return '';
+            // Normalize: convert <br> to newline and strip any other HTML tags so parsing is consistent
+            const normalized = desc.replace(/<br\s*\/?>/gi, '\n').replace(/<\/?[^>]+(>|$)/g, '');
+            const lines = normalized.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+
+            // collect intro lines until the first "Subnet:" line
+            let introLines = [];
+            let i = 0;
+            while (i < lines.length && !/^Subnet:/i.test(lines[i])) {
+                introLines.push(lines[i]);
+                i++;
+            }
+
+            const rows = [];
+            const seen = new Set();
+            while (i < lines.length) {
+                const line = lines[i];
+
+                // Try to capture Subnet, PoP and optional PTR that might appear on same line
+                let subnetMatch = line.match(/^Subnet:\s*(.+?)\s*:\s*PoP:\s*([^\s(]+)/i)
+                                || line.match(/^Subnet:\s*(.+?)\s*PoP:\s*([^\s(]+)/i);
+
+                if (subnetMatch) {
+                    const subnet = subnetMatch[1].trim();
+                    const pop = subnetMatch[2].trim();
+                    let ptr = '';
+
+                    // attempt to capture PTR if it appears on the same line
+                    const ptrSameLine = line.match(/PTR:\s*([^\)\s]+)/i) || line.match(/\(PTR:\s*([^\)]+)\)/i);
+                    if (ptrSameLine) {
+                        ptr = ptrSameLine[1].trim();
+                    } else if (i + 1 < lines.length) {
+                        // check next line for PTR like "(PTR: ...)" or "PTR: ..."
+                        const next = lines[i + 1];
+                        const ptrNextLine = next.match(/PTR:\s*([^\)]+)/i) || next.match(/\(PTR:\s*([^\)]+)\)/i);
+                        if (ptrNextLine) {
+                            ptr = ptrNextLine[1].trim();
+                            i++; // consume PTR line
+                        }
+                    }
+
+                    // dedupe by composite key
+                    const key = `${subnet}|${pop}|${ptr}`;
+                    if (!seen.has(key)) {
+                        seen.add(key);
+                        rows.push({ subnet, pop, ptr });
+                    }
+                } else {
+                    // non-subnet lines appended to intro
+                    introLines.push(line);
+                }
+                i++;
+            }
+
+            let html = '';
+            if (introLines.length) {
+                html += `<p>${escapeHtml(introLines.join(' '))}</p>`;
+            }
+
+            if (rows.length) {
+                html += '<div style="overflow:auto; max-height:300px;"><table style="width:100%; border-collapse:collapse;">';
+                html += '<thead><tr><th style="border:1px solid #ccc; padding:6px; text-align:left;">Subnet</th><th style="border:1px solid #ccc; padding:6px; text-align:left;">PoP</th><th style="border:1px solid #ccc; padding:6px; text-align:left;">PTR</th></tr></thead><tbody>';
+                for (const r of rows) {
+                    html += `<tr><td style="border:1px solid #eee; padding:6px; vertical-align:top;"><code>${escapeHtml(r.subnet)}</code></td>`;
+                    html += `<td style="border:1px solid #eee; padding:6px; vertical-align:top;">${escapeHtml(r.pop)}</td>`;
+                    html += `<td style="border:1px solid #eee; padding:6px; vertical-align:top;"><code>${escapeHtml(r.ptr)}</code></td></tr>`;
+                }
+                html += '</tbody></table></div>';
+            } else {
+                // fallback to show raw description if no rows parsed
+                html += `<p>${escapeHtml(desc)}</p>`;
+            }
+
+            return html;
         }
     </script>
 </body>
