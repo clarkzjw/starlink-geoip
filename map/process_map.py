@@ -204,13 +204,9 @@ def get_city_list(geoipJson: dict):
 
 
 def refresh_map():
-    # get_netfac_list()
+    get_netfac_list()
 
     geoipJson = get_geoip_json()
 
     get_pop_list(geoipJson)
     get_city_list(geoipJson)
-
-
-if __name__ == "__main__":
-    load_pops_csv()
