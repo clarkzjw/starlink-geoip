@@ -134,7 +134,12 @@ def get_city_list(geoipJson: dict):
                 country_full = convert_country_code(country)
                 print("{}, {}, {}".format(country, state, city))
 
-                g = geocoder.arcgis("{}, {}".format(city, country_full))
+                if country == "US":
+                    # US has too many cities with the same name, add state to improve accuracy
+                    g = geocoder.arcgis("{}, {}, {}".format(city, state, country_full))
+                else:
+                    g = geocoder.arcgis("{}, {}".format(city, country_full))
+
                 if g.json is None:
                     g = geocoder.arcgis("{}, {}, {}".format(city, state, country_full))
                     if g.json is None:
