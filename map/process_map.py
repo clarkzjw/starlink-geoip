@@ -54,7 +54,7 @@ def get_geoip_json() -> dict:
 
 
 def get_pop_list(geoipJson: dict):
-    with open(Path(GEOIP_MAP_DIR).joinpath("pop.json"), "r+") as f:
+    with open("./data/pop.json", "r+") as f:
         pops = json.load(f)
         pop_code_list = [x["code"] for x in pops]
 
@@ -76,9 +76,8 @@ def get_pop_list(geoipJson: dict):
                     )
         pops.sort(key=lambda x: x["code"])
 
-        f.seek(0)
-        json.dump(pops, f, indent=4)
-        f.truncate()
+        with open(Path(GEOIP_MAP_DIR).joinpath("pop.json"), "w") as f_out:
+            json.dump(pops, f_out, indent=4)
 
 
 def convert_country_code(two_letter_code: str) -> str:
@@ -205,7 +204,7 @@ def get_city_list(geoipJson: dict):
 
 
 def refresh_map():
-    get_netfac_list()
+    # get_netfac_list()
 
     geoipJson = get_geoip_json()
 
