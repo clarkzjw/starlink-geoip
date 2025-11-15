@@ -59,11 +59,6 @@ def convert_country_code(two_letter_code: str) -> str:
 
 
 def get_netfac_list():
-    token = os.getenv("GEOCODER_TOKEN", "")
-    if len(token) == 0:
-        print("Please set GEOCODER_TOKEN in environment variable")
-        sys.exit(1)
-
     netfac_geojson = {"type": "FeatureCollection", "features": []}
 
     netfac_ids = []
@@ -97,8 +92,10 @@ def get_netfac_list():
                         netfac_detail["data"][0]["fac"]["country"],
                     ]
                 )
-                g = geocoder.google(address, key=token)
+                print("Geocoding address: {}".format(address))
+                g = geocoder.arcgis(address)
                 lat, lon = g.json["lat"], g.json["lng"]
+                print("Geocoded to: {}, {}".format(lat, lon))
 
             netfac_geojson["features"].append(
                 {
@@ -124,11 +121,6 @@ def get_netfac_list():
 
 
 def get_city_list(geoipJson: dict):
-    token = os.getenv("GEOCODER_TOKEN", "")
-    if len(token) == 0:
-        print("Please set GEOCODER_TOKEN in environment variable")
-        sys.exit(1)
-
     city_json = {"type": "FeatureCollection", "features": []}
 
     geoipJson = geoipJson["valid"]
@@ -142,15 +134,13 @@ def get_city_list(geoipJson: dict):
                 country_full = convert_country_code(country)
                 print("{}, {}, {}".format(country, state, city))
 
-                g = geocoder.google(
-                    "{}, {}, {}".format(city, state, country_full), key=token
-                )
+                g = geocoder.arcgis("{}, {}, {}".format(city, state, country_full))
                 if g.json is None:
-                    g = geocoder.google("{}, {}".format(city, country_full), key=token)
+                    g = geocoder.arcgis("{}, {}".format(city, country_full))
                     if g.json is None:
-                        g = geocoder.google("{}".format(city), key=token)
+                        g = geocoder.arcgis("{}".format(city))
                 source_gps = g.json
-
+                print(source_gps)
                 description = "<i>{},{},{}</i><br>".format(country, state, city)
                 for ip in geoipJson[country][state][city]["ips"]:
                     description += "{}<br>({})<br>".format(ip[0], ip[1])

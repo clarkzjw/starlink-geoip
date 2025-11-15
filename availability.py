@@ -21,7 +21,6 @@ from shapely.geometry import Polygon
 
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
-token = os.getenv("GEOCODER_TOKEN", "")
 
 
 def new_client():
@@ -107,15 +106,12 @@ def classify():
                             count += 1
 
                             polygon = Polygon(j)
-                            g = geocoder.google(
-                                "{}, {}".format(polygon.centroid.y, polygon.centroid.x),
-                                key=token,
+                            g = geocoder.arcgis(
+                                "{}, {}".format(polygon.centroid.y, polygon.centroid.x)
                             )
                             if g.json is None:
                                 for k in j:
-                                    g = geocoder.google(
-                                        "{}, {}".format(k[1], k[0]), key=token
-                                    )
+                                    g = geocoder.arcgis("{}, {}".format(k[1], k[0]))
                                     if g.json:
                                         country = g.json["country"]
                                         lat = k[1]
