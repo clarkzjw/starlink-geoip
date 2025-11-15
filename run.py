@@ -17,16 +17,11 @@ def run_jobs(now: datetime):
         print("Refreshing availability zones...")
         availability.refresh_availability_zone()
 
-    if day in [1, 15] and hour == 0:
-        from map.process_map import refresh_map
-
-        print("Refreshing GeoIP map data")
-        refresh_map()
-    
     if hour == 0:
         import bgp
         import peeringdb
         import atlas
+        import map.process_map
 
         print("Refreshing BGP")
         bgp.get_bgp_list()
@@ -34,11 +29,13 @@ def run_jobs(now: datetime):
         peeringdb.refresh_peeringdb()
         print("Refreshing Atlas probes")
         atlas.refresh_atlas_probes()
+        print("Refreshing GeoIP map data")
+        map.process_map.refresh_map()
 
     import geoip_pop
 
     print("Refreshing GeoIP and POP data")
-    geoip_pop.refresh_geoip_pop()    
+    geoip_pop.refresh_geoip_pop()
 
 
 if __name__ == "__main__":
