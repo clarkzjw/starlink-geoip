@@ -30,8 +30,8 @@ def run_jobs(now: datetime):
         print("Refreshing Atlas probes")
         atlas.refresh_atlas_probes()
 
-    print("Refreshing GeoIP and POP data")
-    geoip_pop.refresh_geoip_pop()
+    # print("Refreshing GeoIP and POP data")
+    # geoip_pop.refresh_geoip_pop()
 
     print("Refreshing GeoIP map data")
     map.process_map.refresh_map()

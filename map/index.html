@@ -503,14 +503,14 @@
 
                 // connected PoP for this city
                 let cityPoPList = [];
-                const regex = /customer\.[a-z0-9]+\.pop\.starlinkisp\.net\./g;
-                const popMatch = feature.properties.description.match(regex);
-                if (popMatch) {
-                    for (const pop of popMatch) {
-                        const popCity = pop.split('.')[1];
-                        cityPoPList.push(popCity);
+                const popRegex = /PoP:\s*([a-z0-9\-]+)/gi;
+                const matches = Array.from(feature.properties.description.matchAll(popRegex));
+                if (matches.length > 0) {
+                    for (const m of matches) {
+                        cityPoPList.push(m[1]);
                     }
                 }
+
                 cityPoPList = [...new Set(cityPoPList)];
 
                 // get PoP coordinates from PoPList

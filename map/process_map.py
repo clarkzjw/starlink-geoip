@@ -9,12 +9,43 @@ import geocoder
 import pycountry
 from pathlib import Path
 
+import pandas as pd
+
 
 GEOIP_JSON_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-latest.json"
 NETFAC_JSON_TEMPLATE_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/peeringdb/net-{}.json"
+POPS_CSV_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-pops-ptr-latest.csv"
 PEERINGDB_NET_ID = [18747, 36005]
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
 GEOIP_MAP_DIR = Path(DATA_DIR).joinpath("map")
+
+
+def load_pops_csv() -> pd.DataFrame:
+    # cidr,country,region,city,pop,code,dns_ptr,pop_dns_ptr_match
+    # 14.1.64.0/24,PH,PH-00,Manila,mnlaphl1,mnl,customer.mnlaphl1.pop.starlinkisp.net.,True
+    # 14.1.65.0/24,PH,PH-00,Manila,mnlaphl1,mnl,customer.mnlaphl1.pop.starlinkisp.net.,True
+    df = pd.read_csv(POPS_CSV_URL)
+    return df
+
+
+def get_pop(subnet: str, df: pd.DataFrame) -> str:
+    match = df[df["cidr"] == subnet]
+    if not match.empty:
+        # if "pop_dns_ptr_match" is True
+        if match.iloc[0]["pop_dns_ptr_match"]:
+            return match.iloc[0]["pop"]
+        else:
+            ptr = match.iloc[0]["dns_ptr"]
+            pop_from_ptr = ptr.split(".")[1]
+            return pop_from_ptr
+    return ""
+
+
+def get_pop_from_csv(subnet: str, df: pd.DataFrame) -> str:
+    match = df[df["subnet"] == subnet]
+    if not match.empty:
+        return match.iloc[0]["pop"]
+    return ""
 
 
 def get_geoip_json() -> dict:
@@ -122,6 +153,7 @@ def get_netfac_list():
 
 def get_city_list(geoipJson: dict):
     city_json = {"type": "FeatureCollection", "features": []}
+    df_geoip = load_pops_csv()
 
     geoipJson = geoipJson["valid"]
     for country in geoipJson:
@@ -131,24 +163,25 @@ def get_city_list(geoipJson: dict):
                 # https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#User-assigned_code_elements
                 if country == "XZ":
                     continue
-                country_full = convert_country_code(country)
+                # country_full = convert_country_code(country)
                 print("{}, {}, {}".format(country, state, city))
 
                 if country == "US":
                     # US has too many cities with the same name, add state to improve accuracy
-                    g = geocoder.arcgis("{}, {}, {}".format(city, state, country_full))
+                    g = geocoder.arcgis("{}, {}, {}".format(city, state, country))
                 else:
-                    g = geocoder.arcgis("{}, {}".format(city, country_full))
+                    g = geocoder.arcgis("{}, {}".format(city, country))
 
                 if g.json is None:
-                    g = geocoder.arcgis("{}, {}, {}".format(city, state, country_full))
+                    g = geocoder.arcgis("{}, {}, {}".format(city, state, country))
                     if g.json is None:
                         g = geocoder.arcgis("{}".format(city))
                 source_gps = g.json
                 print(source_gps)
                 description = "<i>{},{},{}</i><br>".format(country, state, city)
                 for ip in geoipJson[country][state][city]["ips"]:
-                    description += "{}<br>({})<br>".format(ip[0], ip[1])
+                    pop = get_pop(ip[0], df_geoip)
+                    description += f"Subnet: {ip[0]}: PoP: {pop}<br>(PTR: {ip[1]})<br>"
 
                 city_json["features"].append(
                     {
@@ -178,3 +211,7 @@ def refresh_map():
 
     get_pop_list(geoipJson)
     get_city_list(geoipJson)
+
+
+if __name__ == "__main__":
+    load_pops_csv()
