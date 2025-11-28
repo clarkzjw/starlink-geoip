@@ -323,8 +323,7 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
     # prepare top-level keys in desired order
     # result: Dict[str, Any] = {"valid": {}, "dns_ptr_pop_not_match": {}}
     result = {
-        "valid": {},
-        "dns_ptr_pop_not_match": {},
+        "countries": {},
         "pop_subnet_count": [],
     }
 
@@ -337,19 +336,6 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
         if dns_ptr:
             ptr_counter[dns_ptr] += 1
 
-        # interpret pop_dns_ptr_match robustly
-        pdpm_raw = get(row, "pop_dns_ptr_match")
-        if isinstance(pdpm_raw, bool):
-            pdpm = pdpm_raw
-        elif pdpm_raw is None:
-            pdpm = False
-        else:
-            pdpm = str(pdpm_raw).strip().lower() == "true"
-
-        # require dns_ptr to place into either valid or dns_ptr_pop_not_match
-        if not dns_ptr:
-            continue
-
         country = (get(row, "country") or "").strip()
         region = (get(row, "region") or "").strip()
         city = (get(row, "city") or "").strip()
@@ -357,7 +343,7 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
         if not country:
             continue
 
-        target_bucket = "valid" if pdpm else "dns_ptr_pop_not_match"
+        target_bucket = "countries"
         country_dict = result[target_bucket].setdefault(country, {})
         region_dict = country_dict.setdefault(region, {})
         city_dict = region_dict.setdefault(city, {})
@@ -371,7 +357,7 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
     result["pop_subnet_count"] = pop_subnet_count
 
     # sort valid = dict(sorted(valid.items()))
-    result["valid"] = dict(sorted(result["valid"].items()))
+    result["countries"] = dict(sorted(result["countries"].items()))
 
     return result
 

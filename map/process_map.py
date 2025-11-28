@@ -31,13 +31,14 @@ def load_pops_csv() -> pd.DataFrame:
 def get_pop(subnet: str, df: pd.DataFrame) -> str:
     match = df[df["cidr"] == subnet]
     if not match.empty:
-        # if "pop_dns_ptr_match" is True
-        if match.iloc[0]["pop_dns_ptr_match"]:
-            return match.iloc[0]["pop"]
-        else:
-            ptr = match.iloc[0]["dns_ptr"]
-            pop_from_ptr = ptr.split(".")[1]
-            return pop_from_ptr
+        return match.iloc[0]["pop"]
+        # # if "pop_dns_ptr_match" is True
+        # if match.iloc[0]["pop_dns_ptr_match"]:
+        #     return match.iloc[0]["pop"]
+        # else:
+        #     ptr = match.iloc[0]["dns_ptr"]
+        #     pop_from_ptr = ptr.split(".")[1]
+        #     return pop_from_ptr
     return ""
 
 
@@ -49,8 +50,11 @@ def get_pop_from_csv(subnet: str, df: pd.DataFrame) -> str:
 
 
 def get_geoip_json() -> dict:
-    geoipJson = requests.get(GEOIP_JSON_URL)
-    return json.loads(geoipJson.content)
+    # geoipJson = requests.get(GEOIP_JSON_URL)
+    # return json.loads(geoipJson.content)
+    with open("./starlink-geoip-data/geoip/geoip-latest.json", "r") as f:
+        geoipJson = json.load(f)
+    return geoipJson
 
 
 def get_pop_list(geoipJson: dict):
@@ -154,7 +158,7 @@ def get_city_list(geoipJson: dict):
     city_json = {"type": "FeatureCollection", "features": []}
     df_geoip = load_pops_csv()
 
-    geoipJson = geoipJson["valid"]
+    geoipJson = geoipJson["countries"]
     for country in geoipJson:
         for state in geoipJson[country]:
             for city in geoipJson[country][state]:
@@ -204,9 +208,9 @@ def get_city_list(geoipJson: dict):
 
 
 def refresh_map():
-    get_netfac_list()
-
     geoipJson = get_geoip_json()
+
+    get_netfac_list()
 
     get_pop_list(geoipJson)
     get_city_list(geoipJson)
