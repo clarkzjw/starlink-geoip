@@ -31,7 +31,11 @@ def load_pops_csv() -> pd.DataFrame:
 def get_pop(subnet: str, df: pd.DataFrame) -> str:
     match = df[df["cidr"] == subnet]
     if not match.empty:
-        return match.iloc[0]["pop"]
+        pop = match.iloc[0]["pop"]
+        if pd.notna(pop):
+            return pop
+        else:
+            return ""
         # # if "pop_dns_ptr_match" is True
         # if match.iloc[0]["pop_dns_ptr_match"]:
         #     return match.iloc[0]["pop"]
