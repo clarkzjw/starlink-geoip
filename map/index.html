@@ -598,13 +598,34 @@
                 const line = lines[i];
 
                 // Try to capture Subnet, PoP and optional PTR that might appear on same line
-                let subnetMatch = line.match(/^Subnet:\s*(.+?)\s*:\s*PoP:\s*([^\s(]+)/i)
-                                || line.match(/^Subnet:\s*(.+?)\s*PoP:\s*([^\s(]+)/i);
+                // Support lines with empty PoP or just Subnet
+                if (/^Subnet:/i.test(line)) {
+                    let subnet = "";
+                    let pop = "";
+                    let ptr = "";
 
-                if (subnetMatch) {
-                    const subnet = subnetMatch[1].trim();
-                    const pop = subnetMatch[2].trim();
-                    let ptr = '';
+                    // Extract Subnet: everything after "Subnet:" until "PoP:", "PTR:", or end
+                    let content = line.replace(/^Subnet:\s*/i, '');
+
+                    // Find split points
+                    const popIndex = content.search(/PoP:/i);
+                    const ptrIndex = content.search(/\(?PTR:/i); // matches PTR: or (PTR:
+
+                    let subnetEnd = content.length;
+                    if (popIndex !== -1) subnetEnd = Math.min(subnetEnd, popIndex);
+                    if (ptrIndex !== -1) subnetEnd = Math.min(subnetEnd, ptrIndex);
+
+                    subnet = content.substring(0, subnetEnd).trim();
+                    // Remove trailing colon if it was "Subnet: ... : PoP:"
+                    if (subnet.endsWith(':')) subnet = subnet.slice(0, -1).trim();
+
+                    // Extract PoP if present
+                    if (popIndex !== -1) {
+                        let popContent = content.substring(popIndex + 4).trim(); // skip "PoP:"
+                        // PoP ends at PTR or space/paren
+                        const popMatch = popContent.match(/^([^\s(]+)/);
+                        if (popMatch) pop = popMatch[1];
+                    }
 
                     // attempt to capture PTR if it appears on the same line
                     const ptrSameLine = line.match(/PTR:\s*([^\)\s]+)/i) || line.match(/\(PTR:\s*([^\)]+)\)/i);
@@ -613,10 +634,13 @@
                     } else if (i + 1 < lines.length) {
                         // check next line for PTR like "(PTR: ...)" or "PTR: ..."
                         const next = lines[i + 1];
-                        const ptrNextLine = next.match(/PTR:\s*([^\)]+)/i) || next.match(/\(PTR:\s*([^\)]+)\)/i);
-                        if (ptrNextLine) {
-                            ptr = ptrNextLine[1].trim();
-                            i++; // consume PTR line
+                        // Ensure it's not a new subnet line
+                        if (!/^Subnet:/i.test(next)) {
+                            const ptrNextLine = next.match(/PTR:\s*([^\)]+)/i) || next.match(/\(PTR:\s*([^\)]+)\)/i);
+                            if (ptrNextLine) {
+                                ptr = ptrNextLine[1].trim();
+                                i++; // consume PTR line
+                            }
                         }
                     }
 
