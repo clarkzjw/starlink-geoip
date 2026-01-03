@@ -1,5 +1,16 @@
 [
     {
+        "code": "dhkabgd1",
+        "dns": "customer.dhkabgd1.pop.starlinkisp.net.",
+        "city": "Dhaka",
+        "country": "Bangladesh",
+        "lat": 90.235979,
+        "lon": 24.064969,
+        "show": true,
+        "type": "netfac",
+        "note": "Felicity IDC - Kaliakoir<br><a href=\"https://www.peeringdb.com/fac/15297\" target=\"_blank\">https://www.peeringdb.com/fac/15297</a><br>"
+    },
+    {
         "code": "almykaz1",
         "dns": "",
         "city": "Almaty",
