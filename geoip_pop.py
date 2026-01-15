@@ -192,6 +192,9 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
                         continue
                     df.at[idx, "attempts"] = int(df.at[idx, "attempts"]) + 1
                 subnet = df.at[idx, "cidr"]
+                # weird that some of these subnets return timeout
+                if str(subnet).startswith("150.228."):
+                    continue
                 time.sleep(0.1)
                 subnet_ip = parse_subnet(subnet)
                 if subnet_ip is None:
