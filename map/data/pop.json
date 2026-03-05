@@ -1,5 +1,16 @@
 [
     {
+        "code": "drwnaus1",
+        "dns": "customer.drwnaus1.pop.starlinkisp.net.",
+        "city": "Darwin",
+        "country": "Australia",
+        "lat": -12.456749,
+        "lon": 130.843567,
+        "show": true,
+        "type": "netfac",
+        "note": "Likely NEXTDC D1<br><a href=\"https://www.peeringdb.com/fac/14550\" target=\"_blank\">https://www.peeringdb.com/fac/14550</a><br>"
+    },
+    {
         "code": "brsabra1",
         "dns": "customer.brsabra1.pop.starlinkisp.net.",
         "city": "Brasília",
