@@ -171,7 +171,8 @@
         <br>
         <div><img id="pop-legend" style="width: 40px; height: 40px; border-radius: 50%;" src="./assets/pop.png"></img></div>
         <br>
-        <div><img id="netfac-legend" style="width: 40px; height: 40px; border-radius: 50%;" src="./assets/data-center.png"></img></div>
+        <div><img id="netfac-legend" style="width: 40px; height: 40px; border-radius: 50%;"
+                src="./assets/data-center.png"></img></div>
     </div>
 
     <div id="info" class="info" style="display: block">
@@ -283,10 +284,10 @@
 
                 $("#stat-legend").click(function () {
                     var message = '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-subnet-count.png" alt="No. of Subnet Entries as Planned in GeoIP" width="600" height="auto"><br>' +
-                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-subnet-ip-count.png" alt="No. of Usable IPv4 Addresses as Planned in GeoIP" width="600" height="auto"><br>' +
-                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-v6_56_subnet-count.png" alt="No. of Usable /56 IPv6 Subnets as Planned in GeoIP" width="600" height="auto"><br>' +
-                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-country-city-count.png" alt="No. of Countries, Territories and Cities as Planned in GeoIP" width="600" height="auto"><br>' +
-                    '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-pop-density.png" alt="No. of Subnets Entries Served per PoP as Planned in GeoIP" width="600" height="auto"><br>';
+                        '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-subnet-ip-count.png" alt="No. of Usable IPv4 Addresses as Planned in GeoIP" width="600" height="auto"><br>' +
+                        '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-v6_56_subnet-count.png" alt="No. of Usable /56 IPv6 Subnets as Planned in GeoIP" width="600" height="auto"><br>' +
+                        '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-country-city-count.png" alt="No. of Countries, Territories and Cities as Planned in GeoIP" width="600" height="auto"><br>' +
+                        '<img src="https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/figures/geoip-pop-density.png" alt="No. of Subnets Entries Served per PoP as Planned in GeoIP" width="600" height="auto"><br>';
                     $("#popupContent").html(message);
                     $("#popupModal").show();
                 });
@@ -298,9 +299,9 @@
                 });
                 $("#netfac-legend").click(function () {
                     var message = 'The orange marker represents the actual Interconnection Facilities (<i>netfac</i>) of Starlink.<br>' +
-                    'The data is colllected from <a href="https://www.peeringdb.com" target="_blank">https://www.peeringdb.com</a>.<br><br>' +
-                    'Usually, a real Starlink "PoP" becomes operational once it is assigned with a PoP code in DNS PTR records <br><b>AND</b> a <i>netfac</i> record is present in PeeringDB.<br><br>' +
-                    '<button id="closePopup">Close</button><br>';
+                        'The data is colllected from <a href="https://www.peeringdb.com" target="_blank">https://www.peeringdb.com</a>.<br><br>' +
+                        'Usually, a real Starlink "PoP" becomes operational once it is assigned with a PoP code in DNS PTR records <br><b>AND</b> a <i>netfac</i> record is present in PeeringDB.<br><br>' +
+                        '<button id="closePopup">Close</button><br>';
                     $("#popupContent").html(message);
                     $("#popupModal").show();
                 });
@@ -317,43 +318,43 @@
             });
 
             $(document).on('click', '#getIP', async function () {
-                    var response = await getClientIP();
-                    var data = response.trim().split('\n').reduce(function (obj, pair) {
-                        pair = pair.split('=');
-                        return obj[pair[0]] = pair[1], obj;
-                    }, {});
-                    console.log(data);
+                var response = await getClientIP();
+                var data = response.trim().split('\n').reduce(function (obj, pair) {
+                    pair = pair.split('=');
+                    return obj[pair[0]] = pair[1], obj;
+                }, {});
+                console.log(data);
 
-                    // Read PoP CSV and find a matching subnet for the client IP.
-                    // CSV format: subnet,pop_code,city_code
-                    var isStarlink = false;
-                    var popCode = "";
-                    try {
-                        const csvText = await fetch('https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/pop/pops-latest.csv', { method: 'GET' }).then(r => r.text());
-                        const entries = csvText.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(line => {
-                            const parts = line.split(',');
-                            return { subnet: parts[0], code: parts[1] || '' };
-                        });
+                // Read PoP CSV and find a matching subnet for the client IP.
+                // CSV format: subnet,pop_code,city_code
+                var isStarlink = false;
+                var popCode = "";
+                try {
+                    const csvText = await fetch('https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/pop/pops-latest.csv', { method: 'GET' }).then(r => r.text());
+                    const entries = csvText.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(line => {
+                        const parts = line.split(',');
+                        return { subnet: parts[0], code: parts[1] || '' };
+                    });
 
-                        for (const e of entries) {
-                            if (ipInSubnet(data.ip, e.subnet)) {
-                                isStarlink = true;
-                                popCode = e.code;
-                                break;
-                            }
+                    for (const e of entries) {
+                        if (ipInSubnet(data.ip, e.subnet)) {
+                            isStarlink = true;
+                            popCode = e.code;
+                            break;
                         }
-                    } catch (err) {
-                        console.error('Failed to fetch/parse PoP CSV', err);
                     }
+                } catch (err) {
+                    console.error('Failed to fetch/parse PoP CSV', err);
+                }
 
-                    var header = 'The following information is based on <a href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">Cloudflare trace</a> and <a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">Starlink GeoIP database</a>.<br><br>';
-                    if (isStarlink) {
-                        $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br>Your Starlink PoP code is probably <code>' + escapeHtml(popCode) + '</code>' + '<br><br><button id="closePopup">Close</button>');
-                    } else {
-                        $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br><br>You are not using Starlink.' + '<br><br><button id="closePopup">Close</button>');
-                    }
-                     $("#popupModal").show();
-                 });
+                var header = 'The following information is based on <a href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">Cloudflare trace</a> and <a href="https://geoip.starlinkisp.net/feed.csv" target="_blank">Starlink GeoIP database</a>.<br><br>';
+                if (isStarlink) {
+                    $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br>Your Starlink PoP code is probably <code>' + escapeHtml(popCode) + '</code>' + '<br><br><button id="closePopup">Close</button>');
+                } else {
+                    $("#popupContent").html(header + 'Location: <code>' + data.loc + ', ' + data.colo + '</code><br>IP: <code>' + data.ip + '</code><br><br>You are not using Starlink.' + '<br><br><button id="closePopup">Close</button>');
+                }
+                $("#popupModal").show();
+            });
         });
 
         async function getJson(url, updateSource) {
@@ -438,7 +439,7 @@
                         'coordinates': [pop.lon, pop.lat]
                     },
                     'properties': {
-                        'title': pop.city + ' PoP',
+                        'title': pop.city + (pop.type === "community_gateway" ? ' Community Gateway' : ' PoP'),
                         'description': pop.dns
                     }
                 };
@@ -556,7 +557,7 @@
         }
 
         if (!mapboxgl.supported()) {
-                alert('Your browser does not support Mapbox GL');
+            alert('Your browser does not support Mapbox GL');
         } else {
             const map = new mapboxgl.Map({
                 container: 'map',

@@ -28,7 +28,7 @@ if not _dir.exists():
 
 
 def get_date() -> str:
-    now = datetime.datetime.now(tz=datetime.timezone.utc)
+    now = datetime.now(tz=timezone.utc)
     return now.strftime("%Y%m%d-%H%M")
 
 
