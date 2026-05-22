@@ -2,7 +2,7 @@ import os
 import time
 import json
 import httpx
-import datetime
+from datetime import datetime, timezone
 
 import pandas as pd
 import pycountry
@@ -12,12 +12,19 @@ from pathlib import Path
 
 from util import GEOIP
 
+datetime_now = datetime.now(tz=timezone.utc)
+year = datetime_now.year
+month = datetime_now.month
+year_month = f"{year}{month:02d}"
 
 ASN = [14593, 45700]
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
-if not os.path.exists(Path(DATA_DIR).joinpath("atlas")):
-    os.makedirs(Path(DATA_DIR).joinpath("atlas"))
+ATLAS_DATA_DIR = Path(DATA_DIR).joinpath("atlas")
+
+_dir = Path(ATLAS_DATA_DIR).joinpath(f"{year_month}")
+if not _dir.exists():
+    os.makedirs(_dir, exist_ok=True)
 
 
 def get_date() -> str:
