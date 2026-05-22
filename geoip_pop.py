@@ -20,6 +20,7 @@ POP_FEED = "https://geoip.starlinkisp.net/pops.csv"
 datetime_now = datetime.now(tz=timezone.utc)
 year = datetime_now.year
 month = datetime_now.month
+year_month = f"{year}{month:02d}"
 dt_string = datetime_now.strftime("%Y%m%d-%H%M")
 
 DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
@@ -39,7 +40,7 @@ def read_file(file_path: Path) -> str:
 
 def get_feed():
     for dir_path in [FEED_DATA_DIR, GEOIP_DATA_DIR, POP_FEED_DATA_DIR]:
-        _dir = dir_path.joinpath(f"{year}{month}")
+        _dir = dir_path.joinpath(f"{year_month}")
         if not _dir.exists():
             _dir.mkdir(parents=True, exist_ok=True)
 
@@ -52,7 +53,7 @@ def get_feed():
             if filename == "feed.csv":
                 filename = (
                     Path(FEED_DATA_DIR)
-                    .joinpath(f"{year}{month}")
+                    .joinpath(f"{year_month}")
                     .joinpath(f"feed-{dt_string}.csv")
                 )
                 latest = Path(FEED_DATA_DIR).joinpath("feed-latest.csv")
@@ -63,7 +64,7 @@ def get_feed():
             elif filename == "pops.csv":
                 filename = (
                     Path(POP_FEED_DATA_DIR)
-                    .joinpath(f"{year}{month}")
+                    .joinpath(f"{year_month}")
                     .joinpath(f"pops-{dt_string}.csv")
                 )
                 latest = Path(POP_FEED_DATA_DIR).joinpath("pops-latest.csv")
@@ -272,7 +273,7 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
         index=False,
     )
     df.to_csv(
-        GEOIP_DATA_DIR.joinpath(f"{year}{month}").joinpath(
+        GEOIP_DATA_DIR.joinpath(f"{year_month}").joinpath(
             f"geoip-pops-ptr-{dt_string}.csv"
         ),
         index=False,
