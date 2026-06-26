@@ -44,6 +44,17 @@
         "note": "Equinix AT1 - Atlanta<br><a href=\"https://www.peeringdb.com/fac/940\" target=\"_blank\">https://www.peeringdb.com/fac/940</a> and QTS Atlanta-Metro (ATL1)<br><a href=\"https://www.peeringdb.com/fac/581\" target=\"_blank\">https://www.peeringdb.com/fac/581</a><br>"
     },
     {
+        "code": "btmmidn1",
+        "dns": "customer.btmmidn1.pop.starlinkisp.net.",
+        "city": "Batam",
+        "country": "Indonesia",
+        "lat": 1.12754013285603,
+        "lon": 104.04990721559035,
+        "show": true,
+        "type": "netfac",
+        "note": "Facility location unknown yet.<br>"
+    },
+    {
         "code": "bgtacol1",
         "dns": "customer.bgtacol1.pop.starlinkisp.net.",
         "city": "Bogot\u00e1",
