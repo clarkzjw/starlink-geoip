@@ -44,17 +44,6 @@
         "note": "Equinix AT1 - Atlanta<br><a href=\"https://www.peeringdb.com/fac/940\" target=\"_blank\">https://www.peeringdb.com/fac/940</a> and QTS Atlanta-Metro (ATL1)<br><a href=\"https://www.peeringdb.com/fac/581\" target=\"_blank\">https://www.peeringdb.com/fac/581</a><br>"
     },
     {
-        "code": "btmmidn1",
-        "dns": "customer.btmmidn1.pop.starlinkisp.net.",
-        "city": "Batam",
-        "country": "Indonesia",
-        "lat": 1.12754013285603,
-        "lon": 104.04990721559035,
-        "show": true,
-        "type": "netfac",
-        "note": "Facility location unknown yet.<br>"
-    },
-    {
         "code": "bgtacol1",
         "dns": "customer.bgtacol1.pop.starlinkisp.net.",
         "city": "Bogot\u00e1",
@@ -97,6 +86,17 @@
         "show": true,
         "type": "netfac",
         "note": "NEXTDC B1 - Brisbane, Australia<br><a href=\"https://www.peeringdb.com/fac/1340\" target=\"_blank\">https://www.peeringdb.com/fac/1340</a><br>"
+    },
+    {
+        "code": "btmmidn1",
+        "dns": "customer.btmmidn1.pop.starlinkisp.net.",
+        "city": "Batam",
+        "country": "Indonesia",
+        "lat": 1.1299414877187244,
+        "lon": 104.06559474969606,
+        "show": true,
+        "type": "netfac",
+        "note": "OMNIDC BATAM<br><a href=\"https://www.peeringdb.com/fac/15033\" target=\"_blank\">https://www.peeringdb.com/fac/15033</a><br>"
     },
     {
         "code": "chcoilx1",
@@ -154,6 +154,17 @@
         "note": "Felicity IDC - Kaliakoir<br><a href=\"https://www.peeringdb.com/fac/15297\" target=\"_blank\">https://www.peeringdb.com/fac/15297</a><br>"
     },
     {
+        "code": "dkrrsen1",
+        "dns": "customer.dkrrsen1.pop.starlinkisp.net.",
+        "city": "Dakar",
+        "country": "Senegal",
+        "lat": 14.675589,
+        "lon": -17.446384,
+        "show": true,
+        "type": "netfac",
+        "note": "ONIX Senegal<br><a href=\"https://www.peeringdb.com/fac/16913\" target=\"_blank\">https://www.peeringdb.com/fac/16913</a><br>"
+    },
+    {
         "code": "dlhiind1",
         "dns": "customer.dlhiind1.pop.starlinkisp.net.",
         "city": "New Delhi",
@@ -163,17 +174,6 @@
         "show": true,
         "type": "netfac",
         "note": "Sify Greenfort - Noida<br><a href='https://www.peeringdb.com/fac/2411' target='_blank'>https://www.peeringdb.com/fac/2411</a><br>"
-    },
-    {
-        "code": "dkrrsen1",
-        "dns": "customer.dkrrsen1.pop.starlinkisp.net.",
-        "city": "Dakar",
-        "country": "Senegal",
-        "lat": 14.734247763485637,
-        "lon": -17.478836126657104,
-        "show": true,
-        "type": "netfac",
-        "note": "Facility location unknown yet.<br>"
     },
     {
         "code": "dllstxx1",
@@ -286,6 +286,28 @@
         "note": "CtrlS Kolkata DC1<br><a href='https://www.peeringdb.com/fac/14993' target='_blank'>https://www.peeringdb.com/fac/14993</a><br>"
     },
     {
+        "code": "kllrmys1",
+        "dns": "customer.kllrmys1.pop.starlinkisp.net.",
+        "city": "Kuala Lumpur",
+        "country": "Maylysia",
+        "lat": 2.913224,
+        "lon": 101.655646,
+        "show": true,
+        "type": "netfac",
+        "note": "CSF CX1 / TelcoHub1 Kuala Lumpur<br><a href='https://www.peeringdb.com/fac/1279' target='_blank'>https://www.peeringdb.com/fac/1279</a><br>"
+    },
+    {
+        "code": "kmpauga1",
+        "dns": "customer.kmpauga1.pop.starlinkisp.net.",
+        "city": "Kampala",
+        "country": "Uganda",
+        "lat": 0.358071,
+        "lon": 32.694135,
+        "show": true,
+        "type": "netfac",
+        "note": "Raxio, UG1, Kampala, Uganda<br><a href='https://www.peeringdb.com/fac/11648' target='_blank'>https://www.peeringdb.com/fac/11648</a><br>"
+    },
+    {
         "code": "knsymox1",
         "dns": "customer.knsymox1.pop.starlinkisp.net.",
         "city": "Kansas City",
@@ -339,6 +361,17 @@
         "show": true,
         "type": "netfac",
         "note": "CoreSite - Los Angeles (LA1) One Wilshire<br><a href=\"https://www.peeringdb.com/fac/19\" target=\"_blank\">https://www.peeringdb.com/fac/19</a><br>"
+    },
+    {
+        "code": "mclntxx1",
+        "dns": "customer.mclntxx1.pop.starlinkisp.net.",
+        "city": "McAllen",
+        "country": "USA",
+        "lat": 26.201918,
+        "lon": -98.231633,
+        "show": true,
+        "type": "netfac",
+        "note": "MCTX1<br><a href=\"https://www.peeringdb.com/fac/16920\" target=\"_blank\">https://www.peeringdb.com/fac/16920</a><br>"
     },
     {
         "code": "mdrdesp1",
@@ -462,6 +495,17 @@
         "note": "Digital Realty NYC (32 AofA)<br><a href=\"https://www.peeringdb.com/fac/120\" target=\"_blank\">https://www.peeringdb.com/fac/120</a>"
     },
     {
+        "code": "prtebra1",
+        "dns": "customer.prtebra1.pop.starlinkisp.net.",
+        "city": "Porto Alegre",
+        "country": "Brazil",
+        "lat": -30.028618,
+        "lon": -51.230161,
+        "show": true,
+        "type": "netfac",
+        "note": "BR.Digital Porto Alegre (PAE1)<br><a href=\"https://www.peeringdb.com/fac/3796\" target=\"_blank\">https://www.peeringdb.com/fac/3796</a>"
+    },
+    {
         "code": "prthaus1",
         "dns": "customer.prthaus1.pop.starlinkisp.net.",
         "city": "Perth",
@@ -499,11 +543,11 @@
         "dns": "customer.sgnnvnm1.pop.starlinkisp.net.",
         "city": "Ho Chi Minh City",
         "country": "Vietnam",
-        "lat": 10.81824779805635,
-        "lon": 106.65472581237162,
+        "lat": 10.849967,
+        "lon": 106.801908,
         "show": true,
         "type": "netfac",
-        "note": "Facility location unknown yet.<br>"
+        "note": "FPT Fornix HCM 02<br><a href=\"https://www.peeringdb.com/fac/16356\" target=\"_blank\">https://www.peeringdb.com/fac/16356</a><br>"
     },
     {
         "code": "sltyutx1",
@@ -570,6 +614,17 @@
         "show": true,
         "type": "netfac",
         "note": "Omadata Data Center<br><a href=\"https://www.peeringdb.com/fac/5642\" target=\"_blank\">https://www.peeringdb.com/fac/5642</a><br>"
+    },
+    {
+        "code": "stcmswe1",
+        "dns": "customer.stcmswe1.pop.starlinkisp.net.",
+        "city": "Stockholm",
+        "country": "Sweden",
+        "lat": 59.422226,
+        "lon": 17.916696,
+        "show": true,
+        "type": "netfac",
+        "note": "Digital Realty Seattle SEA10<br><a href=\"https://www.peeringdb.com/fac/208\" target=\"_blank\">https://www.peeringdb.com/fac/208</a><br>"
     },
     {
         "code": "sttlwax1",
@@ -792,15 +847,15 @@
         "note": "Presumably a community gateway for internal use. See <a href=\"https://x.com/GregScott_photo/status/1862483470817140902\" target=\"_blank\">https://x.com/GregScott_photo/status/1862483470817140902</a>.<br>"
     },
     {
-        "code": "kentwax1",
-        "dns": "customer.kentwax1.pop.starlinkisp.net.",
+        "code": "kentwax2",
+        "dns": "customer.kentwax2.pop.starlinkisp.net.",
         "city": "Kent",
         "country": "USA",
         "lat": 47.3854669,
         "lon": -122.2346573,
         "show": true,
         "type": "pop",
-        "note": "This is <b>probably</b> a testing site for Starlink.<br>"
+        "note": "This is a staging/testing site for Starlink.<br>"
     },
     {
         "code": "krcipak1",
