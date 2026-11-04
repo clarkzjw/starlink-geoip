@@ -8,8 +8,8 @@ import monthly_latency_snapshot
 import availability
 import geoip_pop
 
-def run_jobs(now: datetime):
 
+def run_jobs(now: datetime):
     print("Current UTC date and time:", now.strftime("%Y-%m-%d %H:%M:%S"))
 
     hour = now.hour
