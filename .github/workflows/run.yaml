@@ -25,18 +25,15 @@ jobs:
       - name: Get latest data
         run: rm -rf starlink-geoip-data && git clone --depth=1 https://github.com/clarkzjw/starlink-geoip-data.git && rm -rf starlink-geoip-data/.git
       - name: Install dependencies
-        run: echo ${{ secrets.USERPWD }} | sudo -S apt-get update && sudo -S apt-get install pipx dnsutils -y
-      - name: Install poetry
-        run: pipx install poetry && pipx ensurepath
-      - name: Setup Python
-        uses: actions/setup-python@v5
+        run: echo ${{ secrets.USERPWD }} | sudo -S apt-get update && sudo -S apt-get install dnsutils -y
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: '3.11'
-          cache: 'poetry'
+          enable-cache: true
       - name: Install project dependencies
-        run: poetry install
+        run: uv sync --locked
       - name: Refresh GeoIP
-        run: env PYTHONUNBUFFERED=1 poetry run python3 run.py
+        run: env PYTHONUNBUFFERED=1 uv run python run.py
       - name: Push GeoIP
         uses: s0/git-publish-subdir-action@develop
         env:
@@ -48,4 +45,4 @@ jobs:
           SKIP_EMPTY_COMMITS: true
           CLEAR_GLOBS_FILE: ".clear-target-files"
       - name: Cleanup
-        run: rm -rf /tmp/geoip-pops-ptr-* && rm -rf /tmp/git-publish-subdir-action-*
+        run: rm -rf /tmp/starlink-geoip-* && rm -rf /tmp/git-publish-subdir-action-*
