@@ -1,31 +1,31 @@
+import io
 import re
-import os
-import sys
 import time
 import json
 import httpx
-import requests
 import geocoder
 import pycountry
 from pathlib import Path
 
 import pandas as pd
 
+from jobcontext import JobContext
 
-GEOIP_JSON_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-latest.json"
-NETFAC_JSON_TEMPLATE_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/peeringdb/net-{}.json"
-POPS_CSV_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/refs/heads/master/geoip/geoip-pops-ptr-latest.csv"
+# Inputs are read from the published data repo on raw.githubusercontent.com,
+# at ctx.ref (the triggering commit SHA under the scheduler).
+GEOIP_JSON = "geoip/geoip-latest.json"
+NETFAC_JSON_TEMPLATE = "peeringdb/net-{}.json"
+POPS_CSV = "geoip/geoip-pops-ptr-latest.csv"
+# Hand-maintained PoP list, part of this code repo.
+POP_LIST_FILE = Path(__file__).resolve().parent / "data" / "pop.json"
 PEERINGDB_NET_ID = [18747, 36005]
-DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
-GEOIP_MAP_DIR = Path(DATA_DIR).joinpath("map")
 
 
-def load_pops_csv() -> pd.DataFrame:
+def load_pops_csv(ctx: JobContext) -> pd.DataFrame:
     # cidr,country,region,city,pop,code,dns_ptr,pop_dns_ptr_match
     # 14.1.64.0/24,PH,PH-00,Manila,mnlaphl1,mnl,customer.mnlaphl1.pop.starlinkisp.net.,True
     # 14.1.65.0/24,PH,PH-00,Manila,mnlaphl1,mnl,customer.mnlaphl1.pop.starlinkisp.net.,True
-    df = pd.read_csv(POPS_CSV_URL)
-    return df
+    return pd.read_csv(io.BytesIO(ctx.fetch_raw(POPS_CSV)))
 
 
 def get_pop(subnet: str, df: pd.DataFrame) -> str:
@@ -53,16 +53,12 @@ def get_pop_from_csv(subnet: str, df: pd.DataFrame) -> str:
     return ""
 
 
-def get_geoip_json() -> dict:
-    # geoipJson = requests.get(GEOIP_JSON_URL)
-    # return json.loads(geoipJson.content)
-    with open("./starlink-geoip-data/geoip/geoip-latest.json", "r") as f:
-        geoipJson = json.load(f)
-    return geoipJson
+def get_geoip_json(ctx: JobContext) -> dict:
+    return json.loads(ctx.fetch_raw(GEOIP_JSON))
 
 
-def get_pop_list(geoipJson: dict):
-    with open("./map/data/pop.json", "r+") as f:
+def get_pop_list(ctx: JobContext, geoipJson: dict):
+    with open(POP_LIST_FILE, "r") as f:
         pops = json.load(f)
         pop_code_list = [x["code"] for x in pops]
 
@@ -84,7 +80,7 @@ def get_pop_list(geoipJson: dict):
                     )
         pops.sort(key=lambda x: x["code"])
 
-        with open(Path(GEOIP_MAP_DIR).joinpath("pop.json"), "w") as f_out:
+        with open(ctx.out("map/pop.json"), "w") as f_out:
             json.dump(pops, f_out, indent=4)
 
 
@@ -96,14 +92,13 @@ def convert_country_code(two_letter_code: str) -> str:
     return two_letter_code
 
 
-def get_netfac_list():
+def get_netfac_list(ctx: JobContext):
     netfac_geojson = {"type": "FeatureCollection", "features": []}
 
     netfac_ids = []
     peeringdb_client = httpx.Client(base_url="https://www.peeringdb.com/")
     for netid in PEERINGDB_NET_ID:
-        netfac_json = requests.get(NETFAC_JSON_TEMPLATE_URL.format(netid))
-        netfac_json = json.loads(netfac_json.content)
+        netfac_json = json.loads(ctx.fetch_raw(NETFAC_JSON_TEMPLATE.format(netid)))
         netfac_json = netfac_json["data"][0]["netfac_set"]
         for netfac in netfac_json:
             time.sleep(10)
@@ -112,8 +107,7 @@ def get_netfac_list():
             response = peeringdb_client.get(f'api/netfac/{netfac["id"]}', timeout=10.0)
             netfac_detail = response.json()
             if "data" not in netfac_detail:
-                print(netfac_detail)
-                sys.exit(1)
+                raise RuntimeError(f"Unexpected PeeringDB netfac response: {netfac_detail}")
             name = netfac_detail["data"][0]["name"]
             address = ""
             fac_id = netfac_detail["data"][0]["fac_id"]
@@ -153,14 +147,13 @@ def get_netfac_list():
             )
 
     peeringdb_client.close()
-    json.dump(
-        netfac_geojson, open(Path(GEOIP_MAP_DIR).joinpath("netfac.json"), "w"), indent=4
-    )
+    with open(ctx.out("map/netfac.json"), "w") as f:
+        json.dump(netfac_geojson, f, indent=4)
 
 
-def get_city_list(geoipJson: dict):
+def get_city_list(ctx: JobContext, geoipJson: dict):
     city_json = {"type": "FeatureCollection", "features": []}
-    df_geoip = load_pops_csv()
+    df_geoip = load_pops_csv(ctx)
 
     geoipJson = geoipJson["countries"]
     for country in geoipJson:
@@ -208,13 +201,18 @@ def get_city_list(geoipJson: dict):
                     }
                 )
 
-    json.dump(city_json, open(Path(GEOIP_MAP_DIR).joinpath("city.json"), "w"), indent=4)
+    with open(ctx.out("map/city.json"), "w") as f:
+        json.dump(city_json, f, indent=4)
 
 
-def refresh_map():
-    geoipJson = get_geoip_json()
+def refresh_map(ctx: JobContext):
+    geoipJson = get_geoip_json(ctx)
 
-    get_netfac_list()
+    get_netfac_list(ctx)
 
-    get_pop_list(geoipJson)
-    get_city_list(geoipJson)
+    get_pop_list(ctx, geoipJson)
+    get_city_list(ctx, geoipJson)
+
+
+if __name__ == "__main__":
+    refresh_map(JobContext.legacy())

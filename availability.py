@@ -8,7 +8,6 @@
 
 # visualize geojson with https://geojson.io/
 
-import os
 import json
 import time
 import httpx
@@ -19,48 +18,41 @@ from pathlib import Path
 import geocoder
 from shapely.geometry import Polygon
 
-
-DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
+from jobcontext import JobContext
 
 
 def new_client():
     return httpx.Client(base_url="https://api.starlink.com")
 
 
-def retrive_availability_cells():
-    client = new_client()
-    response = client.get("/public-files/availability-cells.pb")
-    client.close()
-    with open(Path(DATA_DIR).joinpath("availability/availability-cells.pb"), "wb") as f:
+def retrive_availability_cells(out_dir: Path):
+    with new_client() as client:
+        response = client.get("/public-files/availability-cells.pb", timeout=120)
+        response.raise_for_status()
+    with open(out_dir.joinpath("availability-cells.pb"), "wb") as f:
         f.write(response.content)
 
 
-def ensure_dir():
-    Path(DATA_DIR).joinpath("availability").mkdir(parents=True, exist_ok=True)
-
-
-def convert():
+def convert(out_dir: Path):
     subprocess.run(
         [
             "bash",
             "-c",
             "npx geobuf2json < availability-cells.pb > availability-cells.geojson",
         ],
-        cwd=Path(DATA_DIR).joinpath("availability"),
+        cwd=out_dir,
         check=True,
     )
-    filepath = Path(DATA_DIR).joinpath("availability/availability-cells.geojson")
+    filepath = out_dir.joinpath("availability-cells.geojson")
     with open(filepath, "r") as f:
         data = json.load(f)
     with open(filepath, "w") as f:
         f.write(json.dumps(data, indent=4))
 
 
-def classify():
+def classify(out_dir: Path):
     status_dict = {}
-    with open(
-        Path(DATA_DIR).joinpath("availability/availability-cells.geojson"), "r"
-    ) as f:
+    with open(out_dir.joinpath("availability-cells.geojson"), "r") as f:
         data = json.load(f)
         for feature in data["features"]:
             status = feature["properties"]["status"]
@@ -78,9 +70,7 @@ def classify():
         # waitlisted Sold Out
         # waitlisted Expanding in 2025
         # waitlisted Service date is unknown at this time
-        filepath = Path(DATA_DIR).joinpath(
-            "availability/{}.geojson".format(status.replace(" ", "_"))
-        )
+        filepath = out_dir.joinpath("{}.geojson".format(status.replace(" ", "_")))
         with open(filepath, "w") as f:
             obj = {
                 "type": "FeatureCollection",
@@ -88,9 +78,7 @@ def classify():
             }
             f.write(json.dumps(obj, indent=4))
 
-            csv_filepath = Path(DATA_DIR).joinpath(
-                "availability/{}.csv".format(status.replace(" ", "_"))
-            )
+            csv_filepath = out_dir.joinpath("{}.csv".format(status.replace(" ", "_")))
             with open(csv_filepath, "w") as csv_f:
                 print(csv_filepath)
                 count = 0
@@ -140,8 +128,12 @@ def classify():
                                 print(line)
 
 
-def refresh_availability_zone():
-    ensure_dir()
-    retrive_availability_cells()
-    convert()
-    classify()
+def refresh_availability_zone(ctx: JobContext):
+    out_dir = ctx.out_folder("availability")
+    retrive_availability_cells(out_dir)
+    convert(out_dir)
+    classify(out_dir)
+
+
+if __name__ == "__main__":
+    refresh_availability_zone(JobContext.legacy())

@@ -1,39 +1,18 @@
-import os
 import time
 import json
 import httpx
-from datetime import datetime, timezone
 
 import pandas as pd
 import pycountry
 
 from copy import deepcopy
-from pathlib import Path
 
+from jobcontext import JobContext
 from util import GEOIP
-
-datetime_now = datetime.now(tz=timezone.utc)
-year = datetime_now.year
-month = datetime_now.month
-year_month = f"{year}{month:02d}"
 
 ASN = [14593, 45700]
 
-DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
-ATLAS_DATA_DIR = Path(DATA_DIR).joinpath("atlas")
-
-_dir = Path(ATLAS_DATA_DIR).joinpath(f"{year_month}")
-if not _dir.exists():
-    os.makedirs(_dir, exist_ok=True)
-
-
-def get_date() -> str:
-    now = datetime.now(tz=timezone.utc)
-    return now.strftime("%Y%m%d-%H%M")
-
-
-date = get_date()
-geoip_client = GEOIP()
+_geoip_client: GEOIP | None = None
 
 
 def new_atlas_client():
@@ -74,10 +53,13 @@ def get_probe_info(id: str):
 
 
 def get_dns_ptr(ip) -> str:
-    return geoip_client.get_pop_by_ip(ip)
+    global _geoip_client
+    if _geoip_client is None:
+        _geoip_client = GEOIP()
+    return _geoip_client.get_pop_by_ip(ip)
 
 
-def refresh_atlas_probes():
+def refresh_atlas_probes(ctx: JobContext):
     probe_list = []
     probe_list_original = []
 
@@ -137,12 +119,12 @@ def refresh_atlas_probes():
             by=["ptr", "country_code", "country_name"]
         )
 
-    with open(Path(DATA_DIR).joinpath("atlas/probes.json"), "w") as f:
+    with open(ctx.out("atlas/probes.json"), "w") as f:
         json.dump(probe_list, f, indent=4)
-    with open(Path(DATA_DIR).joinpath("atlas/probes-{}.json".format(date)), "w") as f:
+    with open(ctx.out("atlas/probes-{}.json".format(ctx.dt_string)), "w") as f:
         json.dump(probe_list_original, f, indent=4)
 
-    with open(Path(DATA_DIR).joinpath("atlas/active_probes.csv"), "w") as f:
+    with open(ctx.out("atlas/active_probes.csv"), "w") as f:
         if not active_rows:
             pass
         else:
@@ -150,3 +132,7 @@ def refresh_atlas_probes():
                 f.write(
                     f"{row['probe_id']},{row['ptr']},{row['country_code']},{row['country_name']}\n"
                 )
+
+
+if __name__ == "__main__":
+    refresh_atlas_probes(JobContext.legacy())

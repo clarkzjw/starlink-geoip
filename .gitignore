@@ -3,3 +3,7 @@ build/
 latency/residential.json
 figures/
 .passwd/
+
+.venv/
+__pycache__/
+work/

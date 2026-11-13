@@ -1,91 +1,37 @@
-import os
-import sys
-import time
-import httpx
-import ipaddress
-import threading
-import subprocess
 import json
-from pathlib import Path
-from typing import Dict, Any
+import os
+import ipaddress
+import subprocess
+import threading
+import time
 from collections import Counter
-
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict
 
 import pandas as pd
 
-GEOIP_FEED = "https://geoip.starlinkisp.net/feed.csv"
-POP_FEED = "https://geoip.starlinkisp.net/pops.csv"
+from jobcontext import JobContext, md5_file
 
-datetime_now = datetime.now(tz=timezone.utc)
-year = datetime_now.year
-month = datetime_now.month
-year_month = f"{year}{month:02d}"
-dt_string = datetime_now.strftime("%Y%m%d-%H%M")
+FEED_LATEST = "feed/feed-latest.csv"
+POP_LATEST = "pop/pops-latest.csv"
+GEOIP_LATEST_CSV = "geoip/geoip-pops-ptr-latest.csv"
+GEOIP_LATEST_JSON = "geoip/geoip-latest.json"
+GEOIP_META = "geoip/geoip-pops-ptr-latest.meta.json"
 
-DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
-FEED_DATA_DIR = Path(DATA_DIR).joinpath("feed")
-POP_FEED_DATA_DIR = Path(DATA_DIR).joinpath("pop")
-GEOIP_DATA_DIR = Path(DATA_DIR).joinpath("geoip")
+PTR_MAX_AGE = timedelta(hours=24)
+# Cron fires at :00, but start times drift by seconds; without slack a run
+# started at 00:00:03 would make the next day's 00:00:01 check see 23:59:58.
+GATE_SLACK = timedelta(minutes=10)
 
-FEED_LATEST_FILE = FEED_DATA_DIR.joinpath("feed-latest.csv")
-POP_LATEST_FILE = POP_FEED_DATA_DIR.joinpath("pops-latest.csv")
-GEOIP_LATEST_FILE = GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv")
-
-
-def read_file(file_path: Path) -> str:
-    with open(file_path, "r") as f:
-        return f.read()
+# IPv6 subnets with prefix length >= this value (e.g., /64, /128) are not
+# PTR-looked-up; their dns_ptr is left empty.
+SKIP_PTR_V6_MIN_PREFIXLEN = 64
 
 
-def get_feed():
-    for dir_path in [FEED_DATA_DIR, GEOIP_DATA_DIR, POP_FEED_DATA_DIR]:
-        _dir = dir_path.joinpath(f"{year_month}")
-        if not _dir.exists():
-            _dir.mkdir(parents=True, exist_ok=True)
-
-    with httpx.Client() as client:
-        feeds_urls = [GEOIP_FEED, POP_FEED]
-        for url in feeds_urls:
-            geoip_file = client.get(url)
-            content = geoip_file.content.decode("utf-8")
-            filename = url.split("/")[-1]
-            if filename == "feed.csv":
-                filename = (
-                    Path(FEED_DATA_DIR)
-                    .joinpath(f"{year_month}")
-                    .joinpath(f"feed-{dt_string}.csv")
-                )
-                latest = Path(FEED_DATA_DIR).joinpath("feed-latest.csv")
-                old_file = read_file(FEED_LATEST_FILE)
-                if content == old_file:
-                    print("Feed file unchanged; skipping update.")
-                    continue
-            elif filename == "pops.csv":
-                filename = (
-                    Path(POP_FEED_DATA_DIR)
-                    .joinpath(f"{year_month}")
-                    .joinpath(f"pops-{dt_string}.csv")
-                )
-                latest = Path(POP_FEED_DATA_DIR).joinpath("pops-latest.csv")
-                old_file = read_file(POP_LATEST_FILE)
-                if content == old_file:
-                    print("POP file unchanged; skipping update.")
-                    continue
-            else:
-                print("Unknown feed filename")
-                sys.exit(1)
-
-            with open(filename, "w") as f:
-                f.write(content)
-            with open(latest, "w") as f:
-                f.write(content)
-
-
-def join_feed():
+def join_feed(ctx: JobContext) -> pd.DataFrame:
     geoip_feed_header = "cidr,country,region,city"
     feed_df = pd.read_csv(
-        FEED_DATA_DIR.joinpath("feed-latest.csv"),
+        ctx.inp(FEED_LATEST),
         header=None,
         names=geoip_feed_header.split(","),
         index_col=False,
@@ -93,7 +39,7 @@ def join_feed():
 
     pop_feed_header = "cidr,pop,code"
     pop_df = pd.read_csv(
-        POP_FEED_DATA_DIR.joinpath("pops-latest.csv"),
+        ctx.inp(POP_LATEST),
         header=None,
         names=pop_feed_header.split(","),
         index_col=False,
@@ -120,14 +66,18 @@ def join_feed():
 
 def parse_subnet(subnet: str) -> None | ipaddress.IPv6Address | ipaddress.IPv4Address:
     try:
-        subnet_ip = ipaddress.IPv6Network(subnet).network_address
-    except ipaddress.AddressValueError:
-        try:
-            subnet_ip = ipaddress.IPv4Network(subnet).network_address
-        except ipaddress.AddressValueError:
-            print("Invalid subnet: {}".format(subnet))
-            return None
-    return subnet_ip
+        return ipaddress.ip_network(subnet, strict=False).network_address
+    except ValueError:
+        print("Invalid subnet: {}".format(subnet))
+        return None
+
+
+def should_skip_ptr(subnet: str) -> bool:
+    try:
+        net = ipaddress.ip_network(subnet, strict=False)
+    except ValueError:
+        return True
+    return net.version == 6 and net.prefixlen >= SKIP_PTR_V6_MIN_PREFIXLEN
 
 
 def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
@@ -153,7 +103,8 @@ def dig_ptr(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
         return ""
 
 
-def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
+def update_dns_ptr(ctx: JobContext, df: pd.DataFrame, max_attempts: int = 100) -> dict:
+    """Fill dns_ptr, write the CSVs if anything changed, return run stats."""
     if "dns_ptr" not in df.columns:
         df["dns_ptr"] = ""
     if "processed" not in df.columns:
@@ -162,13 +113,24 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
         df["attempts"] = 0
 
     total = len(df)
+    stats = {"rows": total, "skipped": 0, "looked_up": 0, "changed": False}
     if total == 0:
-        return df
+        return stats
 
     cpu_count = os.cpu_count() or 1
     threads = max(8, cpu_count * 8)
 
-    to_process = df.index.tolist()
+    skip_mask = df["cidr"].map(should_skip_ptr).astype(bool)
+    df.loc[skip_mask, "dns_ptr"] = ""
+    df.loc[skip_mask, "processed"] = True
+    stats["skipped"] = int(skip_mask.sum())
+    stats["looked_up"] = total - stats["skipped"]
+    print(
+        f"Skipping PTR lookup for {stats['skipped']}/{total} rows "
+        f"(invalid or IPv6 prefix >= /{SKIP_PTR_V6_MIN_PREFIXLEN})"
+    )
+
+    to_process = df.index[~skip_mask].tolist()
 
     lock = threading.Lock()
     chunk_lock = threading.Lock()
@@ -257,24 +219,22 @@ def update_dns_ptr(df: pd.DataFrame, max_attempts: int = 100):
     df_without_pop = df[df["pop"].isna()]
     df = pd.concat([df_with_pop, df_without_pop], ignore_index=True)
 
-    df.to_csv(f"/tmp/geoip-pops-ptr-{dt_string}.csv", index=False)
-    df_cmp = pd.read_csv(f"/tmp/geoip-pops-ptr-{dt_string}.csv")
+    tmp_csv = ctx.tmp(f"geoip-pops-ptr-{ctx.dt_string}.csv")
+    df.to_csv(tmp_csv, index=False)
+    df_cmp = pd.read_csv(tmp_csv)
 
-    old_df = pd.read_csv(GEOIP_LATEST_FILE)
-    if old_df.equals(df_cmp):
+    old_path = ctx.inp(GEOIP_LATEST_CSV)
+    if old_path.exists() and pd.read_csv(old_path).equals(df_cmp):
         print("No changes in geoip-pops-ptr data; skipping update.")
-        return
+        return stats
 
+    stats["changed"] = True
+    df.to_csv(ctx.out(GEOIP_LATEST_CSV), index=False)
     df.to_csv(
-        GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv"),
+        ctx.out(f"geoip/{ctx.year_month}/geoip-pops-ptr-{ctx.dt_string}.csv"),
         index=False,
     )
-    df.to_csv(
-        GEOIP_DATA_DIR.joinpath(f"{year_month}").joinpath(
-            f"geoip-pops-ptr-{dt_string}.csv"
-        ),
-        index=False,
-    )
+    return stats
 
 
 def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
@@ -283,7 +243,7 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
       cidr,country,region,city,pop,code,dns_ptr,pop_dns_ptr_match
     into a JSON structure matching:
     {
-      "valid": {
+      "countries": {
         "AD": {
           "AD-07": {
             "Andorra la Vella": {
@@ -293,11 +253,10 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
             }
           }
         }
-      }
+      },
+      "pop_subnet_count": [["customer.sfiabgr1.pop.starlinkisp.net.", 1]]
     }
-    Only rows with a non-empty dns_ptr and pop_dns_ptr_match == True are included.
     """
-    # normalize column names if necessary
     expected_cols = [
         "cidr",
         "country",
@@ -321,8 +280,6 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
         else r.get(k, "") if isinstance(r, dict) else r.get(k, "")
     )
 
-    # prepare top-level keys in desired order
-    # result: Dict[str, Any] = {"valid": {}, "dns_ptr_pop_not_match": {}}
     result = {
         "countries": {},
         "pop_subnet_count": [],
@@ -344,44 +301,94 @@ def convert_geoip_to_json(df: pd.DataFrame) -> Dict[str, Any]:
         if not country:
             continue
 
-        target_bucket = "countries"
-        country_dict = result[target_bucket].setdefault(country, {})
+        country_dict = result["countries"].setdefault(country, {})
         region_dict = country_dict.setdefault(region, {})
         city_dict = region_dict.setdefault(city, {})
         ips = city_dict.setdefault("ips", [])
         ips.append([cidr, dns_ptr])
 
-    # build pop_subnet_count as list of [dns_ptr, count] sorted desc
     pop_subnet_count = [[ptr, cnt] for ptr, cnt in ptr_counter.most_common()]
-    # sort pop_subnet_count by ptr
     pop_subnet_count.sort(key=lambda x: x[0])
     result["pop_subnet_count"] = pop_subnet_count
 
-    # sort valid = dict(sorted(valid.items()))
     result["countries"] = dict(sorted(result["countries"].items()))
 
     return result
 
 
-def convert_to_geoip_json():
+def convert_to_geoip_json(ctx: JobContext) -> None:
     print("Converting geoip-pops-ptr CSV to JSON format")
-    CSV_PATH = GEOIP_DATA_DIR.joinpath("geoip-pops-ptr-latest.csv")
-    JSON_PATH = GEOIP_DATA_DIR.joinpath("geoip-latest.json")
+    csv_path = ctx.output_dir / GEOIP_LATEST_CSV
+    if not csv_path.exists():
+        csv_path = ctx.inp(GEOIP_LATEST_CSV)
+    if not csv_path.exists():
+        return
+    df = pd.read_csv(csv_path, dtype=str, keep_default_na=False)
+    json_path = ctx.out(GEOIP_LATEST_JSON)
+    with open(json_path, "w") as f:
+        json.dump(convert_geoip_to_json(df), f, indent=2)
+    print(f"Wrote {json_path}")
 
-    if CSV_PATH.exists():
-        df = pd.read_csv(CSV_PATH, dtype=str, keep_default_na=False)
-        geojson = convert_geoip_to_json(df)
-        with open(JSON_PATH, "w") as f:
-            json.dump(geojson, f, indent=2)
-        print(f"Wrote {JSON_PATH}")
+
+def load_meta(ctx: JobContext) -> dict:
+    path = ctx.inp(GEOIP_META)
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text())
+    except (OSError, ValueError) as e:
+        print(f"Ignoring unreadable {GEOIP_META}: {e}")
+        return {}
 
 
-def refresh_geoip_pop():
+def gate(
+    ctx: JobContext,
+    meta: dict,
+    feed_md5: str,
+    pop_md5: str,
+    max_age: timedelta = PTR_MAX_AGE,
+) -> str | None:
+    """Return why the job should run, or None to skip."""
+    if meta.get("feed_md5") != feed_md5 or meta.get("pop_md5") != pop_md5:
+        return "inputs changed"
+    try:
+        last = datetime.fromisoformat(meta["started_at"])
+    except (KeyError, TypeError, ValueError):
+        return "no valid previous run time"
+    age = ctx.now - last
+    if age + GATE_SLACK >= max_age:
+        return f"last run {age} ago (max age {max_age})"
+    return None
 
-    get_feed()
 
-    df = join_feed()
+def refresh_geoip_ptr(ctx: JobContext, force: bool = False) -> None:
+    feed_md5 = md5_file(ctx.inp(FEED_LATEST))
+    pop_md5 = md5_file(ctx.inp(POP_LATEST))
+    if feed_md5 is None or pop_md5 is None:
+        raise FileNotFoundError(
+            f"Missing {FEED_LATEST} or {POP_LATEST} in {ctx.input_dir}"
+        )
 
-    update_dns_ptr(df)
+    reason = "forced" if force else gate(ctx, load_meta(ctx), feed_md5, pop_md5)
+    if reason is None:
+        print("Inputs unchanged and last PTR run is recent; skipping.")
+        return
+    print(f"Running PTR refresh: {reason}")
 
-    convert_to_geoip_json()
+    df = join_feed(ctx)
+    stats = update_dns_ptr(ctx, df)
+    convert_to_geoip_json(ctx)
+
+    meta = {
+        "feed_md5": feed_md5,
+        "pop_md5": pop_md5,
+        "started_at": ctx.now.isoformat(),
+        "finished_at": datetime.now(tz=timezone.utc).isoformat(),
+        **stats,
+    }
+    with open(ctx.out(GEOIP_META), "w") as f:
+        json.dump(meta, f, indent=2)
+
+
+if __name__ == "__main__":
+    refresh_geoip_ptr(JobContext.legacy())
