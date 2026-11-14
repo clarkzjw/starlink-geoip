@@ -1,17 +1,14 @@
-import os
 import httpx
-import datetime
 
 import pandas as pd
 
 from ipaddress import ip_network
 from dataclasses import dataclass
-from pathlib import Path
+
+from jobcontext import JobContext
 
 
 STARLINK_ASN = [14593, 45700]
-
-DATA_DIR = os.getenv("DATA_DIR", "./starlink-geoip-data")
 
 
 @dataclass
@@ -21,32 +18,20 @@ class Record:
     Hits: int
 
 
-def get_date() -> str:
-    now = datetime.datetime.now(tz=datetime.timezone.utc)
-    return now.strftime("%Y%m%d-%H%M")
-
-
-date = get_date()
-
-
 headers = {
-    "User-Agent": "Starlink GeoIP Database GitHub Actions CI (https://github.com/clarkzjw/starlink-geoip)"
+    "User-Agent": "Starlink GeoIP Database (https://github.com/clarkzjw/starlink-geoip)"
 }
 
 
-def new_client():
-    return httpx.Client()
-
-
-def get_bgp_list():
-    client = new_client()
-
+def get_bgp_list(ctx: JobContext):
     print("Downloading BGP announcement table from bgp.tools")
-    response = client.get("https://bgp.tools/table.jsonl", headers=headers)
-    with open("./table.jsonl", "wb") as f:
-        f.write(response.content)
+    table_path = ctx.tmp("table.jsonl")
+    with httpx.Client() as client:
+        response = client.get("https://bgp.tools/table.jsonl", headers=headers, timeout=300)
+        response.raise_for_status()
+    table_path.write_bytes(response.content)
 
-    jsonObj = pd.read_json(path_or_buf="./table.jsonl", lines=True)
+    jsonObj = pd.read_json(path_or_buf=table_path, lines=True)
     count = 0
     total = len(jsonObj)
 
@@ -71,7 +56,7 @@ def get_bgp_list():
         list[ASN]["IPv4"] = sorted(list[ASN]["IPv4"], key=lambda x: x.CIDR)
         list[ASN]["IPv6"] = sorted(list[ASN]["IPv6"], key=lambda x: x.CIDR)
 
-    with open(Path(DATA_DIR).joinpath("bgp/starlink-bgp.csv"), "w") as f:
+    with open(ctx.out("bgp/starlink-bgp.csv"), "w") as f:
         f.write("CIDR,ASN\n")
 
         for ASN in STARLINK_ASN:
@@ -82,4 +67,4 @@ def get_bgp_list():
 
 
 if __name__ == "__main__":
-    get_bgp_list()
+    get_bgp_list(JobContext.legacy())

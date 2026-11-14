@@ -1,0 +1,31 @@
+# systemd user unit for the local job scheduler.
+#
+# Install:
+#   mkdir -p ~/.config/systemd/user ~/.config/starlink-geoip
+#   cp deploy/starlink-geoip-scheduler.service ~/.config/systemd/user/
+#   cp deploy/scheduler.env.example ~/.config/starlink-geoip/scheduler.env   # then edit
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now starlink-geoip-scheduler
+#   sudo loginctl enable-linger $USER      # keep running when logged out
+# Logs:
+#   journalctl --user -u starlink-geoip-scheduler -f
+#   per-run job output: $SG_WORK_DIR/logs/<job>/<run_id>.log
+
+[Unit]
+Description=Starlink GeoIP data job scheduler
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/code/starlink-geoip
+EnvironmentFile=%h/.config/starlink-geoip/scheduler.env
+ExecStart=%h/.local/bin/uv run --frozen python scheduler.py serve
+Restart=always
+RestartSec=30
+# The scheduler kills running jobs on SIGTERM; give it time to do so.
+TimeoutStopSec=90
+KillMode=mixed
+
+[Install]
+WantedBy=default.target
